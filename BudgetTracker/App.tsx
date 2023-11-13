@@ -20,7 +20,6 @@ export default function App() {
         <Tab.Navigator
           initialRouteName={Constants.Screens.Calendar}
           screenOptions={BottomTabOptions}
-
         >
           <Tab.Screen name={Constants.Screens.Home} component={HomeScreen} />
           <Tab.Screen

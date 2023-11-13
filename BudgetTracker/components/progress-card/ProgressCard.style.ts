@@ -7,7 +7,7 @@ export const ProgressCardStyle = StyleSheet.create({
     marginRight: 20,
     marginTop: 10,
     marginBottom: 10,
-    backgroundColor: MD3Colors.tertiary95,
+    backgroundColor: "#E7EFFA",
   },
 
   titleContainer: {
