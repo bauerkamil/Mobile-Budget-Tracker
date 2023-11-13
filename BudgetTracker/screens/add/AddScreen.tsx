@@ -1,6 +1,3 @@
-import { View } from "react-native";
-import { Text } from "react-native-paper";
-import { AddScreenStyle } from "./AddScreen.style";
 import Constants from "../../common/utils/constants";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Current from "./components/current/Current";
