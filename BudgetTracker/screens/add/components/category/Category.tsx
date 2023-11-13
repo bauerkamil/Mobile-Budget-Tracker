@@ -9,7 +9,7 @@ const Category: React.FC<ICategoryProps> = ({ category }) => {
       <View style={{ ...CategoryStyle.icon, backgroundColor: category.color }}>
         <Icon color="white" source={category.icon} size={25} />
       </View>
-      <Text>{category.name}</Text>
+      <Text variant={"labelLarge"}>{category.name}</Text>
     </View>
   );
 };
