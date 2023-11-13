@@ -1,7 +1,7 @@
 const Constants = {
   Screens: {
     Home: "Home",
-    Calender: "Calender",
+    Calendar: "Calendar",
     User: "User",
     Add: "Add",
     Achievements: "Achievements",
