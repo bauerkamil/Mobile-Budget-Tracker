@@ -18,20 +18,34 @@ export default function App() {
     <PaperProvider>
       <NavigationContainer>
         <Tab.Navigator
-          initialRouteName={Constants.Screens.Calendar}
+          initialRouteName={Constants.Screens.Home}
           screenOptions={BottomTabOptions}
         >
-          <Tab.Screen name={Constants.Screens.Home} component={HomeScreen} />
+          <Tab.Screen
+            name={Constants.Screens.Home}
+            component={HomeScreen}
+            options={{ title: "Budget Tracker" }}
+          />
           <Tab.Screen
             name={Constants.Screens.Calendar}
             component={CalendarScreen}
+            options={{ title: "Budget Tracker" }}
           />
-          <Tab.Screen name={Constants.Screens.Add} component={AddScreen} />
+          <Tab.Screen
+            name={Constants.Screens.Add}
+            component={AddScreen}
+            options={{ title: "Budget Tracker" }}
+          />
           <Tab.Screen
             name={Constants.Screens.Achievements}
             component={AchievementsScreen}
+            options={{ title: "Budget Tracker" }}
           />
-          <Tab.Screen name={Constants.Screens.User} component={UserScreen} />
+          <Tab.Screen
+            name={Constants.Screens.User}
+            component={UserScreen}
+            options={{ title: "Budget Tracker" }}
+          />
         </Tab.Navigator>
       </NavigationContainer>
     </PaperProvider>
