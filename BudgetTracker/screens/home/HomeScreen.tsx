@@ -1,11 +1,20 @@
 import { StatusBar } from "expo-status-bar";
 import { Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  MD2Colors,
+  MD3Colors,
+  Button,
+  Icon,
+} from "react-native-paper";
+
 import { IHomeScreenProps } from "./IHomeScreenProps";
 import { HomeScreenStyle } from "./HomeScreen.style";
-import { ActivityIndicator, MD2Colors, Button } from "react-native-paper";
+import React from "react";
 
 export default function HomeScreen(props: IHomeScreenProps) {
   const { navigation } = props;
+
   return (
     <View style={HomeScreenStyle.container}>
       <Text>
@@ -19,6 +28,10 @@ export default function HomeScreen(props: IHomeScreenProps) {
         onPress={() => console.log("Pressed")}
       >
         Press me
+      </Button>
+      <Icon source="event" color={MD3Colors.error50} size={20} />
+      <Button onPress={() => navigation.navigate("Achievements")}>
+        Go to achievements
       </Button>
     </View>
   );
