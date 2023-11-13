@@ -2,6 +2,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import HomeScreen from "./screens/home/HomeScreen";
 import CalendarScreen from "./screens/calendar/CalendarScreen";
 import * as React from "react";
+import Constants from "./common/utils/constants";
+import UserScreen from "./screens/user/UserScreen";
+import { SafeAreaView } from "react-native";
 import { Icon, PaperProvider } from "react-native-paper";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
@@ -32,8 +35,9 @@ export default function App() {
           tabBarActiveBackgroundColor: 'purple',
           tabBarInactiveBackgroundColor: 'gray',
         })}>
-          <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Calendar" component={CalendarScreen} />
+          <Tab.Screen name={Constants.Screens.Home} component={HomeScreen} />
+          <Tab.Screen name={Constants.Screens.Calender} component={CalendarScreen} />
+          <Tab.Screen name={Constants.Screens.User} component={UserScreen} />
         </Tab.Navigator>
       </NavigationContainer>
     </PaperProvider>
