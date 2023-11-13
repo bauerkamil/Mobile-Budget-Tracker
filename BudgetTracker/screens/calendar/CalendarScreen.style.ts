@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { MD3Colors } from 'react-native-paper';
 
 export const CalendarScreenStyle = StyleSheet.create({
   container: {
@@ -20,5 +21,8 @@ export const CalendarScreenStyle = StyleSheet.create({
   selectedDayText: {
     color: '#000',
     opacity: 1,
+  },
+  spentText: {
+    color: MD3Colors.primary40,
   },
 });

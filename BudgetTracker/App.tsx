@@ -1,13 +1,11 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { Icon, MD3Colors, PaperProvider } from "react-native-paper";
+import { PaperProvider } from "react-native-paper";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import HomeScreen from "./screens/home/HomeScreen";
 import CalendarScreen from "./screens/calendar/CalendarScreen";
 import UserScreen from "./screens/user/UserScreen";
-import { PaperProvider } from "react-native-paper";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { BottomTabOptions } from "./components/BottomTabOptions";
 import { AchievementsScreen } from "./screens/achievements/AchievementsScreen";
 import AddScreen from "./screens/add/AddScreen";
