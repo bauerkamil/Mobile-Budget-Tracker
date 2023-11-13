@@ -59,9 +59,6 @@ export default function App() {
               boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.25)",
               backgroundColor: MD3Colors.primary90,
             },
-            tabBarItemStyle: {
-              borderRadius: 10,
-            },
           })}
         >
           <Tab.Screen name={Constants.Screens.Home} component={HomeScreen} />
