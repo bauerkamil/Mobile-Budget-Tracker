@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { Text, View } from "react-native";
 import { IHomeScreenProps } from "./IHomeScreenProps";
 import { HomeScreenStyle } from "./HomeScreen.style";
-import { ActivityIndicator, MD2Colors, Button } from "react-native-paper";
+import { ActivityIndicator, MD2Colors, Button, Icon } from "react-native-paper";
 
 export default function HomeScreen(props: IHomeScreenProps) {
   const { navigation } = props;
