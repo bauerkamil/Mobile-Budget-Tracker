@@ -14,29 +14,49 @@ export default function App() {
   return (
     <PaperProvider>
       <NavigationContainer>
-        <Tab.Navigator initialRouteName="Home" screenOptions={({ route }) => ({
-          tabBarLabel: () => {
-            return null;
-          },
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
+        <Tab.Navigator
+          initialRouteName={Constants.Screens.User}
+          screenOptions={({ route }) => ({
+            tabBarLabel: () => {
+              return null;
+            },
+            tabBarIcon: ({ size }) => {
+              let iconName;
 
-            switch (route.name) {
-              case 'Home':
-                iconName = 'home';
-                break;
-              case 'Calendar':
-                iconName = 'calendar-account';
-                break;
-            }
+              switch (route.name) {
+                case Constants.Screens.Home:
+                  iconName = "home";
+                  break;
+                case Constants.Screens.Calender:
+                  iconName = "calendar-account";
+                  break;
+                case Constants.Screens.Add:
+                  iconName = "plus";
+                  break;
+                case Constants.Screens.Achievements:
+                  iconName = "chart-bar";
+                  break;
+                case Constants.Screens.User:
+                  iconName = "account";
+                  break;
+              }
 
-            return <Icon source={iconName} size={size} />;
-          },          
-          tabBarActiveBackgroundColor: 'purple',
-          tabBarInactiveBackgroundColor: 'gray',
-        })}>
+              return <Icon source={iconName} size={size} />;
+            },
+            tabBarActiveBackgroundColor: "gray",
+            tabBarInactiveBackgroundColor: "darkgray",
+          })}
+        >
           <Tab.Screen name={Constants.Screens.Home} component={HomeScreen} />
-          <Tab.Screen name={Constants.Screens.Calender} component={CalendarScreen} />
+          <Tab.Screen
+            name={Constants.Screens.Calender}
+            component={CalendarScreen}
+          />
+          <Tab.Screen name={Constants.Screens.Add} component={HomeScreen} />
+          <Tab.Screen
+            name={Constants.Screens.Achievements}
+            component={HomeScreen}
+          />
           <Tab.Screen name={Constants.Screens.User} component={UserScreen} />
         </Tab.Navigator>
       </NavigationContainer>
