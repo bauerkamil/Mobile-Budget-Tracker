@@ -6,6 +6,10 @@ const Constants = {
     Add: "Add",
     Achievements: "Achievements",
   },
+  Expenses: {
+    Current: "Current",
+    Recurring: "Recurring",
+  },
 };
 
 export default Constants;
