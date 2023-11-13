@@ -7,30 +7,34 @@ export const AchievementsScreen = () => {
     {
       title: "Transportation",
       subtitle: "$20 per day",
-      progress: 0.4,
       color: "#F250FE",
       icon: "car-hatchback",
+      currentSpending: 10,
+      maxSpending: 200,
     },
     {
       title: "Education",
       subtitle: "$10 per day",
-      progress: 1.2,
       color: "#EC4B0B",
       icon: "book-open-page-variant",
+      currentSpending: 35,
+      maxSpending: 100,
     },
     {
       title: "Food",
       subtitle: "$40 per day",
-      progress: 0.8,
       color: "#3D3597",
       icon: "food",
+      currentSpending: 50,
+      maxSpending: 40,
     },
     {
       title: "Rent",
       subtitle: "$20 per day",
-      progress: 0.4,
       color: "#007107",
       icon: "currency-usd",
+      currentSpending: 20,
+      maxSpending: 25,
     },
   ];
 
@@ -62,15 +66,31 @@ export const AchievementsScreen = () => {
           </Card.Content>
           <Card.Content>
             <View style={AchievementsScreenStyle.progressBarContainer}>
-              <ProgressBar
-                progress={achievement.progress}
-                color={achievement.color}
-                style={AchievementsScreenStyle.progressBar}
-              />
+              <Text
+                style={AchievementsScreenStyle.progressBarText}
+                variant={"labelLarge"}
+              >
+                {achievement.currentSpending + "PLN"}
+              </Text>
+              <View style={AchievementsScreenStyle.progressBarWrapper}>
+                <ProgressBar
+                  progress={
+                    achievement.currentSpending / achievement.maxSpending
+                  }
+                  color={achievement.color}
+                  style={AchievementsScreenStyle.progressBar}
+                />
+              </View>
+              <Text
+                style={AchievementsScreenStyle.progressBarText}
+                variant={"labelLarge"}
+              >
+                {achievement.maxSpending + "PLN"}
+              </Text>
             </View>
           </Card.Content>
           <Card.Content>
-            {achievement.progress > 0 && achievement.progress < 1 ? (
+            {achievement.currentSpending / achievement.maxSpending < 1 ? (
               <View style={AchievementsScreenStyle.statusContainer}>
                 <Icon
                   source="check-circle"

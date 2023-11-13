@@ -38,16 +38,24 @@ export const AchievementsScreenStyle = StyleSheet.create({
   },
 
   progressBarContainer: {
-    flex: 1,
     flexDirection: "row",
-    justifyContent: "center",
     alignItems: "center",
     marginTop: 20,
+    width: "100%",
+    gap: 10,
+  },
+
+  progressBarWrapper: {
+    flexGrow: 1,
   },
 
   progressBar: {
     height: 10,
     borderRadius: 10,
+  },
+
+  progressBarText: {
+    flexGrow: 1,
   },
 
   statusContainer: {
