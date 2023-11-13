@@ -35,7 +35,7 @@ export const AchievementsScreen = () => {
   ];
 
   return (
-    <ScrollView>
+    <ScrollView style={AchievementsScreenStyle.container}>
       {mockedAchievements.map((achievement) => (
         <Card style={AchievementsScreenStyle.card}>
           <Card.Content>

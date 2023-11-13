@@ -2,11 +2,16 @@ import { StyleSheet } from "react-native";
 import { MD3Colors } from "react-native-paper";
 
 export const AchievementsScreenStyle = StyleSheet.create({
+  container: {
+    backgroundColor: MD3Colors.neutralVariant99,
+  },
+
   card: {
     marginLeft: 20,
     marginRight: 20,
     marginTop: 10,
     marginBottom: 10,
+    backgroundColor: MD3Colors.tertiary95,
   },
 
   titleContainer: {

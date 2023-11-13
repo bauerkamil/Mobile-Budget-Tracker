@@ -8,7 +8,9 @@ const UserScreen = () => {
   return (
     <View style={UserScreenStyle.container}>
       <View style={UserScreenStyle.section}>
-        <Text variant="headlineMedium">Account</Text>
+        <Text variant="headlineSmall" style={UserScreenStyle.headlineText}>
+          Account
+        </Text>
         <View style={UserScreenStyle.account}>
           <Icon source="account-circle" size={80} />
           <View>
@@ -18,7 +20,9 @@ const UserScreen = () => {
         </View>
       </View>
       <View style={UserScreenStyle.section}>
-        <Text variant="headlineMedium">Settings</Text>
+        <Text variant="headlineSmall" style={UserScreenStyle.headlineText}>
+          Settings
+        </Text>
         <View style={UserScreenStyle.settings}>
           <Switch value={value} onValueChange={setValue} />
           <Text>Option 1</Text>
