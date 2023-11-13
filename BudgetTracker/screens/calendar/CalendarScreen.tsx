@@ -21,6 +21,7 @@ export default function CalendarScreen(props: ICalendarScreenProps) {
     }
   };
 
+export default function CalendarScreen(props: ICalendarScreenProps) {
   return (
     <SafeAreaProvider>
       <View style={CalendarScreenStyle.container}>
