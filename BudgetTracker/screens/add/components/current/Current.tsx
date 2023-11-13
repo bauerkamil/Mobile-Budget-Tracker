@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { FlatList, View } from "react-native";
 import { ICategory } from "../../../../common/interfaces/ICategory";
 import Category from "../category/Category";
 import { CurrentStyle } from "./Current.style";
@@ -26,7 +26,7 @@ const categories: ICategory[] = [
     id: 4,
     name: "Health",
     icon: "heart",
-    color: "yellow",
+    color: "gold",
   },
   {
     id: 5,
@@ -69,9 +69,14 @@ const categories: ICategory[] = [
 const Current = () => {
   return (
     <View style={CurrentStyle.container}>
-      {categories.map((category) => (
-        <Category key={category.id} category={category} />
-      ))}
+      <FlatList
+        columnWrapperStyle={{ justifyContent: "space-between" }}
+        data={categories}
+        numColumns={2}
+        renderItem={({ item }) => {
+          return <Category category={item} />;
+        }}
+      />
     </View>
   );
 };

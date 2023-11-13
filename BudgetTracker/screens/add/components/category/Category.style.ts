@@ -9,6 +9,7 @@ export const CategoryStyle = StyleSheet.create({
     columnGap: 10,
     padding: 5,
     borderRadius: 20,
+    margin: 10,
   },
   icon: {
     padding: 10,
