@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native";
+import { MD3Colors } from "react-native-paper";
 
 export const UserScreenStyle = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: MD3Colors.neutralVariant99,
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "flex-start",
@@ -26,5 +27,10 @@ export const UserScreenStyle = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     columnGap: 10,
+  },
+  headlineText: {
+    fontWeight: "500",
+    marginTop: 20,
+    marginBottom: 10,
   },
 });

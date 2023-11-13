@@ -1,21 +1,14 @@
 import React from "react";
 
-import { StatusBar } from "expo-status-bar";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { ActivityIndicator, MD2Colors, MD3Colors } from "react-native-paper";
 
 import { ICalendarScreenProps } from "./ICalendarScreenProps";
 
 export default function CalendarScreen(props: ICalendarScreenProps) {
-  const { navigation } = props;
-
   return (
     <View style={styles.container}>
-      <Text>this is calendar</Text>
-      <Button
-        title="Go to home screen"
-        onPress={() => navigation.navigate("Home")}
-      />
-      <StatusBar style="auto" />
+      <ActivityIndicator animating={true} color={MD2Colors.red800} />
     </View>
   );
 }
@@ -23,7 +16,7 @@ export default function CalendarScreen(props: ICalendarScreenProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: MD3Colors.neutralVariant99,
     alignItems: "center",
     justifyContent: "center",
   },
