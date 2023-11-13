@@ -3,7 +3,7 @@ import { MD3Colors } from "react-native-paper";
 
 export const CategoryStyle = StyleSheet.create({
   container: {
-    backgroundColor: MD3Colors.tertiary99,
+    backgroundColor: "#E7EFFA",
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
