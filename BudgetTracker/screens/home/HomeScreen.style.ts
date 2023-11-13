@@ -6,6 +6,21 @@ export const HomeScreenStyle = StyleSheet.create({
     flex: 1,
     backgroundColor: MD3Colors.neutralVariant99,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
+  },
+  title: {
+    width: "100%",
+    padding: 20,
+  },
+  titleText: {
+    fontWeight: "bold",
+  },
+  section: {
+    width: "100%",
+    padding: 20,
+  },
+  sectionText: {
+    fontWeight: "bold",
+    padding: 10,
   },
 });
