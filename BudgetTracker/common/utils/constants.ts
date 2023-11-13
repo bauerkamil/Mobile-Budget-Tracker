@@ -3,6 +3,8 @@ const Constants = {
     Home: "Home",
     Calender: "Calender",
     User: "User",
+    Add: "Add",
+    Achievements: "Achievements",
   },
 };
 
