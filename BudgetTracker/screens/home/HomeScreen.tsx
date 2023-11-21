@@ -6,7 +6,7 @@ import { LinearGradient } from "expo-linear-gradient";
 
 import { IHomeScreenProps } from "./IHomeScreenProps";
 import { HomeScreenStyle } from "./HomeScreen.style";
-import { ICategory } from "../../common/interfaces/ICategory";
+import { ICategory } from "../../common/interfaces";
 import Category from "./components/category/Category";
 import { ProgressCard } from "../../components/progress-card/ProgressCard";
 
