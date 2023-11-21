@@ -1,20 +1,20 @@
 import { useState } from "react";
-import { IAddCategoryProps } from "./IAddCategoryProps";
+import { IAddExpenseProps } from "./IAddExpenseProps";
 import { Button, Dialog, Portal, TextInput } from "react-native-paper";
-import { AddCategoryStyle } from "./AddCategory.style";
+import { AddExpenseStyle } from "./AddExpense.style";
 import DropDown from "react-native-paper-dropdown";
 import {
   AvailableColors,
   AvailableIcons,
 } from "../../../../../../common/utils/constants";
-import { IRecurringCategory } from "../../../../../../common/interfaces";
+import { IRecurringExpense } from "../../../../../../common/interfaces";
 
-const AddCaterogry: React.FC<IAddCategoryProps> = (props) => {
+const AddExpense: React.FC<IAddExpenseProps> = (props) => {
   const { visible, onDismiss, onAdd } = props;
 
   const [showColorDropDown, setShowColorDropDown] = useState(false);
   const [showIconDropDown, setShowIconDropDown] = useState(false);
-  const [category, setCategory] = useState<IRecurringCategory>({
+  const [category, setCategory] = useState<IRecurringExpense>({
     id: 0,
     name: "",
     icon: "",
@@ -63,7 +63,7 @@ const AddCaterogry: React.FC<IAddCategoryProps> = (props) => {
     <Portal>
       <Dialog visible={visible} onDismiss={onDismiss}>
         <Dialog.Title>New category</Dialog.Title>
-        <Dialog.Content style={AddCategoryStyle.content}>
+        <Dialog.Content style={AddExpenseStyle.content}>
           <TextInput
             label="Name"
             onChange={(e) =>
@@ -118,4 +118,4 @@ const AddCaterogry: React.FC<IAddCategoryProps> = (props) => {
   );
 };
 
-export default AddCaterogry;
+export default AddExpense;

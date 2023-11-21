@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const RemoveCategoryStyle = StyleSheet.create({
+export const RemoveExpenseStyle = StyleSheet.create({
   content: {
     flex: 1,
     flexDirection: "column",

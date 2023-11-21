@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const AddCategoryStyle = StyleSheet.create({
+export const AddExpenseStyle = StyleSheet.create({
   content: {
     flex: 1,
     flexDirection: "column",

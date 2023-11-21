@@ -3,15 +3,15 @@ import Category from "./components/category/Category";
 import { CurrentStyle } from "./Current.style";
 import { useState } from "react";
 import AddCaterogry from "./components/add-category/AddCategory";
-import { ICurrentCategory, IExpense } from "../../../../common/interfaces";
+import { ICategory, ICurrentExpense } from "../../../../common/interfaces";
 import AddExpense from "./components/add-expense/AddExpense";
 import Toast from "react-native-toast-message";
 
 const Current = () => {
   const [categoryDialogVisible, setCategoryDialogVisible] = useState(false);
   const [expenseDialogVisible, setExpenseDialogVisible] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<ICurrentCategory>();
-  const [categories, setCategories] = useState<ICurrentCategory[]>([
+  const [selectedCategory, setSelectedCategory] = useState<ICategory>();
+  const [categories, setCategories] = useState<ICategory[]>([
     {
       id: 1,
       name: "Food",
@@ -88,12 +88,12 @@ const Current = () => {
     setExpenseDialogVisible(true);
   };
 
-  const handleAddCategory = (category: ICurrentCategory) => {
+  const handleAddCategory = (category: ICategory) => {
     setCategories((c) => [category, ...c]);
     setCategoryDialogVisible(false);
   };
 
-  const handleAddExpense = (exponse: IExpense) => {
+  const handleAddExpense = (exponse: ICurrentExpense) => {
     setExpenseDialogVisible(false);
     Toast.show({
       type: "success",

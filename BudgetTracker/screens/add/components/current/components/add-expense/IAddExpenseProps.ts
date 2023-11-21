@@ -1,11 +1,11 @@
 import {
-  ICurrentCategory,
-  IExpense,
+  ICategory,
+  ICurrentExpense,
 } from "../../../../../../common/interfaces";
 
 export interface IAddExpenseProps {
   visible: boolean;
-  category: ICurrentCategory;
+  category: ICategory;
   onDismiss: () => void;
-  onAdd: (expense: IExpense) => void;
+  onAdd: (expense: ICurrentExpense) => void;
 }

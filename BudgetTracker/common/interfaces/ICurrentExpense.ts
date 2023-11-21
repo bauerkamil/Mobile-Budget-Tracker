@@ -1,4 +1,4 @@
-export interface IExpense {
+export interface ICurrentExpense {
   categoryId: number;
   value: number;
 }

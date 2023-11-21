@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const CategoryStyle = StyleSheet.create({
+export const ExpenseStyle = StyleSheet.create({
   wrapper: {
     flex: 1,
   },

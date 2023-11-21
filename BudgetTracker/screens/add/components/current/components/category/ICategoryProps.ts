@@ -1,6 +1,6 @@
-import { ICurrentCategory } from "../../../../../../common/interfaces";
+import { ICategory } from "../../../../../../common/interfaces";
 
 export interface ICategoryProps {
-  category: ICurrentCategory;
+  category: ICategory;
   onClick: (id: number) => void;
 }

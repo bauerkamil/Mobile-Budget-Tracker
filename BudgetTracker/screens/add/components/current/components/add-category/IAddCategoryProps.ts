@@ -1,7 +1,7 @@
-import { ICurrentCategory } from "../../../../../../common/interfaces";
+import { ICategory } from "../../../../../../common/interfaces";
 
 export interface IAddCategoryProps {
   visible: boolean;
   onDismiss: () => void;
-  onAdd: (category: ICurrentCategory) => void;
+  onAdd: (category: ICategory) => void;
 }

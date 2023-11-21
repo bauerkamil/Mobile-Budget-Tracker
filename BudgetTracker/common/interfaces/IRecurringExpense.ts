@@ -1,4 +1,4 @@
-export interface IRecurringCategory {
+export interface IRecurringExpense {
   id: number;
   name: string;
   icon: string;
