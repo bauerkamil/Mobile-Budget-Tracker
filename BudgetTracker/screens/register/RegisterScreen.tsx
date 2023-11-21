@@ -4,7 +4,7 @@ import { registerWithEmail } from "../../services/AuthService";
 import { RegisterScreenStyles } from "./RegisterScreen.style";
 import { View, Image } from "react-native";
 import { IRegisterScreenProps } from "./IRegisterScreenProps";
-import Constants from "../../common/utils/constants";
+import {Constants} from "../../common/utils/constants";
 
 export default function RegisterScreen(props: IRegisterScreenProps) {
   const { navigation } = props;

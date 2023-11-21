@@ -1,7 +1,7 @@
 import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
 import { ParamListBase, RouteProp } from "@react-navigation/native";
 import { Icon, MD3Colors } from "react-native-paper";
-import Constants from "../../common/utils/constants";
+import {Constants} from "../../common/utils/constants";
 
 export const BottomTabOptions = ((props: {
     route: RouteProp<ParamListBase, string>;

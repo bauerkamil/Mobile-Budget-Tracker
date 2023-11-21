@@ -3,7 +3,7 @@ import { LoginScreenStyles } from "./LoginScreen.style";
 import { View, Image } from "react-native";
 import { TextInput, Text, Button } from "react-native-paper";
 import { signInWithEmail } from "../../services/AuthService";
-import Constants from "../../common/utils/constants";
+import { Constants } from "../../common/utils/constants";
 import { ILoginScreenProps } from "./ILoginScreenProps";
 
 export default function LoginScreen(props: ILoginScreenProps) {

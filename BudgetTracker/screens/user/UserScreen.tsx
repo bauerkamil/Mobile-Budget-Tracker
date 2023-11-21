@@ -3,9 +3,23 @@ import { Text, Icon, Switch, Button } from "react-native-paper";
 import { UserScreenStyle } from "./UserScreen.style";
 import { useState } from "react";
 import { signOut } from "../../services/AuthService";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const UserScreen = () => {
   const [value, setValue] = useState(false);
+  const [displayName, setDisplayName] = useState("");
+  const [email, setEmail] = useState("");
+
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setDisplayName(user.displayName || "");
+      setEmail(user.email || "");
+    } else {
+      setDisplayName("");
+      setEmail("");
+    }
+  });
 
   return (
     <View style={UserScreenStyle.container}>
@@ -23,10 +37,10 @@ const UserScreen = () => {
           <Icon source="account-circle" size={80} />
           <View>
             <Text variant="titleLarge" style={UserScreenStyle.textColor}>
-              John Doe
+              {displayName}
             </Text>
             <Text variant="titleMedium" style={UserScreenStyle.textColor}>
-              test@test.com
+              {email}
             </Text>
           </View>
         </View>

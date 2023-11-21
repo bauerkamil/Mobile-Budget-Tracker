@@ -10,7 +10,7 @@ import UserScreen from "./screens/user/UserScreen";
 import { BottomTabOptions } from "./components/tab-options/BottomTabOptions";
 import { AchievementsScreen } from "./screens/achievements/AchievementsScreen";
 import AddScreen from "./screens/add/AddScreen";
-import Constants from "./common/utils/constants";
+import { Constants } from "./common/utils/constants";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import LoginScreen from "./screens/login/LoginScreen";
 import RegisterScreen from "./screens/register/RegisterScreen";
