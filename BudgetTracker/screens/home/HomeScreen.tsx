@@ -17,9 +17,9 @@ const chartConfig = {
   backgroundGradientTo: "#9141FC",
   backgroundGradientToOpacity: 1,
   color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-  strokeWidth: 2, // optional, default 3
+  strokeWidth: 2,
   barPercentage: 0.5,
-  useShadowColorFromDataset: false, // optional
+  useShadowColorFromDataset: false,
 };
 const data = {
   labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
