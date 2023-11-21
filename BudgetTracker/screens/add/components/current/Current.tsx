@@ -3,10 +3,14 @@ import Category from "./components/category/Category";
 import { CurrentStyle } from "./Current.style";
 import { useState } from "react";
 import AddCaterogry from "./components/add-category/AddCategory";
-import { ICurrentCategory } from "../../../../common/interfaces";
+import { ICurrentCategory, IExpense } from "../../../../common/interfaces";
+import AddExpense from "./components/add-expense/AddExpense";
+import Toast from "react-native-toast-message";
 
 const Current = () => {
-  const [dialogVisible, setDialogVisible] = useState(false);
+  const [categoryDialogVisible, setCategoryDialogVisible] = useState(false);
+  const [expenseDialogVisible, setExpenseDialogVisible] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<ICurrentCategory>();
   const [categories, setCategories] = useState<ICurrentCategory[]>([
     {
       id: 1,
@@ -72,15 +76,30 @@ const Current = () => {
 
   const handleCategoryClick = (id: number) => {
     if (id === -1) {
-      setDialogVisible(true);
+      setCategoryDialogVisible(true);
       return;
     }
-    console.log(id);
+    const category = categories.find((c) => c.id === id);
+    if (!category) {
+      return;
+    }
+
+    setSelectedCategory(category);
+    setExpenseDialogVisible(true);
   };
 
   const handleAddCategory = (category: ICurrentCategory) => {
     setCategories((c) => [category, ...c]);
-    setDialogVisible(false);
+    setCategoryDialogVisible(false);
+  };
+
+  const handleAddExpense = (exponse: IExpense) => {
+    setExpenseDialogVisible(false);
+    Toast.show({
+      type: "success",
+      text1: "Success",
+      text2: "Your expense has been added",
+    });
   };
 
   return (
@@ -94,10 +113,18 @@ const Current = () => {
         }}
       />
       <AddCaterogry
-        visible={dialogVisible}
-        onDismiss={() => setDialogVisible(false)}
+        visible={categoryDialogVisible}
+        onDismiss={() => setCategoryDialogVisible(false)}
         onAdd={handleAddCategory}
       />
+      {selectedCategory && (
+        <AddExpense
+          visible={expenseDialogVisible}
+          category={selectedCategory}
+          onDismiss={() => setExpenseDialogVisible(false)}
+          onAdd={handleAddExpense}
+        />
+      )}
     </View>
   );
 };

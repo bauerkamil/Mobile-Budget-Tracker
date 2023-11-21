@@ -1,11 +1,11 @@
 import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
 import { ParamListBase, RouteProp } from "@react-navigation/native";
 import { Icon, MD3Colors } from "react-native-paper";
-import { Constants } from "../../common/utils/constants";
+import {Constants} from "../../common/utils/constants";
 
-export const BottomTabOptions = (props: {
-  route: RouteProp<ParamListBase, string>;
-  navigation: any;
+export const BottomTabOptions = ((props: {
+    route: RouteProp<ParamListBase, string>;
+    navigation: any;
 }): BottomTabNavigationOptions => ({
   tabBarLabel: () => {
     return null;
@@ -32,6 +32,14 @@ export const BottomTabOptions = (props: {
       case Constants.Screens.User:
         iconName = "account-outline";
         break;
+      case Constants.Screens.Login:
+        iconName = "account-outline";
+        break;
+      case Constants.Screens.Register:
+        iconName = "account-outline";
+        break;
+      default:
+        return undefined;
     }
 
     return (
@@ -49,4 +57,22 @@ export const BottomTabOptions = (props: {
     boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.25)",
     backgroundColor: MD3Colors.primary90,
   },
-});
+  title: "Budget Tracker", 
+  headerTitleAlign: "center",  
+  headerTitleStyle: getHeaderTitleStyle(props.route), 
+  headerStyle: getHeaderStyle(props.route)
+}));
+
+const getHeaderTitleStyle = (route: RouteProp<ParamListBase, string>): any => {
+  if(route.name === "Calendar" || route.name === "Home")
+    return { color: MD3Colors.neutralVariant99, fontSize: 20, fontWeight: "bold"};
+  else
+    return { fontSize: 20, fontWeight: "bold" };
+}
+
+const getHeaderStyle = (route: RouteProp<ParamListBase, string>): any => {
+  if(route.name === "Calendar" || route.name === "Home")
+    return { backgroundColor: MD3Colors.primary40 };
+  else
+    return undefined;
+}
