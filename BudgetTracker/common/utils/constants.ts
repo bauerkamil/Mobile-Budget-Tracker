@@ -5,6 +5,8 @@ const Constants = {
     User: "User",
     Add: "Add",
     Achievements: "Achievements",
+    Login: "Login",
+    Register: "Register",
   },
   Expenses: {
     Current: "Current",

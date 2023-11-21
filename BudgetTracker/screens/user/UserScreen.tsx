@@ -1,10 +1,12 @@
 import { View } from "react-native";
-import { Text, Icon, Switch } from "react-native-paper";
+import { Text, Icon, Switch, Button } from "react-native-paper";
 import { UserScreenStyle } from "./UserScreen.style";
 import { useState } from "react";
+import { signOut } from "../../services/AuthService";
 
 const UserScreen = () => {
   const [value, setValue] = useState(false);
+
   return (
     <View style={UserScreenStyle.container}>
       <View style={UserScreenStyle.section}>
@@ -35,6 +37,9 @@ const UserScreen = () => {
           <Switch value={value} onValueChange={setValue} />
           <Text>Option 1</Text>
         </View>
+
+        <Button mode="contained" onPress={signOut}>Log out</Button>
+
       </View>
     </View>
   );
