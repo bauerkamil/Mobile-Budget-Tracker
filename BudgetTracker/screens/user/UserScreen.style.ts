@@ -33,4 +33,7 @@ export const UserScreenStyle = StyleSheet.create({
     marginTop: 20,
     marginBottom: 10,
   },
+  textColor: {
+    color: "black",
+  },
 });

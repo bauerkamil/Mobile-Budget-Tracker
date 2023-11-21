@@ -1,11 +1,11 @@
 import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
 import { ParamListBase, RouteProp } from "@react-navigation/native";
 import { Icon, MD3Colors } from "react-native-paper";
-import Constants from "../../common/utils/constants";
+import { Constants } from "../../common/utils/constants";
 
-export const BottomTabOptions = ((props: {
-    route: RouteProp<ParamListBase, string>;
-    navigation: any;
+export const BottomTabOptions = (props: {
+  route: RouteProp<ParamListBase, string>;
+  navigation: any;
 }): BottomTabNavigationOptions => ({
   tabBarLabel: () => {
     return null;
@@ -45,7 +45,8 @@ export const BottomTabOptions = ((props: {
   tabBarActiveBackgroundColor: MD3Colors.primary40,
   tabBarInactiveBackgroundColor: MD3Colors.primary90,
   tabBarStyle: {
+    // @ts-ignore
     boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.25)",
     backgroundColor: MD3Colors.primary90,
   },
-}));
+});
