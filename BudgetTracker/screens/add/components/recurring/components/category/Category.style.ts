@@ -16,7 +16,7 @@ export const CategoryStyle = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
   },
-  text: {
+  textColor: {
     color: "black",
   },
 });
