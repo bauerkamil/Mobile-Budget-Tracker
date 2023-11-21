@@ -5,6 +5,7 @@ import Category from "./components/category/Category";
 import AddCaterogry from "./components/add-category/AddCategory";
 import { IRecurringCategory } from "../../../../common/interfaces";
 import RemoveCategory from "./components/remove-category/RemoveCategory";
+import Toast from "react-native-toast-message";
 
 const Recurring = () => {
   const [addDialogVisible, setAddDialogVisible] = useState(false);
@@ -115,6 +116,11 @@ const Recurring = () => {
   const handleRemoveCategory = (id: number) => {
     setCategories((c) => c.filter((c) => c.id !== id));
     setRemoveDialogVisible(false);
+    Toast.show({
+      type: "success",
+      text1: "Success",
+      text2: "Selected category has been removed",
+    });
   };
 
   return (
