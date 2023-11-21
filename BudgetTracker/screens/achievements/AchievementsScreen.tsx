@@ -40,8 +40,9 @@ export const AchievementsScreen = () => {
 
   return (
     <ScrollView style={AchievementsScreenStyle.container}>
-      {mockedAchievements.map((achievement) => (
+      {mockedAchievements.map((achievement, key) => (
         <ProgressCard
+          key={key}
           title={achievement.title}
           subtitle={achievement.subtitle}
           color={achievement.color}

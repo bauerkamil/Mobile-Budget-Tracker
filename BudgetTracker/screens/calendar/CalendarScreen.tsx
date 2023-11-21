@@ -152,8 +152,9 @@ export default function CalendarScreen() {
           <Text variant={"titleMedium"} style={CalendarScreenStyle.sectionText}>
             Transactions
           </Text>
-          {mockedTransactions.map((transaction) => (
+          {mockedTransactions.map((transaction, key) => (
             <TransactionItem
+              key={key}
               title={transaction.title}
               date={transaction.date}
               amount={transaction.amount}
