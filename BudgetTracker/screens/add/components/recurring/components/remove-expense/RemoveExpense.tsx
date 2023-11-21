@@ -1,14 +1,14 @@
 import { Button, Dialog, Portal } from "react-native-paper";
-import { IRemoveCategoryProps } from "./IRemoveCategoryProps";
-import { RemoveCategoryStyle } from "./RemoveCategory.style";
+import { IRemoveExpenseProps } from "./IRemoveExpenseProps";
+import { RemoveExpenseStyle } from "./RemoveExpense.style";
 
-const RemoveCategory: React.FC<IRemoveCategoryProps> = (props) => {
-  const { visible, category, onDismiss, onRemove } = props;
+const RemoveExpense: React.FC<IRemoveExpenseProps> = (props) => {
+  const { visible, expense: category, onDismiss, onRemove } = props;
   return (
     <Portal>
       <Dialog visible={visible} onDismiss={onDismiss}>
         <Dialog.Title>{category.name}</Dialog.Title>
-        <Dialog.Content style={RemoveCategoryStyle.content}>
+        <Dialog.Content style={RemoveExpenseStyle.content}>
           <Button mode="contained" onPress={() => onRemove(category.id)}>
             Remove
           </Button>
@@ -18,4 +18,4 @@ const RemoveCategory: React.FC<IRemoveCategoryProps> = (props) => {
   );
 };
 
-export default RemoveCategory;
+export default RemoveExpense;

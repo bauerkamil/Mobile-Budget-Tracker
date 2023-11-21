@@ -7,7 +7,7 @@ import {
   AvailableColors,
   AvailableIcons,
 } from "../../../../../../common/utils/constants";
-import { ICurrentCategory } from "../../../../../../common/interfaces";
+import { ICategory } from "../../../../../../common/interfaces";
 
 const AddCaterogry: React.FC<IAddCategoryProps> = (props) => {
   const { visible, onDismiss, onAdd } = props;
@@ -15,7 +15,7 @@ const AddCaterogry: React.FC<IAddCategoryProps> = (props) => {
   const [showColorDropDown, setShowColorDropDown] = useState(false);
   const [showIconDropDown, setShowIconDropDown] = useState(false);
 
-  const [category, setCategory] = useState<ICurrentCategory>({
+  const [category, setCategory] = useState<ICategory>({
     id: 0,
     name: "",
     icon: "",

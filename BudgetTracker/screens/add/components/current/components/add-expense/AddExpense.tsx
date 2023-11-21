@@ -2,7 +2,7 @@ import { IAddExpenseProps } from "./IAddExpenseProps";
 import { Button, Dialog, Portal, TextInput } from "react-native-paper";
 import { AddExpenseStyle } from "./AddExpense.style";
 import { useState } from "react";
-import { IExpense } from "../../../../../../common/interfaces";
+import { ICurrentExpense } from "../../../../../../common/interfaces";
 
 const AddExpense: React.FC<IAddExpenseProps> = (props) => {
   const { visible, category, onDismiss, onAdd } = props;
@@ -22,7 +22,7 @@ const AddExpense: React.FC<IAddExpenseProps> = (props) => {
   };
 
   const handleAdd = () => {
-    const expense: IExpense = {
+    const expense: ICurrentExpense = {
       categoryId: category.id,
       value: value,
     };

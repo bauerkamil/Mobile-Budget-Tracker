@@ -1,4 +1,3 @@
-export * from "./ICurrentCategory";
-export * from "./IRecurringCategory";
 export * from "./ICategory";
-export * from "./IExpense";
+export * from "./IRecurringExpense";
+export * from "./ICurrentExpense";

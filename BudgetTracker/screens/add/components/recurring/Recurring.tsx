@@ -1,18 +1,17 @@
 import { useState } from "react";
 import { FlatList, View } from "react-native";
 import { CurrentStyle } from "./Recurring.style";
-import Category from "./components/category/Category";
-import AddCaterogry from "./components/add-category/AddCategory";
-import { IRecurringCategory } from "../../../../common/interfaces";
-import RemoveCategory from "./components/remove-category/RemoveCategory";
+import Expense from "./components/expense/Expense";
+import AddExpense from "./components/add-expense/AddExpense";
+import { IRecurringExpense } from "../../../../common/interfaces";
+import RemoveExpense from "./components/remove-expense/RemoveExpense";
 import Toast from "react-native-toast-message";
 
 const Recurring = () => {
   const [addDialogVisible, setAddDialogVisible] = useState(false);
   const [removeDialogVisible, setRemoveDialogVisible] = useState(false);
-  const [selectedCategory, setSelectedCategory] =
-    useState<IRecurringCategory>();
-  const [categories, setCategories] = useState<IRecurringCategory[]>([
+  const [selectedCategory, setSelectedCategory] = useState<IRecurringExpense>();
+  const [categories, setCategories] = useState<IRecurringExpense[]>([
     {
       id: 1,
       name: "Food",
@@ -108,7 +107,7 @@ const Recurring = () => {
     setRemoveDialogVisible(true);
   };
 
-  const handleAddCategory = (category: IRecurringCategory) => {
+  const handleAddCategory = (category: IRecurringExpense) => {
     setCategories((c) => [category, ...c]);
     setAddDialogVisible(false);
   };
@@ -130,19 +129,19 @@ const Recurring = () => {
         data={categories}
         numColumns={2}
         renderItem={({ item }) => {
-          return <Category category={item} onClick={handleCategoryClick} />;
+          return <Expense expense={item} onClick={handleCategoryClick} />;
         }}
       />
-      <AddCaterogry
+      <AddExpense
         visible={addDialogVisible}
         onDismiss={() => setAddDialogVisible(false)}
         onAdd={handleAddCategory}
       />
       {selectedCategory && (
-        <RemoveCategory
+        <RemoveExpense
           visible={removeDialogVisible}
           onDismiss={() => setRemoveDialogVisible(false)}
-          category={selectedCategory}
+          expense={selectedCategory}
           onRemove={handleRemoveCategory}
         />
       )}
