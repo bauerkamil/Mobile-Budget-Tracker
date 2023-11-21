@@ -1,4 +1,4 @@
-import { Pressable, TouchableOpacity, View } from "react-native";
+import { Pressable, View } from "react-native";
 import { ICategoryProps } from "./ICategoryProps";
 import { Icon, Text } from "react-native-paper";
 import { CategoryStyle } from "./Category.style";
@@ -14,10 +14,16 @@ const Category: React.FC<ICategoryProps> = ({ category, onClick }) => {
         </View>
       </Pressable>
       <View>
-        <Text onPress={() => onClick(category.id)} variant={"labelLarge"}>
+        <Text
+          onPress={() => onClick(category.id)}
+          variant={"labelLarge"}
+          style={CategoryStyle.textColor}
+        >
           {category.name}
         </Text>
-        {category.id !== -1 && <Text>{category.value} PLN</Text>}
+        {category.id !== -1 && (
+          <Text style={CategoryStyle.textColor}>{category.value} PLN</Text>
+        )}
       </View>
     </View>
   );

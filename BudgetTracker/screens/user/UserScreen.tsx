@@ -6,14 +6,24 @@ const UserScreen = () => {
   return (
     <View style={UserScreenStyle.container}>
       <View style={UserScreenStyle.section}>
-        <Text variant="headlineSmall" style={UserScreenStyle.headlineText}>
+        <Text
+          variant="headlineSmall"
+          style={{
+            ...UserScreenStyle.headlineText,
+            ...UserScreenStyle.textColor,
+          }}
+        >
           Account
         </Text>
         <View style={UserScreenStyle.account}>
           <Icon source="account-circle" size={80} />
           <View>
-            <Text variant="titleLarge">John Doe</Text>
-            <Text variant="titleMedium">test@test.com</Text>
+            <Text variant="titleLarge" style={UserScreenStyle.textColor}>
+              John Doe
+            </Text>
+            <Text variant="titleMedium" style={UserScreenStyle.textColor}>
+              test@test.com
+            </Text>
           </View>
         </View>
       </View>

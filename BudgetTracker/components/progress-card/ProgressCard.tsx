@@ -22,17 +22,28 @@ export const ProgressCard = ({
             </View>
           </View>
           <View>
-            <Text variant={"titleLarge"} style={ProgressCardStyle.titleFont}>
+            <Text
+              variant={"titleLarge"}
+              style={{
+                ...ProgressCardStyle.titleFont,
+                ...ProgressCardStyle.textColor,
+              }}
+            >
               {title}
             </Text>
-            <Text variant={"labelLarge"}>{subtitle}</Text>
+            <Text variant={"labelLarge"} style={ProgressCardStyle.textColor}>
+              {subtitle}
+            </Text>
           </View>
         </View>
       </Card.Content>
       <Card.Content>
         <View style={ProgressCardStyle.progressBarContainer}>
           <Text
-            style={ProgressCardStyle.progressBarText}
+            style={{
+              ...ProgressCardStyle.progressBarText,
+              ...ProgressCardStyle.textColor,
+            }}
             variant={"labelLarge"}
           >
             {currentlySpent + "PLN"}
@@ -45,7 +56,10 @@ export const ProgressCard = ({
             />
           </View>
           <Text
-            style={ProgressCardStyle.progressBarText}
+            style={{
+              ...ProgressCardStyle.progressBarText,
+              ...ProgressCardStyle.textColor,
+            }}
             variant={"labelLarge"}
           >
             {totalBudget + "PLN"}
@@ -56,12 +70,16 @@ export const ProgressCard = ({
         {currentlySpent / totalBudget < 1 ? (
           <View style={ProgressCardStyle.statusContainer}>
             <Icon source="check-circle" color={MD3Colors.primary0} size={20} />
-            <Text variant={"labelLarge"}>You're on track!</Text>
+            <Text variant={"labelLarge"} style={ProgressCardStyle.textColor}>
+              You're on track!
+            </Text>
           </View>
         ) : (
           <View style={ProgressCardStyle.statusContainer}>
             <Icon source="close-circle" color={MD3Colors.error50} size={20} />
-            <Text variant={"labelLarge"}>Uh oh! You exceeded your budget</Text>
+            <Text variant={"labelLarge"} style={ProgressCardStyle.textColor}>
+              Uh oh! You exceeded your budget
+            </Text>
           </View>
         )}
       </Card.Content>
