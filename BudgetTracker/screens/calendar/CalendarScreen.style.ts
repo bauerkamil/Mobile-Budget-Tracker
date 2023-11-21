@@ -1,11 +1,12 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
+import { MD3Colors } from 'react-native-paper';
 
 export const CalendarScreenStyle = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: MD3Colors.neutralVariant99,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
   calendarBox: {
     width: "100%",
