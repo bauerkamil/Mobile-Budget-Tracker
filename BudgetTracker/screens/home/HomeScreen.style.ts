@@ -5,12 +5,17 @@ export const HomeScreenStyle = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: MD3Colors.neutralVariant99,
+  },
+  wrapper: {
+    flex: 1,
     alignItems: "center",
     justifyContent: "flex-start",
   },
   title: {
     width: "100%",
-    padding: 20,
+    paddingTop: 25,
+    padding: 15,
+    paddingBottom: 0,
   },
   titleText: {
     fontWeight: "bold",
@@ -21,6 +26,23 @@ export const HomeScreenStyle = StyleSheet.create({
   },
   sectionText: {
     fontWeight: "bold",
-    padding: 10,
+    paddingBottom: 10,
+  },
+  textColor: {
+    color: "black",
+  },
+  lineChartStyle: {
+    fontFamily: "Roboto",
+  },
+  budgetHeader: {
+    width: "100%",
+    paddingTop: 60,
+    paddingBottom: 20,
+    marginBottom: -1,
+  },
+  budgetText: {
+    fontWeight: "bold",
+    color: "white",
+    textAlign: "center",
   },
 });
