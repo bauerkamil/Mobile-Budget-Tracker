@@ -9,7 +9,7 @@ import UserScreen from "./screens/user/UserScreen";
 import { BottomTabOptions } from "./components/BottomTabOptions";
 import { AchievementsScreen } from "./screens/achievements/AchievementsScreen";
 import AddScreen from "./screens/add/AddScreen";
-import Constants from "./common/utils/constants";
+import { Constants } from "./common/utils/constants";
 
 const Tab = createBottomTabNavigator();
 
@@ -18,7 +18,7 @@ export default function App() {
     <PaperProvider>
       <NavigationContainer>
         <Tab.Navigator
-          initialRouteName={Constants.Screens.Home}
+          initialRouteName={Constants.Screens.Add}
           screenOptions={BottomTabOptions}
         >
           <Tab.Screen
