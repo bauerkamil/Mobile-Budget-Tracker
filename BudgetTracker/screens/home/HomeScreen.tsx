@@ -4,7 +4,7 @@ import { HomeScreenStyle } from "./HomeScreen.style";
 import { ActivityIndicator, MD2Colors, Text } from "react-native-paper";
 import { LineChart } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
-import { ICategory } from "../../common/interfaces/ICategory";
+import { ICategory } from "../../common/interfaces";
 import Category from "./components/category/Category";
 
 const screenWidth = Dimensions.get("window").width;
