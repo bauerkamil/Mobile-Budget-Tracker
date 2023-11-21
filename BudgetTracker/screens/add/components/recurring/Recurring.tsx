@@ -4,9 +4,14 @@ import { CurrentStyle } from "./Recurring.style";
 import Category from "./components/category/Category";
 import AddCaterogry from "./components/add-category/AddCategory";
 import { IRecurringCategory } from "../../../../common/interfaces";
+import RemoveCategory from "./components/remove-category/RemoveCategory";
+import Toast from "react-native-toast-message";
 
 const Recurring = () => {
-  const [dialogVisible, setDialogVisible] = useState(false);
+  const [addDialogVisible, setAddDialogVisible] = useState(false);
+  const [removeDialogVisible, setRemoveDialogVisible] = useState(false);
+  const [selectedCategory, setSelectedCategory] =
+    useState<IRecurringCategory>();
   const [categories, setCategories] = useState<IRecurringCategory[]>([
     {
       id: 1,
@@ -92,15 +97,30 @@ const Recurring = () => {
 
   const handleCategoryClick = (id: number) => {
     if (id === -1) {
-      setDialogVisible(true);
+      setAddDialogVisible(true);
       return;
     }
-    console.log(id);
+    const category = categories.find((c) => c.id === id);
+    if (!category) {
+      return;
+    }
+    setSelectedCategory(category);
+    setRemoveDialogVisible(true);
   };
 
   const handleAddCategory = (category: IRecurringCategory) => {
     setCategories((c) => [category, ...c]);
-    setDialogVisible(false);
+    setAddDialogVisible(false);
+  };
+
+  const handleRemoveCategory = (id: number) => {
+    setCategories((c) => c.filter((c) => c.id !== id));
+    setRemoveDialogVisible(false);
+    Toast.show({
+      type: "success",
+      text1: "Success",
+      text2: "Selected category has been removed",
+    });
   };
 
   return (
@@ -114,10 +134,18 @@ const Recurring = () => {
         }}
       />
       <AddCaterogry
-        visible={dialogVisible}
-        onDismiss={() => setDialogVisible(false)}
+        visible={addDialogVisible}
+        onDismiss={() => setAddDialogVisible(false)}
         onAdd={handleAddCategory}
       />
+      {selectedCategory && (
+        <RemoveCategory
+          visible={removeDialogVisible}
+          onDismiss={() => setRemoveDialogVisible(false)}
+          category={selectedCategory}
+          onRemove={handleRemoveCategory}
+        />
+      )}
     </View>
   );
 };

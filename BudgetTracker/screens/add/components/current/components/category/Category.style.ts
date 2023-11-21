@@ -1,6 +1,9 @@
 import { StyleSheet } from "react-native";
 
 export const CategoryStyle = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+  },
   container: {
     backgroundColor: "#E7EFFA",
     flex: 1,
