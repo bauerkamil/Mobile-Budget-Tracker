@@ -3,8 +3,6 @@ import { MD3Colors } from "react-native-paper";
 
 export const ProgressCardStyle = StyleSheet.create({
   card: {
-    marginLeft: 20,
-    marginRight: 20,
     marginTop: 10,
     marginBottom: 10,
     backgroundColor: "#E7EFFA",
@@ -62,5 +60,9 @@ export const ProgressCardStyle = StyleSheet.create({
     gap: 10,
     marginTop: 22,
     marginLeft: 5,
+  },
+
+  textColor: {
+    color: "black",
   },
 });

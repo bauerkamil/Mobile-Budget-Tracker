@@ -1,7 +1,9 @@
 import { StyleSheet } from "react-native";
-import { MD3Colors } from "react-native-paper";
 
 export const CategoryStyle = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+  },
   container: {
     backgroundColor: "#E7EFFA",
     flex: 1,
@@ -16,5 +18,8 @@ export const CategoryStyle = StyleSheet.create({
   icon: {
     padding: 10,
     borderRadius: 10,
+  },
+  textColor: {
+    color: "black",
   },
 });

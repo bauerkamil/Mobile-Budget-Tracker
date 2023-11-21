@@ -1,4 +1,4 @@
-import Constants from "../../common/utils/constants";
+import { Constants } from "../../common/utils/constants";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Current from "./components/current/Current";
 import Recurring from "./components/recurring/Recurring";

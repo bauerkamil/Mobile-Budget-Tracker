@@ -53,6 +53,7 @@ export const BottomTabOptions = ((props: {
   tabBarActiveBackgroundColor: MD3Colors.primary40,
   tabBarInactiveBackgroundColor: MD3Colors.primary90,
   tabBarStyle: {
+    // @ts-ignore
     boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.25)",
     backgroundColor: MD3Colors.primary90,
   },

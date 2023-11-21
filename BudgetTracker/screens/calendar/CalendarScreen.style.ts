@@ -9,20 +9,20 @@ export const CalendarScreenStyle = StyleSheet.create({
     justifyContent: "flex-start",
   },
   calendarBox: {
-    width: '100%',
+    width: "100%",
   },
   calendarText: {
-    color: '#fff',
+    color: "#fff",
   },
   selectedDay: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     opacity: 0.5,
   },
   selectedDayText: {
-    color: '#000',
+    color: "#000",
     opacity: 1,
   },
   spentText: {
-    color: MD3Colors.primary40,
+    color: "black",
   },
 });
