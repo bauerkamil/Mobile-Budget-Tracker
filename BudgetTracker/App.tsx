@@ -11,6 +11,7 @@ import { AchievementsScreen } from "./screens/achievements/AchievementsScreen";
 import AddScreen from "./screens/add/AddScreen";
 import { Constants } from "./common/utils/constants";
 import { HeaderOptions } from "./components/tab-options/HeaderOptions";
+import Toast from "react-native-toast-message";
 
 const Tab = createBottomTabNavigator();
 
@@ -49,6 +50,7 @@ export default function App() {
           />
         </Tab.Navigator>
       </NavigationContainer>
+      <Toast />
     </PaperProvider>
   );
 }
