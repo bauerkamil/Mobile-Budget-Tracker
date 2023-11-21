@@ -4,9 +4,9 @@ import { MD3Colors } from 'react-native-paper';
 export const CalendarScreenStyle = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: MD3Colors.neutralVariant99,
+    alignItems: "center",
+    justifyContent: "flex-start",
   },
   calendarBox: {
     width: '100%',

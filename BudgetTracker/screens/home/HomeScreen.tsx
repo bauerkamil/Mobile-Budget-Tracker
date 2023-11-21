@@ -6,9 +6,10 @@ import { LineChart } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
 import { ICategory } from "../../common/interfaces/ICategory";
 import Category from "./components/category/Category";
+import { AbstractChartConfig } from "react-native-chart-kit/dist/AbstractChart";
 
 const screenWidth = Dimensions.get("window").width;
-const chartConfig = {
+const chartConfig: AbstractChartConfig = {
   backgroundGradientFrom: "#6C47F8",
   backgroundGradientFromOpacity: 1,
   backgroundGradientTo: "#9141FC",
