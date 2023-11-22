@@ -32,46 +32,39 @@ const data = {
 
 const categories: ICategory[] = [
   {
-    id: 1,
+    id: "1",
     name: "House",
     icon: "home",
     color: "blue",
+    limit: 200,
   },
   {
-    id: 2,
+    id: "2",
     name: "Transport",
     icon: "bus",
     color: "pink",
+    limit: 100,
   },
   {
-    id: 3,
+    id: "3",
     name: "Office",
     icon: "briefcase",
     color: "orange",
+    limit: 50,
   },
   {
-    id: 4,
+    id: "4",
     name: "Education",
     icon: "book",
     color: "purple",
+    limit: 150,
   },
   {
-    id: 5,
+    id: "5",
     name: "Medical",
     icon: "hospital",
     color: "red",
-  },
-  {
-    id: 6,
-    name: "Medical",
-    icon: "hospital",
-    color: "red",
-  },
-  {
-    id: 7,
-    name: "Medical",
-    icon: "hospital",
-    color: "red",
+    limit: 100,
   },
 ];
 
@@ -179,8 +172,9 @@ export default function HomeScreen(_props: IHomeScreenProps) {
           >
             Categories
           </Text>
-          {mockedCategories.map((category) => (
+          {mockedCategories.map((category, key) => (
             <ProgressCard
+              key={key}
               title={category.title}
               subtitle={category.subtitle}
               color={category.color}
