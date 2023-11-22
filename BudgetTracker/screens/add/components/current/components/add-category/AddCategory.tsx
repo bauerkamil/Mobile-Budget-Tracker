@@ -24,12 +24,18 @@ const AddCaterogry: React.FC<IAddCategoryProps> = (props) => {
   const [showIconDropDown, setShowIconDropDown] = useState(false);
 
   const [category, setCategory] = useState<ICategory>({
-    id: 0,
+    id: "0",
     limit: 0,
     name: "",
     icon: "",
     color: "",
   });
+
+  const isButtonDisabled =
+    category.name === "" ||
+    category.limit <= 0 ||
+    category.icon === "" ||
+    category.color === "";
 
   const handleLimitChange = (value: string) => {
     if (value === "") {
@@ -45,7 +51,7 @@ const AddCaterogry: React.FC<IAddCategoryProps> = (props) => {
 
   const handleAdd = () => {
     onAdd(category);
-    setCategory({ id: 0, limit: 0, name: "", icon: "", color: "" });
+    setCategory({ id: "0", limit: 0, name: "", icon: "", color: "" });
   };
 
   return (
@@ -112,7 +118,11 @@ const AddCaterogry: React.FC<IAddCategoryProps> = (props) => {
               ),
             }))}
           />
-          <Button mode="contained" onPress={handleAdd}>
+          <Button
+            mode="contained"
+            onPress={handleAdd}
+            disabled={isButtonDisabled}
+          >
             Add
           </Button>
         </Dialog.Content>

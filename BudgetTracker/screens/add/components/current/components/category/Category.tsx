@@ -6,7 +6,7 @@ import { CategoryStyle } from "./Category.style";
 const Category: React.FC<ICategoryProps> = ({ category, onClick }) => {
   return (
     <Pressable
-      onPress={() => onClick(category.id)}
+      onPress={() => onClick(category.id ?? "")}
       style={CategoryStyle.wrapper}
     >
       <View style={CategoryStyle.container}>
@@ -19,7 +19,7 @@ const Category: React.FC<ICategoryProps> = ({ category, onClick }) => {
           <Text variant={"labelLarge"} style={CategoryStyle.textColor}>
             {category.name}
           </Text>
-          {category.id !== -1 && (
+          {category.id !== "-1" && (
             <Text variant={"labelSmall"} style={CategoryStyle.textColor}>
               Limit: {category.limit}
             </Text>

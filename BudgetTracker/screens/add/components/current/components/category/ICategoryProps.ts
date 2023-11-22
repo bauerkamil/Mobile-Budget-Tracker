@@ -2,5 +2,5 @@ import { ICategory } from "../../../../../../common/interfaces";
 
 export interface ICategoryProps {
   category: ICategory;
-  onClick: (id: number) => void;
+  onClick: (id: string) => void;
 }
