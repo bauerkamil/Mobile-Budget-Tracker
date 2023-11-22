@@ -21,11 +21,11 @@ export const getUserCategories = async (): Promise<ICategory[] | undefined> => {
       return undefined;
     }
 
-  const categoriesRef = collection(firestore, CATEGORY_TABLE_NAME);
-  const categoriesQuery = query(categoriesRef, where("userId", "==", "-1"));
-  const querySnapshot = await getDocs(categoriesQuery);
-  const categories = querySnapshot.docs
-    .map(doc => ({ id: doc.id, ...doc.data() } as unknown as ICategory));
+    const categoriesRef = collection(firestore, CATEGORY_TABLE_NAME);
+    const categoriesQuery = query(categoriesRef, where("userId", "==", userId));
+    const querySnapshot = await getDocs(categoriesQuery);
+    const categories = querySnapshot.docs
+      .map(doc => ({ id: doc.id, ...doc.data() } as unknown as ICategory));
 
     return categories;
   } catch (err: any) {

@@ -8,8 +8,9 @@ const AddExpense: React.FC<IAddExpenseProps> = (props) => {
   const { visible, category, onDismiss, onAdd } = props;
 
   const [value, setValue] = useState(0);
+  const [name, setName] = useState("");
 
-  const isButtonDisabled = value <= 0;
+  const isButtonDisabled = value <= 0 && name === "";
 
   const handleValueChange = (value: string) => {
     if (value === "") {
@@ -26,10 +27,13 @@ const AddExpense: React.FC<IAddExpenseProps> = (props) => {
   const handleAdd = () => {
     const expense: ICurrentExpense = {
       categoryId: category.id ?? "",
+      name: name,
       value: value,
+      date: new Date(),
     };
     onAdd(expense);
     setValue(0);
+    setName("");
   };
 
   return (
@@ -37,6 +41,11 @@ const AddExpense: React.FC<IAddExpenseProps> = (props) => {
       <Dialog visible={visible} onDismiss={onDismiss}>
         <Dialog.Title>New expense: {category.name}</Dialog.Title>
         <Dialog.Content style={AddExpenseStyle.content}>
+          <TextInput
+            label="Name"
+            onChangeText={(text) => setName(text)}
+            value={name}
+          />
           <TextInput
             keyboardType="numeric"
             label="Value (PLN)"

@@ -6,7 +6,10 @@ import AddCaterogry from "./components/add-category/AddCategory";
 import { ICategory, ICurrentExpense } from "../../../../common/interfaces";
 import AddExpense from "./components/add-expense/AddExpense";
 import Toast from "react-native-toast-message";
-import { getUserCategories } from "../../../../services/CategoryService";
+import {
+  addCategory,
+  getUserCategories,
+} from "../../../../services/CategoryService";
 import { addCurrentExpense } from "../../../../services/CurrentExpenseService";
 
 const Current = () => {
@@ -44,7 +47,9 @@ const Current = () => {
     setExpenseDialogVisible(true);
   };
 
-  const handleAddCategory = (category: ICategory) => {
+  const handleAddCategory = async (category: ICategory) => {
+    const id = await addCategory(category);
+    category.id = id;
     setCategories((c) => [category, ...c]);
     setCategoryDialogVisible(false);
   };
