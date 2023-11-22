@@ -2,7 +2,7 @@ export interface IRecurringExpense {
   id?: string;
   userId?: string;
   name: string;
-  categoryId: number;
+  categoryId: string;
   value: number;
   day: number;
 }

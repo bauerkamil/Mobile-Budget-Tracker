@@ -1,26 +1,37 @@
-import { addDoc, collection, getDocs, or, query, where } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  or,
+  query,
+  where,
+} from "firebase/firestore";
 
 import { firestore } from "./firebaseinit";
 import { ICategory } from "../common/interfaces";
 import { getUserId } from "./AuthService";
 import Toast from "react-native-toast-message";
 
-const CATEGORY_TABLE_NAME = "Categories"
+const CATEGORY_TABLE_NAME = "Categories";
 
 export const getUserCategories = async (): Promise<ICategory[] | undefined> => {
   try {
-  const userId = getUserId();
-  if (!userId) {
-    return undefined;
-  }
+    const userId = getUserId();
+    if (!userId) {
+      return undefined;
+    }
 
-  const categoriesRef = collection(firestore, CATEGORY_TABLE_NAME);
-  const categoriesQuery = query(categoriesRef, or(where("__userId__", "==", "-1"), where("__userId__", "==", userId)));
-  const querySnapshot = await getDocs(categoriesQuery);
-  const categories = querySnapshot.docs
-    .map(doc => ({ id: doc.id, ...doc.data() } as unknown as ICategory));
+    const categoriesRef = collection(firestore, CATEGORY_TABLE_NAME);
+    const categoriesQuery = query(
+      categoriesRef,
+      or(where("userId", "==", "-1"), where("userId", "==", userId))
+    );
+    const querySnapshot = await getDocs(categoriesQuery);
+    const categories = querySnapshot.docs.map(
+      (doc) => ({ id: doc.id, ...doc.data() }) as unknown as ICategory
+    );
 
-  return categories;
+    return categories;
   } catch (err: any) {
     console.error(err);
     Toast.show({
@@ -29,10 +40,10 @@ export const getUserCategories = async (): Promise<ICategory[] | undefined> => {
       text2: err.message,
     });
   }
-}
+};
 
 export const addCategory = async (category: ICategory) => {
-  try{
+  try {
     const userId = getUserId();
     if (!userId) {
       return undefined;
@@ -50,4 +61,4 @@ export const addCategory = async (category: ICategory) => {
       text2: err.message,
     });
   }
-}
+};
