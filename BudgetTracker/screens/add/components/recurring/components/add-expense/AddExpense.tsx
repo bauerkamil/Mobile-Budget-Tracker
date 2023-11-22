@@ -14,13 +14,14 @@ const AddExpense: React.FC<IAddExpenseProps> = (props) => {
     id: "0",
     name: "",
     categoryId: "-1",
-    day: 1,
+    day: 0,
     value: 0,
   });
 
   const isButtonDisabled =
     recurringExpense.name === "" ||
     recurringExpense.value <= 0 ||
+    recurringExpense.day <= 0 ||
     recurringExpense.categoryId === "-1";
 
   const handleNameChange = (name: string) => {
@@ -46,7 +47,7 @@ const AddExpense: React.FC<IAddExpenseProps> = (props) => {
 
   const handleDayChange = (day: string) => {
     if (day === "") {
-      setRecurringExpense((c) => ({ ...c, day: 1 }));
+      setRecurringExpense((c) => ({ ...c, day: 0 }));
       return;
     }
     const parsedDay = parseInt(day);
