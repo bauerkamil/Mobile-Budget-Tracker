@@ -13,8 +13,7 @@ import { ICategory, ITransaction } from "../../common/interfaces";
 import Category from "./components/category/Category";
 import { TransactionItem } from "../../components/transaction-item";
 import { getTransactions } from "../../services/TransactionsService";
-import { loadGraphData } from "../../common/utils/loadGraphData";
-import { loadTopSpending } from "../../common/utils/loadTopSpending";
+import { loadGraphData, loadTopSpending } from "../../common/utils/helpers";
 import { getUserCategories } from "../../services/CategoryService";
 
 const screenWidth = Dimensions.get("window").width + 50;
