@@ -19,6 +19,11 @@ const Category: React.FC<ICategoryProps> = ({ category, onClick }) => {
           <Text variant={"labelLarge"} style={CategoryStyle.textColor}>
             {category.name}
           </Text>
+          {category.id !== -1 && (
+            <Text variant={"labelSmall"} style={CategoryStyle.textColor}>
+              Limit: {category.limit}
+            </Text>
+          )}
         </View>
       </View>
     </Pressable>
