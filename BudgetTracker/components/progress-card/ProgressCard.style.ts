@@ -21,7 +21,6 @@ export const ProgressCardStyle = StyleSheet.create({
   iconContainer: {
     height: "100%",
     width: 50,
-    backgroundColor: MD3Colors.tertiary90,
     borderRadius: 15,
   },
 

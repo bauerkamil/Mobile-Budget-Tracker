@@ -39,7 +39,7 @@ export default function LoginScreen(props: ILoginScreenProps) {
       </Text>
       <Image
         style={LoginScreenStyles.image}
-        source={require('../../assets/budget.svg')}
+        source={require('../../assets/savings.svg')}
       />
 
       <View style={LoginScreenStyles.inputView}>

@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Card, Icon, MD3Colors, ProgressBar, Text } from "react-native-paper";
 
 import { ProgressCardStyle } from "./ProgressCard.style";
@@ -16,9 +16,9 @@ export const ProgressCard = ({
     <Card style={ProgressCardStyle.card}>
       <Card.Content>
         <View style={ProgressCardStyle.titleContainer}>
-          <View style={ProgressCardStyle.iconContainer}>
+          <View style={StyleSheet.flatten([ProgressCardStyle.iconContainer, {backgroundColor: color}])}>
             <View style={ProgressCardStyle.iconWrapper}>
-              <Icon source={icon} color={color} size={20} />
+              <Icon source={icon} color={MD3Colors.neutralVariant99} size={20} />
             </View>
           </View>
           <View>

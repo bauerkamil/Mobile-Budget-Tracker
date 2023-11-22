@@ -36,10 +36,7 @@ export const getTransactions = async (startDate: Date, endDate: Date) => {
   const currentExpenses = currentResponse?.map((expense) => ({...expense, recurring: false} as ITransaction));
 
   var recurringResponse = await getUserRecurringExpenses();
-  const currentDate = new Date();
-  const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate()
-
-  recurringResponse = recurringResponse?.filter((expense) => expense.day <= daysInMonth);
+  
   const recurringExpenses = getRecurringExpenses(recurringResponse ?? [], startDate, endDate);
 
   const transactions = [...currentExpenses ?? [], ...recurringExpenses ?? []];

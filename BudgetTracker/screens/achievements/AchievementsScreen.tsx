@@ -1,6 +1,10 @@
 import { ScrollView } from "react-native";
 import { AchievementsScreenStyle } from "./AchievementsScreen.style";
 import { ProgressCard } from "../../components/progress-card/ProgressCard";
+import { useState, useEffect } from "react";
+import { ITransaction, ICategory } from "../../common/interfaces";
+import { getUserCategories } from "../../services/CategoryService";
+import { getTransactions } from "../../services/TransactionsService";
 
 export const AchievementsScreen = () => {
   const mockedAchievements = [
@@ -38,17 +42,48 @@ export const AchievementsScreen = () => {
     },
   ];
 
+  const [transactions, setTransactions] = useState<ITransaction[]>([]);
+  const [categories, setCategories] = useState<ICategory[]>([]);
+  
+  useEffect(() => {
+    const loadCategories = async () => {
+      const categories = await getUserCategories();
+      if (!categories) {
+        return;
+      }
+      setCategories(categories);
+    };
+
+    const loadExpenses = async () => {
+      const currentDate = new Date();
+      const startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+      const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+
+      const expenses = await getTransactions(startDate, endDate);
+      if (!expenses) {
+        setTransactions([]);
+      } else
+      {
+        setTransactions(expenses);
+        console.log(expenses);
+      }
+    };
+
+    loadCategories();
+    loadExpenses();
+  }, []);
+
   return (
     <ScrollView style={AchievementsScreenStyle.container}>
-      {mockedAchievements.map((achievement, key) => (
+      {categories.map((category, key) => (
         <ProgressCard
           key={key}
-          title={achievement.title}
-          subtitle={achievement.subtitle}
-          color={achievement.color}
-          icon={achievement.icon}
-          currentlySpent={achievement.currentlySpent}
-          totalBudget={achievement.totalBudget}
+          title={category.name}
+          subtitle={"How much you spent this month:"}
+          color={category.color}
+          icon={category.icon}
+          currentlySpent={20}
+          totalBudget={category.limit}
         />
       ))}
     </ScrollView>
