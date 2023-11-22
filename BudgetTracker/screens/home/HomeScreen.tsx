@@ -132,7 +132,7 @@ export default function HomeScreen(_props: IHomeScreenProps) {
             }}
             variant="titleMedium"
           >
-            Top spending from 7 days
+            Top categories from 7 days
           </Text>
           <ScrollView
             horizontal={true}
@@ -151,7 +151,7 @@ export default function HomeScreen(_props: IHomeScreenProps) {
             }}
             variant="titleMedium"
           >
-            Latest from 7 days
+            Latest transactions
           </Text>
           {latestExpenses.map((expense, key) => (
             <TransactionItem

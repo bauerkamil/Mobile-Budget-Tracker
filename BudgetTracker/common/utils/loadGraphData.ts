@@ -5,8 +5,7 @@ export const loadGraphData = (latestExpenses: ITransaction[]) => {
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const orderedDays = days
     .slice(currentDayIndex)
-    .concat(days.slice(0, currentDayIndex))
-    .reverse();
+    .concat(days.slice(0, currentDayIndex));
 
   const filteredExpenses = latestExpenses.reduce(
     (acc: { [day: number]: number }, expense: ITransaction) => {
@@ -27,9 +26,7 @@ export const loadGraphData = (latestExpenses: ITransaction[]) => {
     labels: orderedDays,
     datasets: [
       {
-        data: Object.entries(filteredExpenses)
-          .map(([_key, value]) => value)
-          .reverse(),
+        data: Object.entries(filteredExpenses).map(([_key, value]) => value),
       },
     ],
   };
