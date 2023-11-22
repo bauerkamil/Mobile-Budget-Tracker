@@ -65,7 +65,8 @@ const Recurring = () => {
   const handleAddRecurringExpense = (recurringExpense: IRecurringExpense) => {
     setAddDialogVisible(false);
     addRecurringExpense(recurringExpense)
-      .then(() => {
+      .then((id) => {
+        recurringExpense.id = id;
         setRecurringExpenses((c) => [recurringExpense, ...c]);
         Toast.show({
           type: "success",
