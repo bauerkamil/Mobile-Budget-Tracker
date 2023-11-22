@@ -13,20 +13,22 @@ const AddExpense: React.FC<IAddExpenseProps> = (props) => {
   const [recurringExpense, setRecurringExpense] = useState<IRecurringExpense>({
     id: "0",
     name: "",
-    categoryId: "0",
-    day: 0,
+    categoryId: "-1",
+    day: 1,
     value: 0,
   });
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  const isButtonDisabled =
+    recurringExpense.name === "" ||
+    recurringExpense.value <= 0 ||
+    recurringExpense.categoryId === "-1";
 
   const handleNameChange = (name: string) => {
     if (name === "") {
       setRecurringExpense((c) => ({ ...c, name: "" }));
-      setIsButtonDisabled(true);
       return;
     }
 
-    setIsButtonDisabled(false);
     setRecurringExpense((c) => ({ ...c, name: name }));
   };
 
