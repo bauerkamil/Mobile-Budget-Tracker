@@ -3,62 +3,30 @@ import { Dimensions, ScrollView, View } from "react-native";
 import CalendarPicker, {
   DateChangedCallback,
 } from "react-native-calendar-picker";
-import { Card, MD3Colors, Text } from "react-native-paper";
 import { Moment } from "moment";
 import { LinearGradient } from "expo-linear-gradient";
-import { PieChart } from "react-native-chart-kit";
-
 import { CalendarScreenStyle } from "./CalendarScreen.style";
-import { parseDate } from "../../common/utils/parseDate";
+import { Card, MD3Colors, Text } from "react-native-paper";
+import {
+  groupTransactionsByCategory,
+  parseDate,
+} from "../../common/utils/helpers";
+import { PieChart } from "react-native-chart-kit";
 import { TransactionItem } from "../../components/transaction-item";
-import { ICategory } from "../../common/interfaces";
+import { ICategory, IChartData } from "../../common/interfaces";
 import { getUserCategories } from "../../services/CategoryService";
 import { ITransaction } from "../../common/interfaces";
 import { getTransactions } from "../../services/TransactionsService";
 
 const screenWidth = Dimensions.get("window").width;
-const data = [
-  {
-    name: "Seoul",
-    population: 21500000,
-    color: "rgba(131, 167, 234, 1)",
-    legendFontColor: "#7F7F7F",
-    legendFontSize: 15,
-  },
-  {
-    name: "Toronto",
-    population: 2800000,
-    color: "#F00",
-    legendFontColor: "#7F7F7F",
-    legendFontSize: 15,
-  },
-  {
-    name: "Beijing",
-    population: 527612,
-    color: "red",
-    legendFontColor: "#7F7F7F",
-    legendFontSize: 15,
-  },
-  {
-    name: "New York",
-    population: 8538000,
-    color: "#121212",
-    legendFontColor: "#7F7F7F",
-    legendFontSize: 15,
-  },
-  {
-    name: "Moscow",
-    population: 11920000,
-    color: "rgb(0, 0, 255)",
-    legendFontColor: "#7F7F7F",
-    legendFontSize: 15,
-  },
-];
+
 const chartConfig = {
   color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
   strokeWidth: 2,
   barPercentage: 0.5,
   useShadowColorFromDataset: false,
+  legendFontColor: "#7F7F7F",
+  legendFontSize: 15,
 };
 
 export default function CalendarScreen() {
@@ -166,31 +134,38 @@ export default function CalendarScreen() {
           <Text variant={"titleMedium"} style={CalendarScreenStyle.sectionText}>
             Analytics
           </Text>
-          <PieChart
-            data={data}
-            width={screenWidth}
-            height={220}
-            chartConfig={chartConfig}
-            accessor={"population"}
-            backgroundColor={"transparent"}
-            paddingLeft={"0"}
-            center={[0, 0]}
-            // @ts-ignore
-            style={CalendarScreenStyle.pieChartStyle}
-          />
+          {transactions.length > 0 ? (
+            <PieChart
+              data={groupTransactionsByCategory(transactions, categories)}
+              width={screenWidth}
+              height={220}
+              chartConfig={chartConfig}
+              accessor={"value"}
+              backgroundColor={"transparent"}
+              paddingLeft={"0"}
+              center={[0, 0]}
+              // @ts-ignore
+              style={CalendarScreenStyle.pieChartStyle}
+            />
+          ) : (
+            <Text>No data</Text>
+          )}
         </View>
-
         <View style={CalendarScreenStyle.section}>
           <Text variant={"titleMedium"} style={CalendarScreenStyle.sectionText}>
             Transactions
           </Text>
-          {transactions.map((expense, key) => (
-            <TransactionItem
-              key={key}
-              categories={categories}
-              transaction={expense}
-            />
-          ))}
+          {transactions.length > 0 ? (
+            transactions.map((expense, key) => (
+              <TransactionItem
+                key={key}
+                categories={categories}
+                transaction={expense}
+              />
+            ))
+          ) : (
+            <Text>No data</Text>
+          )}
         </View>
       </ScrollView>
     </View>
