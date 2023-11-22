@@ -1,5 +1,6 @@
 export interface ICategory {
-  id: number;
+  id?: string;
+  userId?: string;
   name: string;
   icon: string;
   color: string;

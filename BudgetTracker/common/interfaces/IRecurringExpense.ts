@@ -1,5 +1,6 @@
 export interface IRecurringExpense {
-  id: number;
+  id?: string;
+  userId?: string;
   name: string;
   categoryId: number;
   value: number;
