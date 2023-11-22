@@ -3,16 +3,17 @@ import { Dimensions, ScrollView, View } from "react-native";
 import CalendarPicker, {
   DateChangedCallback,
 } from "react-native-calendar-picker";
+import { Card, MD3Colors, Text } from "react-native-paper";
 import { Moment } from "moment";
 import { LinearGradient } from "expo-linear-gradient";
-import { CalendarScreenStyle } from "./CalendarScreen.style";
-import { Card, MD3Colors, Text } from "react-native-paper";
-import { parseDate } from "../../common/utils/parseDate";
 import { PieChart } from "react-native-chart-kit";
-import { TransactionItem } from "./components/transaction-item";
+
+import { CalendarScreenStyle } from "./CalendarScreen.style";
+import { parseDate } from "../../common/utils/parseDate";
+import { TransactionItem } from "../../components/transaction-item";
 import { ICategory } from "../../common/interfaces";
 import { getUserCategories } from "../../services/CategoryService";
-import { ITransaction } from "../../common/interfaces/ITransaction";
+import { ITransaction } from "../../common/interfaces";
 import { getTransactions } from "../../services/TransactionsService";
 
 const screenWidth = Dimensions.get("window").width;
@@ -65,7 +66,7 @@ export default function CalendarScreen() {
     new Date(),
   );
   const [endDate, setEndDate] = React.useState<Date | undefined>(new Date());
-  
+
   const [transactions, setTransactions] = React.useState<ITransaction[]>([]);
   const [categories, setCategories] = React.useState<ICategory[]>([]);
   const [currentlySpent, setCurrentlySpent] = React.useState<number>(0);
@@ -101,8 +102,7 @@ export default function CalendarScreen() {
       const expenses = await getTransactions(startDate, endDate);
       if (!expenses) {
         setTransactions([]);
-      } else
-      {
+      } else {
         setTransactions(expenses);
       }
     };
@@ -120,11 +120,10 @@ export default function CalendarScreen() {
         sum += expense.value;
       });
       setCurrentlySpent(sum);
-    }
+    };
 
     countExpenses();
   }, [transactions]);
-
 
   return (
     <View style={CalendarScreenStyle.container}>
