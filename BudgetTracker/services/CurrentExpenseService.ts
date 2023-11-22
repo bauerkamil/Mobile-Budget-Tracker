@@ -31,33 +31,6 @@ export const getUserCurrentExpenses = async (): Promise<ICurrentExpense[] | unde
   }
 }
 
-export const getUserCurrentExpensesBetween = async (startDate: Date | undefined, endDate: Date | undefined): Promise<ICurrentExpense[] | undefined> => {
-  try {
-    if (!startDate || !endDate) {
-      return undefined;
-    }
-    const userId = getUserId();
-    if (!userId) {
-      return undefined;
-    }
-
-    const currentExpensesRef = collection(firestore, CURRENT_EXPENSES_TABLE_NAME);
-    const currentExpensesQuery = query(currentExpensesRef, where("userId", "==", userId));
-    const querySnapshot = await getDocs(currentExpensesQuery);
-    const currentExpenses = querySnapshot.docs
-      .map(doc => ({ id: doc.id, ...doc.data() } as unknown as ICurrentExpense));
-
-    return currentExpenses.filter(currentExpense => currentExpense.date >= startDate && currentExpense.date <= endDate);
-  } catch (err: any) {
-    console.error(err);
-    Toast.show({
-      type: "error",
-      text1: "Error",
-      text2: err.message,
-    });
-  }
-}
-
 export const addCurrentExpense = async (currentExpense: ICurrentExpense) => {
   try {
     const userId = getUserId();

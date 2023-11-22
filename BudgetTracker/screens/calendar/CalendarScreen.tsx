@@ -10,13 +10,9 @@ import { Card, MD3Colors, Text } from "react-native-paper";
 import { parseDate } from "../../common/utils/parseDate";
 import { PieChart } from "react-native-chart-kit";
 import { TransactionItem } from "./components/transaction-item";
-import { ICategory, ICurrentExpense, IRecurringExpense } from "../../common/interfaces";
+import { ICategory } from "../../common/interfaces";
 import { getUserCategories } from "../../services/CategoryService";
-import { getUserRecurringExpenses, getUserRecurringExpensesBetween } from "../../services/RecurringExpenseService";
-import { getUserCurrentExpenses, getUserCurrentExpensesBetween } from "../../services/CurrentExpenseService";
 import { ITransaction } from "../../common/interfaces/ITransaction";
-import { addDays, set } from "date-fns";
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 import { getTransactions } from "../../services/TransactionsService";
 
 const screenWidth = Dimensions.get("window").width;
