@@ -12,6 +12,7 @@ export const CalendarScreenStyle = StyleSheet.create({
     justifyContent: "flex-start",
   },
   calendarBox: {
+    paddingTop: 15,
     width: "100%",
   },
   calendarText: {

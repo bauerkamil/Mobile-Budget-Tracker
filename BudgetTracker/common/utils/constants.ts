@@ -30,6 +30,7 @@ export const AvailableColors = [
 export const AvailableIcons = [
   "food",
   "bus",
+  "beer",
   "cards",
   "heart",
   "cash",
@@ -39,4 +40,9 @@ export const AvailableIcons = [
   "car",
   "airplane",
   "alarm",
+  "home",
+  "alert",
+  "atm",
+  "bank",
+  "baby",
 ];

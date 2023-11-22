@@ -93,7 +93,7 @@ const Current = () => {
     setCategoryDialogVisible(false);
   };
 
-  const handleAddExpense = (exponse: ICurrentExpense) => {
+  const handleAddExpense = (expense: ICurrentExpense) => {
     setExpenseDialogVisible(false);
     Toast.show({
       type: "success",

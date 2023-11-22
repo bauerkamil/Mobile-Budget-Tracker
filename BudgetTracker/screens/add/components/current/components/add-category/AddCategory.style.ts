@@ -8,4 +8,10 @@ export const AddCategoryStyle = StyleSheet.create({
     rowGap: 10,
     marginBottom: 30,
   },
+  iconView: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    gap: 10,
+  },
 });

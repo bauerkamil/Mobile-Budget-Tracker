@@ -3,7 +3,7 @@ import { FlatList, View } from "react-native";
 import { CurrentStyle } from "./Recurring.style";
 import Expense from "./components/expense/Expense";
 import AddExpense from "./components/add-expense/AddExpense";
-import { IRecurringExpense } from "../../../../common/interfaces";
+import { ICategory, IRecurringExpense } from "../../../../common/interfaces";
 import RemoveExpense from "./components/remove-expense/RemoveExpense";
 import Toast from "react-native-toast-message";
 
@@ -11,86 +11,138 @@ const Recurring = () => {
   const [addDialogVisible, setAddDialogVisible] = useState(false);
   const [removeDialogVisible, setRemoveDialogVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<IRecurringExpense>();
-  const [categories, setCategories] = useState<IRecurringExpense[]>([
+  const [recurringExpenses, setRecurringExpenses] = useState<IRecurringExpense[]>([
     {
       id: 1,
       name: "Food",
-      icon: "food",
-      color: "red",
+      categoryId: 1,
       value: 150,
       day: 1,
     },
     {
       id: 2,
       name: "Transport",
-      icon: "bus",
-      color: "blue",
+      categoryId: 2,
       value: 100,
       day: 2,
     },
     {
       id: 3,
       name: "Entertainment",
-      icon: "cards",
-      color: "green",
+      categoryId: 3,
       value: 50,
       day: 3,
     },
     {
       id: 4,
       name: "Health",
-      icon: "heart",
-      color: "gold",
+      categoryId: 4,
       value: 200,
       day: 4,
     },
     {
       id: 5,
       name: "Bills",
-      icon: "cash",
-      color: "purple",
+      categoryId: 5,
       value: 300,
       day: 5,
     },
     {
       id: 6,
       name: "Shopping",
-      icon: "cart",
-      color: "pink",
+      categoryId: 6,
       value: 100,
       day: 6,
     },
     {
       id: 7,
       name: "Education",
-      icon: "book",
-      color: "brown",
+      categoryId: 7,
       value: 100,
       day: 7,
     },
     {
       id: 8,
       name: "Gifts",
-      icon: "gift",
-      color: "black",
+      categoryId: 8,
       value: 100,
       day: 8,
     },
     {
       id: 9,
       name: "Salary",
-      icon: "cash-multiple",
-      color: "grey",
+      categoryId : 9,
       value: 100,
       day: 9,
     },
     {
       id: -1,
       name: "Add new",
-      icon: "plus",
-      color: "orange",
+      categoryId: -1,
       value: 0,
       day: 0,
+    },
+  ]);
+  const [categories, setCategories] = useState<ICategory[]>([
+    {
+      id: 1,
+      name: "Food",
+      icon: "food",
+      color: "red",
+    },
+    {
+      id: 2,
+      name: "Transport",
+      icon: "bus",
+      color: "blue",
+    },
+    {
+      id: 3,
+      name: "Entertainment",
+      icon: "cards",
+      color: "green",
+    },
+    {
+      id: 4,
+      name: "Health",
+      icon: "heart",
+      color: "gold",
+    },
+    {
+      id: 5,
+      name: "Bills",
+      icon: "cash",
+      color: "purple",
+    },
+    {
+      id: 6,
+      name: "Shopping",
+      icon: "cart",
+      color: "pink",
+    },
+    {
+      id: 7,
+      name: "Education",
+      icon: "book",
+      color: "brown",
+    },
+    {
+      id: 8,
+      name: "Gifts",
+      icon: "gift",
+      color: "black",
+    },
+    {
+      id: 9,
+      name: "Salary",
+      icon: "cash-multiple",
+      color: "grey",
+    },
+    {
+      id: -1,
+      name: "Add new",
+      icon: "plus",
+      color: "orange",
     },
   ]);
 
@@ -99,7 +151,7 @@ const Recurring = () => {
       setAddDialogVisible(true);
       return;
     }
-    const category = categories.find((c) => c.id === id);
+    const category = recurringExpenses.find((c) => c.id === id);
     if (!category) {
       return;
     }
@@ -107,18 +159,18 @@ const Recurring = () => {
     setRemoveDialogVisible(true);
   };
 
-  const handleAddCategory = (category: IRecurringExpense) => {
-    setCategories((c) => [category, ...c]);
+  const handleAddRecurringExpense = (recurringExpense: IRecurringExpense) => {
+    setRecurringExpenses((c) => [recurringExpense, ...c]);
     setAddDialogVisible(false);
   };
 
-  const handleRemoveCategory = (id: number) => {
-    setCategories((c) => c.filter((c) => c.id !== id));
+  const handleRemoveRecurringExpense = (id: number) => {
+    setRecurringExpenses((c) => c.filter((c) => c.id !== id));
     setRemoveDialogVisible(false);
     Toast.show({
       type: "success",
       text1: "Success",
-      text2: "Selected category has been removed",
+      text2: "Selected recurring expense has been removed",
     });
   };
 
@@ -126,23 +178,23 @@ const Recurring = () => {
     <View style={CurrentStyle.container}>
       <FlatList
         columnWrapperStyle={{ justifyContent: "space-between" }}
-        data={categories}
+        data={recurringExpenses}
         numColumns={2}
         renderItem={({ item }) => {
-          return <Expense expense={item} onClick={handleCategoryClick} />;
+          return <Expense expense={item} categories={categories} onClick={handleCategoryClick} />;
         }}
       />
       <AddExpense
         visible={addDialogVisible}
         onDismiss={() => setAddDialogVisible(false)}
-        onAdd={handleAddCategory}
+        onAdd={handleAddRecurringExpense}
       />
       {selectedCategory && (
         <RemoveExpense
           visible={removeDialogVisible}
           onDismiss={() => setRemoveDialogVisible(false)}
           expense={selectedCategory}
-          onRemove={handleRemoveCategory}
+          onRemove={handleRemoveRecurringExpense}
         />
       )}
     </View>

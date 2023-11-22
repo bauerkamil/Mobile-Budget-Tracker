@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { IAddCategoryProps } from "./IAddCategoryProps";
-import { Button, Dialog, Portal, TextInput } from "react-native-paper";
+import { Button, Dialog, Icon, Portal, TextInput, Text } from "react-native-paper";
 import { AddCategoryStyle } from "./AddCategory.style";
 import DropDown from "react-native-paper-dropdown";
 import {
@@ -8,6 +8,7 @@ import {
   AvailableIcons,
 } from "../../../../../../common/utils/constants";
 import { ICategory } from "../../../../../../common/interfaces";
+import { View } from "react-native";
 
 const AddCaterogry: React.FC<IAddCategoryProps> = (props) => {
   const { visible, onDismiss, onAdd } = props;
@@ -54,6 +55,16 @@ const AddCaterogry: React.FC<IAddCategoryProps> = (props) => {
             list={AvailableColors.map((color) => ({
               label: color,
               value: color,
+              custom: (
+                <View style={AddCategoryStyle.iconView}>
+                  <Icon
+                    source={"circle"}
+                    size={24}
+                    color={color}
+                  />
+                  <Text>{color}</Text>
+                </View>
+                  ),
             }))}
           />
           <DropDown
@@ -68,9 +79,18 @@ const AddCaterogry: React.FC<IAddCategoryProps> = (props) => {
                 return { ...c, icon: e };
               })
             }
-            list={AvailableIcons.map((color) => ({
-              label: color,
-              value: color,
+            list={AvailableIcons.map((icon) => ({
+              label: icon,
+              value: icon,
+              custom: (
+                <View style={AddCategoryStyle.iconView}>
+                  <Icon
+                    source={icon}
+                    size={24}
+                  />
+                  <Text>{icon}</Text>
+                </View>
+                  ),
             }))}
           />
           <Button mode="contained" onPress={handleAdd}>

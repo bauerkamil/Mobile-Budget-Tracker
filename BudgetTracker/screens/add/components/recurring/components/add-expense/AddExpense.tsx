@@ -1,59 +1,109 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IAddExpenseProps } from "./IAddExpenseProps";
-import { Button, Dialog, Portal, TextInput } from "react-native-paper";
+import { Button, Dialog, Icon, Portal, TextInput, Text } from "react-native-paper";
 import { AddExpenseStyle } from "./AddExpense.style";
 import DropDown from "react-native-paper-dropdown";
-import {
-  AvailableColors,
-  AvailableIcons,
-} from "../../../../../../common/utils/constants";
-import { IRecurringExpense } from "../../../../../../common/interfaces";
+import { ICategory, IRecurringExpense } from "../../../../../../common/interfaces";
+import CategoryDropdownItem from "./components/category-dropdown-item/CategoryDropdownItem";
 
 const AddExpense: React.FC<IAddExpenseProps> = (props) => {
   const { visible, onDismiss, onAdd } = props;
 
-  const [showColorDropDown, setShowColorDropDown] = useState(false);
-  const [showIconDropDown, setShowIconDropDown] = useState(false);
-  const [category, setCategory] = useState<IRecurringExpense>({
+  const [showCategoryDropDown, setShowCategoryDropDown] = useState(false);
+  const [recurringExpense, setRecurringExpense] = useState<IRecurringExpense>({
     id: 0,
     name: "",
-    icon: "",
-    color: "",
+    categoryId: 0,
     day: 0,
     value: 0,
   });
-
+  const [categories, setCategories] = useState<ICategory[]>([
+    {
+      id: 1,
+      name: "Food",
+      icon: "food",
+      color: "red",
+    },
+    {
+      id: 2,
+      name: "Transport",
+      icon: "bus",
+      color: "blue",
+    },
+    {
+      id: 3,
+      name: "Entertainment",
+      icon: "cards",
+      color: "green",
+    },
+    {
+      id: 4,
+      name: "Health",
+      icon: "heart",
+      color: "gold",
+    },
+    {
+      id: 5,
+      name: "Bills",
+      icon: "cash",
+      color: "purple",
+    },
+    {
+      id: 6,
+      name: "Shopping",
+      icon: "cart",
+      color: "pink",
+    },
+    {
+      id: 7,
+      name: "Education",
+      icon: "book",
+      color: "brown",
+    },
+    {
+      id: 8,
+      name: "Gifts",
+      icon: "gift",
+      color: "black",
+    },
+    {
+      id: 9,
+      name: "Salary",
+      icon: "cash-multiple",
+      color: "grey",
+    },
+  ]);
+  
   const handleValueChange = (value: string) => {
     if (value === "") {
-      setCategory((c) => ({ ...c, value: 0 }));
+      setRecurringExpense((c) => ({ ...c, value: 0 }));
       return;
     }
     const parsedValue = parseInt(value);
     if (isNaN(parsedValue)) {
       return;
     }
-    setCategory((c) => ({ ...c, value: parsedValue }));
+    setRecurringExpense((c) => ({ ...c, value: parsedValue }));
   };
 
   const handleDayChange = (day: string) => {
     if (day === "") {
-      setCategory((c) => ({ ...c, day: 0 }));
+      setRecurringExpense((c) => ({ ...c, day: 0 }));
       return;
     }
     const parsedDay = parseInt(day);
     if (isNaN(parsedDay)) {
       return;
     }
-    setCategory((c) => ({ ...c, day: parsedDay }));
+    setRecurringExpense((c) => ({ ...c, day: parsedDay }));
   };
 
   const handleAdd = () => {
-    onAdd(category);
-    setCategory({
+    onAdd(recurringExpense);
+    setRecurringExpense({
       id: 0,
       name: "",
-      icon: "",
-      color: "",
+      categoryId: 0,
       day: 0,
       value: 0,
     });
@@ -62,51 +112,39 @@ const AddExpense: React.FC<IAddExpenseProps> = (props) => {
   return (
     <Portal>
       <Dialog visible={visible} onDismiss={onDismiss}>
-        <Dialog.Title>New category</Dialog.Title>
+        <Dialog.Title>New recurring expense</Dialog.Title>
         <Dialog.Content style={AddExpenseStyle.content}>
           <TextInput
             label="Name"
-            onChange={(e) =>
-              setCategory((c) => ({ ...c, name: e.nativeEvent.text }))
+            onChangeText={(text) =>
+              setRecurringExpense((c) => ({ ...c, name: text }))
             }
-            value={category.name}
+            value={recurringExpense.name}
           />
           <TextInput
             keyboardType="numeric"
             label="Value (PLN)"
-            onChange={(e) => handleValueChange(e.nativeEvent.text)}
-            value={category.value.toString()}
+            onChangeText={(text) => handleValueChange(text)}
+            value={recurringExpense.value.toString()}
           />
           <TextInput
             keyboardType="numeric"
             label="Day of month"
-            onChange={(e) => handleDayChange(e.nativeEvent.text)}
-            value={category.day.toString()}
+            onChangeText={(text) => handleDayChange(text)}
+            value={recurringExpense.day.toString()}
           />
           <DropDown
-            label={"Color"}
+            label={"Category"}
             mode={"outlined"}
-            visible={showColorDropDown}
-            showDropDown={() => setShowColorDropDown(true)}
-            onDismiss={() => setShowColorDropDown(false)}
-            value={category.color}
-            setValue={(e: string) => setCategory((c) => ({ ...c, color: e }))}
-            list={AvailableColors.map((color) => ({
-              label: color,
-              value: color,
-            }))}
-          />
-          <DropDown
-            label={"Icon"}
-            mode={"outlined"}
-            visible={showIconDropDown}
-            showDropDown={() => setShowIconDropDown(true)}
-            onDismiss={() => setShowIconDropDown(false)}
-            value={category.icon}
-            setValue={(e: string) => setCategory((c) => ({ ...c, icon: e }))}
-            list={AvailableIcons.map((color) => ({
-              label: color,
-              value: color,
+            visible={showCategoryDropDown}
+            showDropDown={() => setShowCategoryDropDown(true)}
+            onDismiss={() => setShowCategoryDropDown(false)}
+            value={recurringExpense.categoryId}
+            setValue={(e: number) => setRecurringExpense((c) => ({ ...c, categoryId: e }))}
+            list={categories.map((category) => ({
+              label: category.name,
+              value: category.id,
+              custom: <CategoryDropdownItem category={category} />,
             }))}
           />
           <Button mode="contained" onPress={handleAdd}>

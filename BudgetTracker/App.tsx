@@ -7,7 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from "./screens/home/HomeScreen";
 import CalendarScreen from "./screens/calendar/CalendarScreen";
 import UserScreen from "./screens/user/UserScreen";
-import { BottomTabOptions } from "./components/tab-options/BottomTabOptions";
+import { TabOptions } from "./components/tab-options/TabOptions";
 import { AchievementsScreen } from "./screens/achievements/AchievementsScreen";
 import AddScreen from "./screens/add/AddScreen";
 import { Constants } from "./common/utils/constants";
@@ -33,7 +33,7 @@ export default function App() {
   const ProtectedTabs = () => {
     return (
       <Tab.Navigator
-          screenOptions={BottomTabOptions}
+          screenOptions={TabOptions}
         >
           <Tab.Screen
             name={Constants.Screens.Home}
