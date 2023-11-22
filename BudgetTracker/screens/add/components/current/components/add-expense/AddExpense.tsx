@@ -27,6 +27,7 @@ const AddExpense: React.FC<IAddExpenseProps> = (props) => {
     const expense: ICurrentExpense = {
       categoryId: category.id ?? "",
       value: value,
+      date: new Date(),
     };
     onAdd(expense);
     setValue(0);
