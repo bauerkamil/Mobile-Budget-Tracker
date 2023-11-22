@@ -15,6 +15,7 @@ import { TransactionItem } from "../../components/transaction-item";
 import { getTransactions } from "../../services/TransactionsService";
 import { loadGraphData, loadTopSpending } from "../../common/utils/helpers";
 import { getUserCategories } from "../../services/CategoryService";
+import { isSameDay } from "date-fns";
 
 const screenWidth = Dimensions.get("window").width + 50;
 const chartConfig = {
@@ -34,6 +35,7 @@ export default function HomeScreen(_props: IHomeScreenProps) {
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [graphData, setGraphData] = useState<LineChartData>();
   const [topSpending, setTopSpending] = useState<ICategory[]>([]);
+  const [spentToday, setSpentToday] = useState<number>(0);
 
   const auth = getAuth();
   onAuthStateChanged(auth, (user) => {
@@ -75,11 +77,18 @@ export default function HomeScreen(_props: IHomeScreenProps) {
     loadCategories();
   }, []);
 
+  const getTodaySpent = () => {
+    const todayExpenses = latestExpenses.filter(expense => isSameDay(expense.date, new Date));
+    let sum = 0;
+    todayExpenses.forEach(expense => sum += expense.value);
+    return sum;
+  };
   useEffect(() => {
     if (!latestExpenses || !categories) return;
 
     setGraphData(loadGraphData(latestExpenses));
     setTopSpending(loadTopSpending(latestExpenses, categories));
+    setSpentToday(getTodaySpent());
   }, [latestExpenses, categories]);
 
   return (
@@ -91,11 +100,14 @@ export default function HomeScreen(_props: IHomeScreenProps) {
           end={{ x: 1, y: 1 }}
           style={HomeScreenStyle.budgetHeader}
         >
+          <Text style={HomeScreenStyle.budgetText} variant="titleLarge">
+            You spent
+          </Text>
           <Text style={HomeScreenStyle.budgetText} variant="displayMedium">
-            50 PLN
+            {spentToday} PLN
           </Text>
           <Text style={HomeScreenStyle.budgetText} variant="titleLarge">
-            For today
+            today
           </Text>
         </LinearGradient>
         {graphData && (
