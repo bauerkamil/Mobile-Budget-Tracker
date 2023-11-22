@@ -12,10 +12,10 @@ import {
   parseDate,
 } from "../../common/utils/helpers";
 import { PieChart } from "react-native-chart-kit";
-import { TransactionItem } from "./components/transaction-item";
-import { ICategory, IChartData } from "../../common/interfaces";
+import { TransactionItem } from "../../components/transaction-item";
+import { ICategory } from "../../common/interfaces";
 import { getUserCategories } from "../../services/CategoryService";
-import { ITransaction } from "../../common/interfaces/ITransaction";
+import { ITransaction } from "../../common/interfaces";
 import { getTransactions } from "../../services/TransactionsService";
 
 const screenWidth = Dimensions.get("window").width;
@@ -31,7 +31,7 @@ const chartConfig = {
 
 export default function CalendarScreen() {
   const [startDate, setStartDate] = React.useState<Date | undefined>(
-    new Date()
+    new Date(),
   );
   const [endDate, setEndDate] = React.useState<Date | undefined>(new Date());
 
@@ -41,7 +41,7 @@ export default function CalendarScreen() {
 
   const onDateChange: DateChangedCallback = (
     date: Moment,
-    type: string
+    type: string,
   ): void => {
     if (!date || !date.toDate()) return;
     if (type === "END_DATE") {

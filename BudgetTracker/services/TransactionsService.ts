@@ -1,13 +1,13 @@
 import { addDays, isSameDay } from "date-fns";
 import { IRecurringExpense } from "../common/interfaces";
-import { ITransaction } from "../common/interfaces/ITransaction";
+import { ITransaction } from "../common/interfaces";
 import { getUserCurrentExpenses } from "./CurrentExpenseService";
 import { getUserRecurringExpenses } from "./RecurringExpenseService";
 
 const getRecurringExpenses = (
   expenses: IRecurringExpense[],
   startDate: Date,
-  endDate: Date
+  endDate: Date,
 ): ITransaction[] => {
   const daysBetween: Date[] = [];
   const transactions: ITransaction[] = [];
@@ -33,14 +33,15 @@ export const getTransactions = async (startDate: Date, endDate: Date) => {
   }
   let currentResponse = await getUserCurrentExpenses();
 
-  currentResponse = currentResponse?.filter((expense) => 
-    (expense.date >= startDate && expense.date <= endDate) 
-    || isSameDay(expense.date, startDate) 
-    || isSameDay(expense.date, endDate));
-
+  currentResponse = currentResponse?.filter(
+    (expense) =>
+      (expense.date >= startDate && expense.date <= endDate) ||
+      isSameDay(expense.date, startDate) ||
+      isSameDay(expense.date, endDate),
+  );
 
   const currentExpenses = currentResponse?.map(
-    (expense) => ({ ...expense, recurring: false }) as ITransaction
+    (expense) => ({ ...expense, recurring: false }) as ITransaction,
   );
 
   var recurringResponse = await getUserRecurringExpenses();
@@ -48,16 +49,16 @@ export const getTransactions = async (startDate: Date, endDate: Date) => {
   const daysInMonth = new Date(
     currentDate.getFullYear(),
     currentDate.getMonth(),
-    0
+    0,
   ).getDate();
 
   recurringResponse = recurringResponse?.filter(
-    (expense) => expense.day <= daysInMonth
+    (expense) => expense.day <= daysInMonth,
   );
   const recurringExpenses = getRecurringExpenses(
     recurringResponse ?? [],
     startDate,
-    endDate
+    endDate,
   );
 
   const transactions = [
