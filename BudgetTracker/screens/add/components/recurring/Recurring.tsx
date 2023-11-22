@@ -11,7 +11,9 @@ const Recurring = () => {
   const [addDialogVisible, setAddDialogVisible] = useState(false);
   const [removeDialogVisible, setRemoveDialogVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<IRecurringExpense>();
-  const [recurringExpenses, setRecurringExpenses] = useState<IRecurringExpense[]>([
+  const [recurringExpenses, setRecurringExpenses] = useState<
+    IRecurringExpense[]
+  >([
     {
       id: 1,
       name: "Food",
@@ -71,7 +73,7 @@ const Recurring = () => {
     {
       id: 9,
       name: "Salary",
-      categoryId : 9,
+      categoryId: 9,
       value: 100,
       day: 9,
     },
@@ -83,66 +85,77 @@ const Recurring = () => {
       day: 0,
     },
   ]);
+
   const [categories, setCategories] = useState<ICategory[]>([
     {
       id: 1,
       name: "Food",
       icon: "food",
       color: "red",
+      limit: 100,
     },
     {
       id: 2,
       name: "Transport",
       icon: "bus",
       color: "blue",
+      limit: 200,
     },
     {
       id: 3,
       name: "Entertainment",
       icon: "cards",
       color: "green",
+      limit: 300,
     },
     {
       id: 4,
       name: "Health",
       icon: "heart",
       color: "gold",
+      limit: 400,
     },
     {
       id: 5,
       name: "Bills",
       icon: "cash",
       color: "purple",
+      limit: 500,
     },
     {
       id: 6,
       name: "Shopping",
       icon: "cart",
       color: "pink",
+      limit: 600,
     },
     {
       id: 7,
       name: "Education",
       icon: "book",
       color: "brown",
+      limit: 700,
     },
     {
       id: 8,
       name: "Gifts",
       icon: "gift",
       color: "black",
+      limit: 800,
     },
     {
       id: 9,
       name: "Salary",
       icon: "cash-multiple",
       color: "grey",
+      limit: 900,
     },
     {
       id: -1,
       name: "Add new",
       icon: "plus",
       color: "orange",
+      limit: -1,
     },
   ]);
 
@@ -181,7 +194,13 @@ const Recurring = () => {
         data={recurringExpenses}
         numColumns={2}
         renderItem={({ item }) => {
-          return <Expense expense={item} categories={categories} onClick={handleCategoryClick} />;
+          return (
+            <Expense
+              expense={item}
+              categories={categories}
+              onClick={handleCategoryClick}
+            />
+          );
         }}
       />
       <AddExpense

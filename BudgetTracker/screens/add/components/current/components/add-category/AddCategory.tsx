@@ -1,6 +1,13 @@
 import { useState } from "react";
 import { IAddCategoryProps } from "./IAddCategoryProps";
-import { Button, Dialog, Icon, Portal, TextInput, Text } from "react-native-paper";
+import {
+  Button,
+  Dialog,
+  Icon,
+  Portal,
+  TextInput,
+  Text,
+} from "react-native-paper";
 import { AddCategoryStyle } from "./AddCategory.style";
 import DropDown from "react-native-paper-dropdown";
 import {
@@ -18,14 +25,27 @@ const AddCaterogry: React.FC<IAddCategoryProps> = (props) => {
 
   const [category, setCategory] = useState<ICategory>({
     id: 0,
+    limit: 0,
     name: "",
     icon: "",
     color: "",
   });
 
+  const handleLimitChange = (value: string) => {
+    if (value === "") {
+      setCategory((c) => ({ ...c, limit: 0 }));
+      return;
+    }
+    const parsedValue = parseInt(value);
+    if (isNaN(parsedValue)) {
+      return;
+    }
+    setCategory((c) => ({ ...c, limit: parsedValue }));
+  };
+
   const handleAdd = () => {
     onAdd(category);
-    setCategory({ id: 0, name: "", icon: "", color: "" });
+    setCategory({ id: 0, limit: 0, name: "", icon: "", color: "" });
   };
 
   return (
@@ -39,6 +59,12 @@ const AddCaterogry: React.FC<IAddCategoryProps> = (props) => {
             onChange={(e) =>
               setCategory((c) => ({ ...c, name: e.nativeEvent.text }))
             }
+          />
+          <TextInput
+            keyboardType="numeric"
+            label="Limit"
+            onChange={(e) => handleLimitChange(e.nativeEvent.text)}
+            value={category.limit.toString()}
           />
           <DropDown
             label={"Color"}
@@ -57,14 +83,10 @@ const AddCaterogry: React.FC<IAddCategoryProps> = (props) => {
               value: color,
               custom: (
                 <View style={AddCategoryStyle.iconView}>
-                  <Icon
-                    source={"circle"}
-                    size={24}
-                    color={color}
-                  />
+                  <Icon source={"circle"} size={24} color={color} />
                   <Text>{color}</Text>
                 </View>
-                  ),
+              ),
             }))}
           />
           <DropDown
@@ -84,13 +106,10 @@ const AddCaterogry: React.FC<IAddCategoryProps> = (props) => {
               value: icon,
               custom: (
                 <View style={AddCategoryStyle.iconView}>
-                  <Icon
-                    source={icon}
-                    size={24}
-                  />
+                  <Icon source={icon} size={24} />
                   <Text>{icon}</Text>
                 </View>
-                  ),
+              ),
             }))}
           />
           <Button mode="contained" onPress={handleAdd}>
