@@ -17,6 +17,18 @@ const AddExpense: React.FC<IAddExpenseProps> = (props) => {
     day: 0,
     value: 0,
   });
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  const handleNameChange = (name: string) => {
+    if (name === "") {
+      setRecurringExpense((c) => ({ ...c, name: "" }));
+      setIsButtonDisabled(true);
+      return;
+    }
+
+    setIsButtonDisabled(false);
+    setRecurringExpense((c) => ({ ...c, name: name }));
+  };
 
   const handleValueChange = (value: string) => {
     if (value === "") {
@@ -32,7 +44,7 @@ const AddExpense: React.FC<IAddExpenseProps> = (props) => {
 
   const handleDayChange = (day: string) => {
     if (day === "") {
-      setRecurringExpense((c) => ({ ...c, day: 0 }));
+      setRecurringExpense((c) => ({ ...c, day: 1 }));
       return;
     }
     const parsedDay = parseInt(day);
@@ -60,9 +72,7 @@ const AddExpense: React.FC<IAddExpenseProps> = (props) => {
         <Dialog.Content style={AddExpenseStyle.content}>
           <TextInput
             label="Name"
-            onChangeText={(text) =>
-              setRecurringExpense((c) => ({ ...c, name: text }))
-            }
+            onChangeText={handleNameChange}
             value={recurringExpense.name}
           />
           <TextInput
@@ -93,7 +103,11 @@ const AddExpense: React.FC<IAddExpenseProps> = (props) => {
               custom: <CategoryDropdownItem category={category} />,
             }))}
           />
-          <Button mode="contained" onPress={handleAdd}>
+          <Button
+            mode="contained"
+            onPress={handleAdd}
+            disabled={isButtonDisabled}
+          >
             Add
           </Button>
         </Dialog.Content>

@@ -1,4 +1,3 @@
-import { View } from "react-native";
 import { Button, Dialog, Portal } from "react-native-paper";
 
 import { IRemoveExpenseProps } from "./IRemoveExpenseProps";
@@ -17,14 +16,6 @@ const RemoveExpense: React.FC<IRemoveExpenseProps> = (props) => {
         <Dialog.Title style={RemoveExpenseStyle.text}>
           Delete {category.name}?
         </Dialog.Title>
-        <Dialog.Content>
-          <View
-            // @ts-ignore
-            style={RemoveExpenseStyle.text}
-          >
-            This action cannot be undone.
-          </View>
-        </Dialog.Content>
         <Dialog.Content style={RemoveExpenseStyle.content}>
           <Button mode="contained" onPress={() => onRemove(category.id!)}>
             Remove
