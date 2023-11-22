@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { ScrollView, View } from "react-native";
 import { Dimensions } from "react-native";
 import { Text } from "react-native-paper";
 import { LineChart } from "react-native-chart-kit";
 import { LinearGradient } from "expo-linear-gradient";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import { IHomeScreenProps } from "./IHomeScreenProps";
 import { HomeScreenStyle } from "./HomeScreen.style";
@@ -32,46 +34,39 @@ const data = {
 
 const categories: ICategory[] = [
   {
-    id: 1,
+    id: "1",
     name: "House",
     icon: "home",
     color: "blue",
+    limit: 200,
   },
   {
-    id: 2,
+    id: "2",
     name: "Transport",
     icon: "bus",
     color: "pink",
+    limit: 100,
   },
   {
-    id: 3,
+    id: "3",
     name: "Office",
     icon: "briefcase",
     color: "orange",
+    limit: 50,
   },
   {
-    id: 4,
+    id: "4",
     name: "Education",
     icon: "book",
     color: "purple",
+    limit: 150,
   },
   {
-    id: 5,
+    id: "5",
     name: "Medical",
     icon: "hospital",
     color: "red",
-  },
-  {
-    id: 6,
-    name: "Medical",
-    icon: "hospital",
-    color: "red",
-  },
-  {
-    id: 7,
-    name: "Medical",
-    icon: "hospital",
-    color: "red",
+    limit: 100,
   },
 ];
 
@@ -111,6 +106,17 @@ const mockedCategories = [
 ];
 
 export default function HomeScreen(_props: IHomeScreenProps) {
+  const [displayName, setDisplayName] = useState("");
+
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setDisplayName(user.displayName || "");
+    } else {
+      setDisplayName("");
+    }
+  });
+
   return (
     <View style={HomeScreenStyle.container}>
       <ScrollView contentContainerStyle={HomeScreenStyle.wrapper}>
@@ -147,7 +153,7 @@ export default function HomeScreen(_props: IHomeScreenProps) {
             }}
             variant="headlineSmall"
           >
-            Welcome, User
+            Welcome, {displayName}
           </Text>
         </View>
         <View style={HomeScreenStyle.section}>
@@ -179,8 +185,9 @@ export default function HomeScreen(_props: IHomeScreenProps) {
           >
             Categories
           </Text>
-          {mockedCategories.map((category) => (
+          {mockedCategories.map((category, key) => (
             <ProgressCard
+              key={key}
               title={category.title}
               subtitle={category.subtitle}
               color={category.color}

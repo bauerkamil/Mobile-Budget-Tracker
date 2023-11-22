@@ -1,15 +1,23 @@
 import { Button, Dialog, Portal } from "react-native-paper";
+
 import { IRemoveExpenseProps } from "./IRemoveExpenseProps";
 import { RemoveExpenseStyle } from "./RemoveExpense.style";
 
 const RemoveExpense: React.FC<IRemoveExpenseProps> = (props) => {
   const { visible, expense: category, onDismiss, onRemove } = props;
+
   return (
     <Portal>
-      <Dialog visible={visible} onDismiss={onDismiss}>
-        <Dialog.Title>{category.name}</Dialog.Title>
+      <Dialog
+        visible={visible}
+        onDismiss={onDismiss}
+        style={RemoveExpenseStyle.container}
+      >
+        <Dialog.Title style={RemoveExpenseStyle.text}>
+          Delete {category.name}?
+        </Dialog.Title>
         <Dialog.Content style={RemoveExpenseStyle.content}>
-          <Button mode="contained" onPress={() => onRemove(category.id)}>
+          <Button mode="contained" onPress={() => onRemove(category.id!)}>
             Remove
           </Button>
         </Dialog.Content>
