@@ -13,7 +13,7 @@ import {
 } from "../../common/utils/helpers";
 import { PieChart } from "react-native-chart-kit";
 import { TransactionItem } from "../../components/transaction-item";
-import { ICategory, IChartData } from "../../common/interfaces";
+import { ICategory } from "../../common/interfaces";
 import { getUserCategories } from "../../services/CategoryService";
 import { ITransaction } from "../../common/interfaces";
 import { getTransactions } from "../../services/TransactionsService";
