@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { ScrollView, View } from "react-native";
 import { Dimensions } from "react-native";
 import { Text } from "react-native-paper";
 import { LineChart } from "react-native-chart-kit";
 import { LinearGradient } from "expo-linear-gradient";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import { IHomeScreenProps } from "./IHomeScreenProps";
 import { HomeScreenStyle } from "./HomeScreen.style";
@@ -104,6 +106,17 @@ const mockedCategories = [
 ];
 
 export default function HomeScreen(_props: IHomeScreenProps) {
+  const [displayName, setDisplayName] = useState("");
+
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setDisplayName(user.displayName || "");
+    } else {
+      setDisplayName("");
+    }
+  });
+
   return (
     <View style={HomeScreenStyle.container}>
       <ScrollView contentContainerStyle={HomeScreenStyle.wrapper}>
@@ -140,7 +153,7 @@ export default function HomeScreen(_props: IHomeScreenProps) {
             }}
             variant="headlineSmall"
           >
-            Welcome, User
+            Welcome, {displayName}
           </Text>
         </View>
         <View style={HomeScreenStyle.section}>

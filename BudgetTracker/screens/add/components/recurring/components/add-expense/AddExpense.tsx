@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { IAddExpenseProps } from "./IAddExpenseProps";
-import { Button, Dialog, Portal, TextInput, Text } from "react-native-paper";
+import { Button, Dialog, Portal, TextInput } from "react-native-paper";
 import { AddExpenseStyle } from "./AddExpense.style";
 import DropDown from "react-native-paper-dropdown";
 import { IRecurringExpense } from "../../../../../../common/interfaces";

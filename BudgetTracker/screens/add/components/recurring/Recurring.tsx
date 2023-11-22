@@ -7,7 +7,11 @@ import { ICategory, IRecurringExpense } from "../../../../common/interfaces";
 import RemoveExpense from "./components/remove-expense/RemoveExpense";
 import Toast from "react-native-toast-message";
 import { getUserCategories } from "../../../../services/CategoryService";
-import { getUserRecurringExpenses } from "../../../../services/RecurringExpenseService";
+import {
+  addRecurringExpense,
+  getUserRecurringExpenses,
+  removeRecurringExpense,
+} from "../../../../services/RecurringExpenseService";
 
 const Recurring = () => {
   const [addDialogVisible, setAddDialogVisible] = useState(false);
@@ -59,18 +63,43 @@ const Recurring = () => {
   };
 
   const handleAddRecurringExpense = (recurringExpense: IRecurringExpense) => {
-    setRecurringExpenses((c) => [recurringExpense, ...c]);
     setAddDialogVisible(false);
+    addRecurringExpense(recurringExpense)
+      .then(() => {
+        setRecurringExpenses((c) => [recurringExpense, ...c]);
+        Toast.show({
+          type: "success",
+          text1: "Success",
+          text2: "Expense has been added",
+        });
+      })
+      .catch(() => {
+        Toast.show({
+          type: "error",
+          text1: "Something went wrong",
+          text2: "Expense has not been added",
+        });
+      });
   };
 
   const handleRemoveRecurringExpense = (id: string) => {
-    setRecurringExpenses((c) => c.filter((c) => c.id !== id));
     setRemoveDialogVisible(false);
-    Toast.show({
-      type: "success",
-      text1: "Success",
-      text2: "Selected recurring expense has been removed",
-    });
+    removeRecurringExpense(id)
+      .then(() => {
+        setRecurringExpenses((c) => c.filter((c) => c.id !== id));
+        Toast.show({
+          type: "success",
+          text1: "Success",
+          text2: "Selected recurring expense has been removed",
+        });
+      })
+      .catch(() => {
+        Toast.show({
+          type: "error",
+          text1: "Something went wrong",
+          text2: "Selected recurring expense has not been removed",
+        });
+      });
   };
 
   return (
@@ -93,7 +122,7 @@ const Recurring = () => {
         visible={addDialogVisible}
         onDismiss={() => setAddDialogVisible(false)}
         onAdd={handleAddRecurringExpense}
-        categories={categories}
+        categories={categories.filter((c) => c.id !== "-1")}
       />
       {selectedCategory && (
         <RemoveExpense
