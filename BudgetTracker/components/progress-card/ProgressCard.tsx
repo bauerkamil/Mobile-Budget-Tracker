@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Card, Icon, MD3Colors, ProgressBar, Text } from "react-native-paper";
 
 import { ProgressCardStyle } from "./ProgressCard.style";
@@ -6,19 +6,19 @@ import { IProgressCardProps } from "./IProgressCardProps";
 
 export const ProgressCard = ({
   title,
-  subtitle,
   color,
   icon,
   currentlySpent,
   totalBudget,
 }: IProgressCardProps) => {
+  const moneyLeft = totalBudget - currentlySpent;
   return (
     <Card style={ProgressCardStyle.card}>
       <Card.Content>
         <View style={ProgressCardStyle.titleContainer}>
-          <View style={ProgressCardStyle.iconContainer}>
+          <View style={StyleSheet.flatten([ProgressCardStyle.iconContainer, {backgroundColor: color ?? "black"}])}>
             <View style={ProgressCardStyle.iconWrapper}>
-              <Icon source={icon} color={color} size={20} />
+              <Icon source={icon} color={MD3Colors.neutralVariant99} size={20} />
             </View>
           </View>
           <View>
@@ -32,7 +32,7 @@ export const ProgressCard = ({
               {title}
             </Text>
             <Text variant={"labelLarge"} style={ProgressCardStyle.textColor}>
-              {subtitle}
+              {moneyLeft > 0 ? (moneyLeft + " PLN left") : "No money left"}
             </Text>
           </View>
         </View>

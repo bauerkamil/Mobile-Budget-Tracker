@@ -1,4 +1,5 @@
-import { ICategory, IChartData, ITransaction } from "../interfaces";
+import { ICategory, ITransaction } from "../interfaces";
+import { ICategoryExpenses } from "../interfaces/ICategoryExpenses";
 
 export const parseDate = (startDate?: Date, endDate?: Date): string => {
   const dateToString = (date: Date): string =>
@@ -20,8 +21,8 @@ export const parseDate = (startDate?: Date, endDate?: Date): string => {
 export const groupTransactionsByCategory = (
   transactions: ITransaction[],
   categories: ICategory[],
-): IChartData[] => {
-  const groupedTransactions: IChartData[] = [];
+): ICategoryExpenses[] => {
+  const groupedTransactions: ICategoryExpenses[] = [];
   categories.forEach((category) => {
     const transactionsForCategory = transactions.filter(
       (transaction) => transaction.categoryId === category.id,
@@ -34,9 +35,8 @@ export const groupTransactionsByCategory = (
       return;
     }
     groupedTransactions.push({
-      name: category.name,
       value: total,
-      color: category.color,
+      ...category
     });
   });
   return groupedTransactions;

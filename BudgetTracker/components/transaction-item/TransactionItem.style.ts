@@ -21,7 +21,6 @@ export const TransactionItemStyle = StyleSheet.create({
   iconContainer: {
     height: 60,
     width: 60,
-    backgroundColor: MD3Colors.tertiary90,
     borderRadius: 15,
   },
 

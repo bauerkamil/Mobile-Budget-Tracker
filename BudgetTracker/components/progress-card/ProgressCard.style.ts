@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import { MD3Colors } from "react-native-paper";
 
 export const ProgressCardStyle = StyleSheet.create({
   card: {
@@ -21,7 +20,6 @@ export const ProgressCardStyle = StyleSheet.create({
   iconContainer: {
     height: "100%",
     width: 50,
-    backgroundColor: MD3Colors.tertiary90,
     borderRadius: 15,
   },
 
