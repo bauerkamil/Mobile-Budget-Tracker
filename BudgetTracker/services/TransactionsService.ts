@@ -1,0 +1,45 @@
+import { addDays } from "date-fns";
+import { IRecurringExpense } from "../common/interfaces";
+import { ITransaction } from "../common/interfaces/ITransaction";
+import { getUserCurrentExpenses } from "./CurrentExpenseService";
+import { getUserRecurringExpenses } from "./RecurringExpenseService";
+
+const getRecurringExpenses = (expenses: IRecurringExpense[], startDate: Date, endDate: Date): ITransaction[] => {
+  const daysBetween: Date[] = [];
+  const transactions: ITransaction[] = [];
+  let date = startDate;
+  while (date <= endDate) {
+    daysBetween.push(date);
+    date = addDays(date, 1);
+  }
+  expenses.forEach(expense => {
+    daysBetween.forEach(day => {
+      if (day.getDate() === expense.day) {
+        transactions.push({...expense, date: day, recurring: true});
+      }
+    })        
+  });
+
+  return transactions;
+}
+
+export const getTransactions = async (startDate: Date, endDate: Date) => {
+  if (!startDate || !endDate) {
+    return;
+  }
+  let currentResponse = await getUserCurrentExpenses();
+  currentResponse = currentResponse?.filter((expense) => expense.date >= startDate && expense.date <= endDate);
+
+  const currentExpenses = currentResponse?.map((expense) => ({...expense, recurring: false} as ITransaction));
+
+  var recurringResponse = await getUserRecurringExpenses();
+  const currentDate = new Date();
+  const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate()
+
+  recurringResponse = recurringResponse?.filter((expense) => expense.day <= daysInMonth);
+  const recurringExpenses = getRecurringExpenses(recurringResponse ?? [], startDate, endDate);
+
+  const transactions = [...currentExpenses ?? [], ...recurringExpenses ?? []];
+  
+  return transactions;
+};
