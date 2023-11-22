@@ -120,6 +120,7 @@ export default function RegisterScreen(props: IRegisterScreenProps) {
           label={"Repeat password:"}
           placeholder="Repeat Password"
           onChangeText={handleRepeatPasswordChange}
+          onSubmitEditing={register}
           secureTextEntry={isRepeatPwdHidden}
           right={<TextInput.Icon icon="eye" onPress={toggleRepeatPwdVisibility} />}
         />

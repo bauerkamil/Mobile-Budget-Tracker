@@ -1,25 +1,35 @@
-import { GoogleAuthProvider, User, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "./firebaseinit";
+import Toast from "react-native-toast-message";
 
 
 export const registerWithEmail = async (email: string, displayName: string, password: string): Promise<void> => {
-    let user = null;
     try {
-        const response = await createUserWithEmailAndPassword(auth, email, password);
+        await createUserWithEmailAndPassword(auth, email, password);
 
         if (auth.currentUser) {
             await updateProfile(auth.currentUser, { displayName })
         }
-    } catch (err) {
+    } catch (err: any) {
         console.error(err);
+        Toast.show({
+            type: "error",
+            text1: "Error",
+            text2: err.message,
+        });
     }
 }
 
 export const signInWithEmail = async (email: string, password: string): Promise<void> => {
     try {
-        const response = await signInWithEmailAndPassword(auth, email, password);
-    } catch (err) {
+        await signInWithEmailAndPassword(auth, email, password);
+    } catch (err: any) {
         console.error(err);
+        Toast.show({
+            type: "error",
+            text1: "Error",
+            text2: err.message,
+        });
     }
 }
 

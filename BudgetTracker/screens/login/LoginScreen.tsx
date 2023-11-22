@@ -58,7 +58,8 @@ export default function LoginScreen(props: ILoginScreenProps) {
           mode="outlined"
           label={"Password:"}
           placeholder="Password"
-          onChangeText={handlePasswordChange}          
+          onChangeText={handlePasswordChange}
+          onSubmitEditing={login}    
           secureTextEntry={isPwdHidden}
           right={<TextInput.Icon icon="eye" onPress={togglePwdVisibility} />}
         />
