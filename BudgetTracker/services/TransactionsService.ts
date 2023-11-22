@@ -1,4 +1,4 @@
-import { addDays } from "date-fns";
+import { addDays, isSameDay } from "date-fns";
 import { IRecurringExpense } from "../common/interfaces";
 import { ITransaction } from "../common/interfaces/ITransaction";
 import { getUserCurrentExpenses } from "./CurrentExpenseService";
@@ -32,9 +32,12 @@ export const getTransactions = async (startDate: Date, endDate: Date) => {
     return;
   }
   let currentResponse = await getUserCurrentExpenses();
-  currentResponse = currentResponse?.filter(
-    (expense) => expense.date >= startDate && expense.date <= endDate
-  );
+
+  currentResponse = currentResponse?.filter((expense) => 
+    (expense.date >= startDate && expense.date <= endDate) 
+    || isSameDay(expense.date, startDate) 
+    || isSameDay(expense.date, endDate));
+
 
   const currentExpenses = currentResponse?.map(
     (expense) => ({ ...expense, recurring: false }) as ITransaction
