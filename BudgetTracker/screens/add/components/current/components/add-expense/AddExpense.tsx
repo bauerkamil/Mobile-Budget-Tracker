@@ -9,6 +9,8 @@ const AddExpense: React.FC<IAddExpenseProps> = (props) => {
 
   const [value, setValue] = useState(0);
 
+  const isButtonDisabled = value <= 0;
+
   const handleValueChange = (value: string) => {
     if (value === "") {
       setValue(0);
@@ -23,7 +25,7 @@ const AddExpense: React.FC<IAddExpenseProps> = (props) => {
 
   const handleAdd = () => {
     const expense: ICurrentExpense = {
-      categoryId: category.id,
+      categoryId: category.id ?? "",
       value: value,
     };
     onAdd(expense);
@@ -41,7 +43,11 @@ const AddExpense: React.FC<IAddExpenseProps> = (props) => {
             onChange={(e) => handleValueChange(e.nativeEvent.text)}
             value={value.toString()}
           />
-          <Button mode="contained" onPress={handleAdd}>
+          <Button
+            mode="contained"
+            onPress={handleAdd}
+            disabled={isButtonDisabled}
+          >
             Add
           </Button>
         </Dialog.Content>
