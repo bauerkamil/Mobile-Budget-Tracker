@@ -14,6 +14,8 @@ import Category from "./components/category/Category";
 import { TransactionItem } from "../../components/transaction-item";
 import { getTransactions } from "../../services/TransactionsService";
 import { loadGraphData } from "../../common/utils/loadGraphData";
+import { loadTopSpending } from "../../common/utils/loadTopSpending";
+import { getUserCategories } from "../../services/CategoryService";
 
 const screenWidth = Dimensions.get("window").width + 50;
 const chartConfig = {
@@ -27,48 +29,12 @@ const chartConfig = {
   useShadowColorFromDataset: false,
 };
 
-const categories: ICategory[] = [
-  {
-    id: "1",
-    name: "House",
-    icon: "home",
-    color: "blue",
-    limit: 200,
-  },
-  {
-    id: "2",
-    name: "Transport",
-    icon: "bus",
-    color: "pink",
-    limit: 100,
-  },
-  {
-    id: "3",
-    name: "Office",
-    icon: "briefcase",
-    color: "orange",
-    limit: 50,
-  },
-  {
-    id: "4",
-    name: "Education",
-    icon: "book",
-    color: "purple",
-    limit: 150,
-  },
-  {
-    id: "5",
-    name: "Medical",
-    icon: "hospital",
-    color: "red",
-    limit: 100,
-  },
-];
-
 export default function HomeScreen(_props: IHomeScreenProps) {
   const [displayName, setDisplayName] = useState("");
   const [latestExpenses, setLatestExpenses] = useState<ITransaction[]>([]);
+  const [categories, setCategories] = useState<ICategory[]>([]);
   const [graphData, setGraphData] = useState<LineChartData>();
+  const [topSpending, setTopSpending] = useState<ICategory[]>([]);
 
   const auth = getAuth();
   onAuthStateChanged(auth, (user) => {
@@ -93,12 +59,29 @@ export default function HomeScreen(_props: IHomeScreenProps) {
           expenses.sort((a, b) => b.date.getTime() - a.date.getTime()),
         );
       }
-
-      setGraphData(loadGraphData(latestExpenses));
     };
 
     loadExpenses();
   }, []);
+
+  useEffect(() => {
+    const loadCategories = async () => {
+      const categories = await getUserCategories();
+      if (!categories) {
+        return;
+      }
+      setCategories(categories);
+    };
+
+    loadCategories();
+  }, []);
+
+  useEffect(() => {
+    if (!latestExpenses || !categories) return;
+
+    setGraphData(loadGraphData(latestExpenses));
+    setTopSpending(loadTopSpending(latestExpenses, categories));
+  }, [latestExpenses, categories]);
 
   return (
     <View style={HomeScreenStyle.container}>
@@ -149,13 +132,13 @@ export default function HomeScreen(_props: IHomeScreenProps) {
             }}
             variant="titleMedium"
           >
-            Top Spending
+            Top spending from 7 days
           </Text>
           <ScrollView
             horizontal={true}
             contentContainerStyle={{ columnGap: 10 }}
           >
-            {categories.map((category) => (
+            {topSpending.map((category) => (
               <Category key={category.id} category={category} />
             ))}
           </ScrollView>
@@ -168,7 +151,7 @@ export default function HomeScreen(_props: IHomeScreenProps) {
             }}
             variant="titleMedium"
           >
-            Latest expenses
+            Latest from 7 days
           </Text>
           {latestExpenses.map((expense, key) => (
             <TransactionItem

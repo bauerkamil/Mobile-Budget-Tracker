@@ -9,25 +9,27 @@ export const loadGraphData = (latestExpenses: ITransaction[]) => {
     .reverse();
 
   const filteredExpenses = latestExpenses.reduce(
-    (acc: { day: number; value: number }[], expense: ITransaction) => {
+    (acc: { [day: number]: number }, expense: ITransaction) => {
       const day = expense.date.getDate();
 
       if (!acc[day]) {
-        acc[day].value = 0;
+        acc[day] = 0;
       }
 
-      acc[day].value += expense.value;
+      acc[day] += expense.value;
 
       return acc;
     },
-    [],
+    {},
   );
 
   return {
     labels: orderedDays,
     datasets: [
       {
-        data: filteredExpenses.map((expense) => expense.value).reverse(),
+        data: Object.entries(filteredExpenses)
+          .map(([_key, value]) => value)
+          .reverse(),
       },
     ],
   };
