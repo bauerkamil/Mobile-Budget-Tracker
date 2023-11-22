@@ -1,6 +1,8 @@
+import { ICategory } from "../../../../common/interfaces";
+import { ITransaction } from "../../../../common/interfaces/ITransaction";
+
 export interface ITransactionItemProps {
-  title: string;
-  date: string;
-  amount: number;
-  icon: string;
+  transaction: ITransaction;
+  categoryId?: string;
+  categories?: ICategory[];
 }

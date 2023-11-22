@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Dimensions, ScrollView, View } from "react-native";
 import CalendarPicker, {
   DateChangedCallback,
@@ -10,7 +10,14 @@ import { Card, MD3Colors, Text } from "react-native-paper";
 import { parseDate } from "../../common/utils/parseDate";
 import { PieChart } from "react-native-chart-kit";
 import { TransactionItem } from "./components/transaction-item";
-import { ITransactionItemProps } from "./components/transaction-item/ITransactionItemProps";
+import { ICategory, ICurrentExpense, IRecurringExpense } from "../../common/interfaces";
+import { getUserCategories } from "../../services/CategoryService";
+import { getUserRecurringExpenses, getUserRecurringExpensesBetween } from "../../services/RecurringExpenseService";
+import { getUserCurrentExpenses, getUserCurrentExpensesBetween } from "../../services/CurrentExpenseService";
+import { ITransaction } from "../../common/interfaces/ITransaction";
+import { addDays, set } from "date-fns";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
+import { getTransactions } from "../../services/TransactionsService";
 
 const screenWidth = Dimensions.get("window").width;
 const data = [
@@ -57,28 +64,15 @@ const chartConfig = {
   useShadowColorFromDataset: false,
 };
 
-const mockedTransactions: ITransactionItemProps[] = [
-  {
-    title: "Food",
-    date: "12/12/2023",
-    amount: 124,
-    icon: "food",
-  },
-  {
-    title: "Home",
-    date: "23/12/2023",
-    amount: 1244,
-    icon: "home",
-  },
-];
-
 export default function CalendarScreen() {
   const [startDate, setStartDate] = React.useState<Date | undefined>(
     new Date(),
   );
   const [endDate, setEndDate] = React.useState<Date | undefined>(new Date());
-
-  const [currentlySpent, _setCurrentlySpent] = React.useState<number>(2);
+  
+  const [transactions, setTransactions] = React.useState<ITransaction[]>([]);
+  const [categories, setCategories] = React.useState<ICategory[]>([]);
+  const [currentlySpent, setCurrentlySpent] = React.useState<number>(0);
 
   const onDateChange: DateChangedCallback = (
     date: Moment,
@@ -92,6 +86,49 @@ export default function CalendarScreen() {
       setEndDate(undefined);
     }
   };
+
+  useEffect(() => {
+    const loadCategories = async () => {
+      const categories = await getUserCategories();
+      if (!categories) {
+        return;
+      }
+      setCategories(categories);
+    };
+
+    loadCategories();
+  }, []);
+
+  useEffect(() => {
+    const loadExpenses = async () => {
+      if (!startDate || !endDate) return;
+      const expenses = await getTransactions(startDate, endDate);
+      if (!expenses) {
+        setTransactions([]);
+      } else
+      {
+        setTransactions(expenses);
+      }
+    };
+
+    loadExpenses();
+  }, [startDate, endDate]);
+
+  useEffect(() => {
+    const countExpenses = () => {
+      if (!transactions || transactions.length === 0) {
+        setCurrentlySpent(0);
+      }
+      let sum = 0;
+      transactions.forEach((expense) => {
+        sum += expense.value;
+      });
+      setCurrentlySpent(sum);
+    }
+
+    countExpenses();
+  }, [transactions]);
+
 
   return (
     <View style={CalendarScreenStyle.container}>
@@ -152,13 +189,11 @@ export default function CalendarScreen() {
           <Text variant={"titleMedium"} style={CalendarScreenStyle.sectionText}>
             Transactions
           </Text>
-          {mockedTransactions.map((transaction, key) => (
+          {transactions.map((expense, key) => (
             <TransactionItem
               key={key}
-              title={transaction.title}
-              date={transaction.date}
-              amount={transaction.amount}
-              icon={transaction.icon}
+              categories={categories}
+              transaction={expense}
             />
           ))}
         </View>

@@ -15,12 +15,36 @@ export const getUserRecurringExpenses = async (): Promise<IRecurringExpense[] | 
     }
 
     const recurringExpensesRef = collection(firestore, RECURRING_EXPENSES_TABLE_NAME);
-    const recurringExpensesQuery = query(recurringExpensesRef, where("__userId__", "==", userId));
+    const recurringExpensesQuery = query(recurringExpensesRef, where("userId", "==", userId));
     const querySnapshot = await getDocs(recurringExpensesQuery);
     const recurringExpenses = querySnapshot.docs
       .map(doc => ({ id: doc.id, ...doc.data() } as unknown as IRecurringExpense));
 
     return recurringExpenses;
+  } catch (err: any) {
+    console.error(err);
+    Toast.show({
+      type: "error",
+      text1: "Error",
+      text2: err.message,
+    });
+  }
+}
+
+export const getUserRecurringExpensesBetween = async (startDay: number, endDay: number): Promise<IRecurringExpense[] | undefined> => {
+  try {
+    const userId = getUserId();
+    if (!userId) {
+      return undefined;
+    }
+
+    const recurringExpensesRef = collection(firestore, RECURRING_EXPENSES_TABLE_NAME);
+    const recurringExpensesQuery = query(recurringExpensesRef, where("userId", "==", userId));
+    const querySnapshot = await getDocs(recurringExpensesQuery);
+    const recurringExpenses = querySnapshot.docs
+      .map(doc => ({ id: doc.id, ...doc.data() } as unknown as IRecurringExpense));
+
+    return recurringExpenses.filter(recurringExpense => recurringExpense.day >= startDay && recurringExpense.day <= endDay);
   } catch (err: any) {
     console.error(err);
     Toast.show({

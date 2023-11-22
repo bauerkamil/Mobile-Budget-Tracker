@@ -1,8 +1,5 @@
-export interface IRecurringExpense {
-  id?: string;
-  userId?: string;
-  name: string;
-  categoryId: number;
-  value: number;
+import { IExpense } from "./IExpense";
+
+export interface IRecurringExpense extends IExpense {
   day: number;
 }

@@ -15,7 +15,7 @@ export const getUserCategories = async (): Promise<ICategory[] | undefined> => {
   }
 
   const categoriesRef = collection(firestore, CATEGORY_TABLE_NAME);
-  const categoriesQuery = query(categoriesRef, or(where("__userId__", "==", "-1"), where("__userId__", "==", userId)));
+  const categoriesQuery = query(categoriesRef, or(where("userId", "==", "-1"), where("userId", "==", userId)));
   const querySnapshot = await getDocs(categoriesQuery);
   const categories = querySnapshot.docs
     .map(doc => ({ id: doc.id, ...doc.data() } as unknown as ICategory));

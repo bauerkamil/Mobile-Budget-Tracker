@@ -3,13 +3,15 @@ import { Icon, Text } from "react-native-paper";
 
 import { ITransactionItemProps } from "./ITransactionItemProps";
 import { TransactionItemStyle } from "./TransactionItem.style";
+import { format } from "date-fns";
 
 export const TransactionItem = ({
-  title,
-  date,
-  amount,
-  icon,
+  transaction,
+  categoryId,
+  categories,
 }: ITransactionItemProps) => {
+  const { name, date, value, recurring } = transaction;
+  const icon = categories?.find((category) => category.id === categoryId)?.icon;
   return (
     <View style={TransactionItemStyle.container}>
       <View style={TransactionItemStyle.iconContainer}>
@@ -19,10 +21,10 @@ export const TransactionItem = ({
       </View>
       <View style={TransactionItemStyle.titleContainer}>
         <Text variant={"titleMedium"} style={TransactionItemStyle.textColor}>
-          {title}
+          {name}
         </Text>
         <Text variant={"labelLarge"} style={TransactionItemStyle.textColor}>
-          {date}
+          {format(date, "dd.MM.yyyy")}{recurring && " (recurring)"}
         </Text>
       </View>
       <Text
@@ -32,7 +34,7 @@ export const TransactionItem = ({
           ...TransactionItemStyle.textBold,
         }}
       >
-        {amount + " PLN"}
+        {value + " PLN"}
       </Text>
     </View>
   );

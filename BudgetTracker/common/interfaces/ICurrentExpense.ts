@@ -1,6 +1,5 @@
-export interface ICurrentExpense {
-  id?: string;
-  userId?: string;
-  categoryId: number;
-  value: number;
+import { IExpense } from "./IExpense";
+
+export interface ICurrentExpense extends IExpense {
+  date: Date;
 }
