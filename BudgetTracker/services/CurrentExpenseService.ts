@@ -41,7 +41,8 @@ export const addCurrentExpense = async (currentExpense: ICurrentExpense) => {
     currentExpense.userId = userId;
     const currentExpensesRef = collection(firestore, CURRENT_EXPENSES_TABLE_NAME);
     delete currentExpense.id;
-    await addDoc(currentExpensesRef, currentExpense);
+    const doc = await addDoc(currentExpensesRef, currentExpense);
+    return doc.id;
   } catch (err: any) {
     console.error(err);
     Toast.show({

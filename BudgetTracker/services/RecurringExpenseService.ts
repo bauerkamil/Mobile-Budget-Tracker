@@ -56,7 +56,8 @@ export const addRecurringExpense = async (recurringExpense: IRecurringExpense) =
       RECURRING_EXPENSES_TABLE_NAME
     );
     delete recurringExpense.id;
-    await addDoc(recurringExpensesRef, recurringExpense);
+    const doc = await addDoc(recurringExpensesRef, recurringExpense);
+    return doc.id;
   } catch (err: any) {
     console.error(err);
     Toast.show({

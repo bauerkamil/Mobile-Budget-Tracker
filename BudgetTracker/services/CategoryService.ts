@@ -48,7 +48,8 @@ export const addCategory = async (category: ICategory) => {
     category.userId = userId;
     const categoriesRef = collection(firestore, CATEGORY_TABLE_NAME);
     delete category.id;
-    await addDoc(categoriesRef, category);
+    const result = await addDoc(categoriesRef, category);
+    return result.id;
   } catch (err: any) {
     console.error(err);
     Toast.show({
