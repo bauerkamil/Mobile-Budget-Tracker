@@ -17,6 +17,7 @@ import { ICategory } from "../../common/interfaces";
 import { getUserCategories } from "../../services/CategoryService";
 import { ITransaction } from "../../common/interfaces";
 import { getTransactions } from "../../services/TransactionsService";
+import { NoData } from "../../components/no-data/NoData";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -148,7 +149,7 @@ export default function CalendarScreen() {
               style={CalendarScreenStyle.pieChartStyle}
             />
           ) : (
-            <Text>No data</Text>
+            <NoData />
           )}
         </View>
         <View style={CalendarScreenStyle.section}>
@@ -164,7 +165,7 @@ export default function CalendarScreen() {
               />
             ))
           ) : (
-            <Text>No data</Text>
+            <NoData />
           )}
         </View>
       </ScrollView>

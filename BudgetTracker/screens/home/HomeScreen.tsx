@@ -16,6 +16,7 @@ import { getTransactions } from "../../services/TransactionsService";
 import { loadGraphData, loadTopSpending } from "../../common/utils/helpers";
 import { getUserCategories } from "../../services/CategoryService";
 import { isSameDay } from "date-fns";
+import { NoData } from "../../components/no-data/NoData";
 
 const screenWidth = Dimensions.get("window").width + 50;
 const chartConfig = {
@@ -145,14 +146,17 @@ export default function HomeScreen(_props: IHomeScreenProps) {
           >
             Top categories from 7 days
           </Text>
-          <ScrollView
-            horizontal={true}
-            contentContainerStyle={{ columnGap: 10 }}
-          >
-            {topSpending.map((category) => (
-              <Category key={category.id} category={category} />
-            ))}
-          </ScrollView>
+          {topSpending && topSpending.length > 0 ? 
+          (
+            <ScrollView
+              horizontal={true}
+              contentContainerStyle={{ columnGap: 10 }}
+            >
+              {topSpending.map((category) => (
+                <Category key={category.id} category={category} />
+              ))}
+            </ScrollView>
+          ) : (<NoData/>)}
         </View>
         <View style={HomeScreenStyle.section}>
           <Text
@@ -164,13 +168,15 @@ export default function HomeScreen(_props: IHomeScreenProps) {
           >
             Latest transactions
           </Text>
-          {latestExpenses.map((expense, key) => (
+          {latestExpenses && latestExpenses.length > 0 ? 
+          (latestExpenses.map((expense, key) => (
             <TransactionItem
               key={key}
               transaction={expense}
               categories={categories}
             />
-          ))}
+          ))
+          ) : (<NoData/>)}
         </View>
       </ScrollView>
     </View>

@@ -6,6 +6,7 @@ import { groupTransactionsByCategory } from "../../common/utils/helpers";
 import { getUserCategories } from "../../services/CategoryService";
 import { getTransactions } from "../../services/TransactionsService";
 import { ICategoryExpenses } from "../../common/interfaces/ICategoryExpenses";
+import { NoData } from "../../components/no-data/NoData";
 
 export const AchievementsScreen = () => {
   const [categoryExpenses, setCategoryExpenses] = useState<ICategoryExpenses[]>([]);
@@ -35,16 +36,19 @@ export const AchievementsScreen = () => {
 
   return (
     <ScrollView style={AchievementsScreenStyle.container}>
-      {categoryExpenses.map((achievement, key) => (
-        <ProgressCard
-          key={key}
-          title={achievement.name}
-          color={achievement.color}
-          icon={achievement.icon}
-          currentlySpent={achievement.value}
-          totalBudget={achievement.limit}
-        />
-      ))}
+      {categoryExpenses && categoryExpenses.length > 0 ? 
+      (
+        categoryExpenses.map((achievement, key) => (
+          <ProgressCard
+            key={key}
+            title={achievement.name}
+            color={achievement.color}
+            icon={achievement.icon}
+            currentlySpent={achievement.value}
+            totalBudget={achievement.limit}
+          />
+        ))
+      ) : (<NoData />)}
     </ScrollView>
   );
 };

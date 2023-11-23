@@ -27,6 +27,9 @@ export const RegisterScreenStyles = StyleSheet.create({
 
   alert: {
     color: 'red',
+    width: "70%",
+    alignContent: "center",
+    textAlign: "center",
   },
   image :{
     width: 200,
