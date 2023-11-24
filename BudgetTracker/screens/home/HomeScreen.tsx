@@ -15,7 +15,7 @@ import { TransactionItem } from "../../components/transaction-item";
 import { getTransactions } from "../../services/TransactionsService";
 import { loadGraphData, loadTopSpending } from "../../common/utils/helpers";
 import { getUserCategories } from "../../services/CategoryService";
-import { isSameDay } from "date-fns";
+import { addDays, isSameDay } from "date-fns";
 import { NoData } from "../../components/no-data/NoData";
 
 const screenWidth = Dimensions.get("window").width + 50;
@@ -49,8 +49,7 @@ export default function HomeScreen(_props: IHomeScreenProps) {
 
   useEffect(() => {
     const currentDate = new Date();
-    const dateSevenDaysAgo = new Date();
-    dateSevenDaysAgo.setDate(currentDate.getDate() - 7);
+    const dateSevenDaysAgo = addDays(new Date(), -7);
 
     const loadExpenses = async () => {
       const expenses = await getTransactions(currentDate, dateSevenDaysAgo);
@@ -144,7 +143,7 @@ export default function HomeScreen(_props: IHomeScreenProps) {
             }}
             variant="titleMedium"
           >
-            Top categories from 7 days
+            Top categories from last 7 days
           </Text>
           {topSpending && topSpending.length > 0 ? 
           (

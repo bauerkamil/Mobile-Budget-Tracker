@@ -11,8 +11,9 @@ const getRecurringExpenses = (
 ): ITransaction[] => {
   const daysBetween: Date[] = [];
   const transactions: ITransaction[] = [];
-  let date = startDate;
-  while (date <= endDate) {
+  let date = startDate.getTime() < endDate.getTime() ? startDate : endDate;
+  const end = startDate.getTime() < endDate.getTime() ? endDate : startDate;
+  while (date <= end) {
     daysBetween.push(date);
     date = addDays(date, 1);
   }
@@ -45,16 +46,7 @@ export const getTransactions = async (startDate: Date, endDate: Date) => {
   );
 
   var recurringResponse = await getUserRecurringExpenses();
-  const currentDate = new Date();
-  const daysInMonth = new Date(
-    currentDate.getFullYear(),
-    currentDate.getMonth(),
-    0,
-  ).getDate();
-
-  recurringResponse = recurringResponse?.filter(
-    (expense) => expense.day <= daysInMonth,
-  );
+  
   const recurringExpenses = getRecurringExpenses(
     recurringResponse ?? [],
     startDate,
