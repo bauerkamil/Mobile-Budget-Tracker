@@ -1,7 +1,7 @@
 import { FlatList, View } from "react-native";
 import Category from "./components/category/Category";
 import { CurrentStyle } from "./Current.style";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AddCaterogry from "./components/add-category/AddCategory";
 import { ICategory, ICurrentExpense } from "../../../../common/interfaces";
 import AddExpense from "./components/add-expense/AddExpense";
@@ -11,6 +11,7 @@ import {
   getUserCategories,
 } from "../../../../services/CategoryService";
 import { addCurrentExpense } from "../../../../services/CurrentExpenseService";
+import { useFocusEffect } from "@react-navigation/native";
 
 const Current = () => {
   const [categoryDialogVisible, setCategoryDialogVisible] = useState(false);
@@ -18,7 +19,7 @@ const Current = () => {
   const [selectedCategory, setSelectedCategory] = useState<ICategory>();
   const [categories, setCategories] = useState<ICategory[]>([]);
 
-  useEffect(() => {
+  useFocusEffect(() => {
     const loadCategories = async () => {
       const categories = await getUserCategories();
       if (!categories) {
@@ -31,7 +32,7 @@ const Current = () => {
     };
 
     loadCategories();
-  }, []);
+  });
 
   const handleCategoryClick = (id: string) => {
     if (id === "-1") {

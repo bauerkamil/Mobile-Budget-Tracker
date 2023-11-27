@@ -18,6 +18,7 @@ import { getUserCategories } from "../../services/CategoryService";
 import { ITransaction } from "../../common/interfaces";
 import { getTransactions } from "../../services/TransactionsService";
 import { NoData } from "../../components/no-data/NoData";
+import { useFocusEffect } from "@react-navigation/native";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -53,7 +54,19 @@ export default function CalendarScreen() {
     }
   };
 
-  useEffect(() => {
+  const loadExpenses = async () => {
+    if (!startDate || !endDate) return;
+    const expenses = await getTransactions(startDate, endDate);
+    if (!expenses) {
+      setTransactions([]);
+    } else {
+      setTransactions(
+        expenses.sort((a, b) => b.date.getTime() - a.date.getTime())
+      );
+    }
+  };
+
+  useFocusEffect(() => {
     const loadCategories = async () => {
       const categories = await getUserCategories();
       if (!categories) {
@@ -63,19 +76,10 @@ export default function CalendarScreen() {
     };
 
     loadCategories();
-  }, []);
+    loadExpenses();
+  });
 
   useEffect(() => {
-    const loadExpenses = async () => {
-      if (!startDate || !endDate) return;
-      const expenses = await getTransactions(startDate, endDate);
-      if (!expenses) {
-        setTransactions([]);
-      } else {
-        setTransactions(expenses);
-      }
-    };
-
     loadExpenses();
   }, [startDate, endDate]);
 

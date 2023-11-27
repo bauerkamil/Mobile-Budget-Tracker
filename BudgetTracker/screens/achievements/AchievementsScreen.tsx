@@ -7,11 +7,12 @@ import { getUserCategories } from "../../services/CategoryService";
 import { getTransactions } from "../../services/TransactionsService";
 import { ICategoryExpenses } from "../../common/interfaces/ICategoryExpenses";
 import { NoData } from "../../components/no-data/NoData";
+import { useFocusEffect } from "@react-navigation/native";
 
 export const AchievementsScreen = () => {
   const [categoryExpenses, setCategoryExpenses] = useState<ICategoryExpenses[]>([]);
   
-  useEffect(() => {
+  useFocusEffect(() => {
     const loadCategories = async () => {
       const currentDate = new Date();
       const startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
@@ -31,7 +32,7 @@ export const AchievementsScreen = () => {
     };
 
     loadCategories();
-  }, []);
+  });
 
 
   return (

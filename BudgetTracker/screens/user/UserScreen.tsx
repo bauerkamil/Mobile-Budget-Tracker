@@ -6,7 +6,6 @@ import { signOut } from "../../services/AuthService";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const UserScreen = () => {
-  const [value, setValue] = useState(false);
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
 

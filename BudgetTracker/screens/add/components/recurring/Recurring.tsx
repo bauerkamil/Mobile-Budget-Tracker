@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FlatList, View } from "react-native";
 import { CurrentStyle } from "./Recurring.style";
 import Expense from "./components/expense/Expense";
@@ -12,6 +12,7 @@ import {
   getUserRecurringExpenses,
   removeRecurringExpense,
 } from "../../../../services/RecurringExpenseService";
+import { useFocusEffect } from "@react-navigation/native";
 
 const Recurring = () => {
   const [addDialogVisible, setAddDialogVisible] = useState(false);
@@ -23,7 +24,7 @@ const Recurring = () => {
 
   const [categories, setCategories] = useState<ICategory[]>([]);
 
-  useEffect(() => {
+  useFocusEffect(() => {
     const loadCategories = async () => {
       const categories = await getUserCategories();
       if (!categories) {
@@ -47,7 +48,7 @@ const Recurring = () => {
 
     loadCategories();
     loadExpenses();
-  }, []);
+  });
 
   const handleCategoryClick = (id: string) => {
     if (id === "-1") {

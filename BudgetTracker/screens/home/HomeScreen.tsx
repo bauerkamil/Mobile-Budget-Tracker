@@ -17,6 +17,7 @@ import { loadGraphData, loadTopSpending } from "../../common/utils/helpers";
 import { getUserCategories } from "../../services/CategoryService";
 import { addDays, isSameDay } from "date-fns";
 import { NoData } from "../../components/no-data/NoData";
+import { useFocusEffect } from "@react-navigation/native";
 
 const screenWidth = Dimensions.get("window").width + 50;
 const chartConfig = {
@@ -47,7 +48,7 @@ export default function HomeScreen(_props: IHomeScreenProps) {
     }
   });
 
-  useEffect(() => {
+  useFocusEffect(() => {
     const currentDate = new Date();
     const dateSevenDaysAgo = addDays(new Date(), -7);
 
@@ -61,11 +62,7 @@ export default function HomeScreen(_props: IHomeScreenProps) {
         );
       }
     };
-
-    loadExpenses();
-  }, []);
-
-  useEffect(() => {
+    
     const loadCategories = async () => {
       const categories = await getUserCategories();
       if (!categories) {
@@ -73,9 +70,10 @@ export default function HomeScreen(_props: IHomeScreenProps) {
       }
       setCategories(categories);
     };
-
+    
+    loadExpenses();
     loadCategories();
-  }, []);
+  });
 
   const getTodaySpent = () => {
     const todayExpenses = latestExpenses.filter(expense => isSameDay(expense.date, new Date));
