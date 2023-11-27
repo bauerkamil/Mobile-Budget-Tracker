@@ -1,3 +1,4 @@
+import { addDays, format, isSameDay } from "date-fns";
 import { ICategory, ITransaction } from "../interfaces";
 import { ICategoryExpenses } from "../interfaces/ICategoryExpenses";
 
@@ -42,33 +43,42 @@ export const groupTransactionsByCategory = (
   return groupedTransactions;
 };
 
-export const loadGraphData = (latestExpenses: ITransaction[]) => {
-  const currentDayIndex = new Date().getDay();
-  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  const orderedDays = days
-    .slice(currentDayIndex)
-    .concat(days.slice(0, currentDayIndex));
+export const loadGraphData = (transactions: ITransaction[]) => {
+  const currentDate = new Date();
+  const sevenDaysAgo = new Date();
+  sevenDaysAgo.setDate(currentDate.getDate() - 6); // Get the date 7 days ago
 
-  const filteredExpenses = latestExpenses.reduce(
-    (acc: { [day: number]: number }, expense: ITransaction) => {
-      const day = expense.date.getDate();
+  const filteredTransactions = transactions.filter((transaction) => {
+    const transactionDate = transaction.date;
+    return (transactionDate >= sevenDaysAgo && transactionDate <= currentDate
+      || isSameDay(transactionDate, currentDate) || isSameDay(transactionDate, sevenDaysAgo));
+  });
 
-      if (!acc[day]) {
-        acc[day] = 0;
-      }
+  const groupedTransactions: { [date: string]: number } = {};
 
-      acc[day] += expense.value;
+  filteredTransactions.forEach((transaction) => {
+    const transactionDate = format(transaction.date, "eee");
+    if (groupedTransactions[transactionDate]) {
+      groupedTransactions[transactionDate] += transaction.value;
+    } else {
+      groupedTransactions[transactionDate] = transaction.value;
+    }
+  });
 
-      return acc;
-    },
-    {},
-  );
+  const orderedDates = [];
+  for (let i = 6; i >= 0; i--) {
+    const date = new Date();
+    date.setDate(currentDate.getDate() - i);
+    orderedDates.push(format(date, "eee"));
+  }
+
+  const groupedValues = orderedDates.map((date) => groupedTransactions[date] || 0);
 
   return {
-    labels: orderedDays,
+    labels: orderedDates,
     datasets: [
       {
-        data: Object.entries(filteredExpenses).map(([_key, value]) => value),
+        data: Object.entries(groupedValues).map(([_key, value]) => value),
       },
     ],
   };

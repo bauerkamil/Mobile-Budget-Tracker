@@ -18,7 +18,7 @@ import { getUserCategories } from "../../services/CategoryService";
 import { ITransaction } from "../../common/interfaces";
 import { getTransactions } from "../../services/TransactionsService";
 import { NoData } from "../../components/no-data/NoData";
-import { useFocusEffect } from "@react-navigation/native";
+import { IScreenProps } from "../../common/interfaces/IScreenProps";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -31,7 +31,7 @@ const chartConfig = {
   legendFontSize: 15,
 };
 
-export default function CalendarScreen() {
+export default function CalendarScreen({ navigation } : IScreenProps) {
   const [startDate, setStartDate] = React.useState<Date | undefined>(
     new Date(),
   );
@@ -66,7 +66,7 @@ export default function CalendarScreen() {
     }
   };
 
-  useFocusEffect(() => {
+  useEffect(() => {
     const loadCategories = async () => {
       const categories = await getUserCategories();
       if (!categories) {
@@ -75,9 +75,14 @@ export default function CalendarScreen() {
       setCategories(categories);
     };
 
-    loadCategories();
-    loadExpenses();
-  });
+    const unsubscribe = navigation.addListener('focus', () => {
+      loadExpenses();
+      loadCategories();
+    });
+
+    return unsubscribe;
+
+  }, [navigation]);
 
   useEffect(() => {
     loadExpenses();

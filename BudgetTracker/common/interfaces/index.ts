@@ -3,4 +3,4 @@ export * from "./IRecurringExpense";
 export * from "./ICurrentExpense";
 export * from "./IExpense";
 export * from "./ITransaction";
-export * from "./IChartData";
+export * from "./IScreenProps";

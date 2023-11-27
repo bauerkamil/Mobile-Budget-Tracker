@@ -7,12 +7,12 @@ import { getUserCategories } from "../../services/CategoryService";
 import { getTransactions } from "../../services/TransactionsService";
 import { ICategoryExpenses } from "../../common/interfaces/ICategoryExpenses";
 import { NoData } from "../../components/no-data/NoData";
-import { useFocusEffect } from "@react-navigation/native";
+import { IScreenProps } from "../../common/interfaces";
 
-export const AchievementsScreen = () => {
+export const AchievementsScreen = ({ navigation } : IScreenProps) => {
   const [categoryExpenses, setCategoryExpenses] = useState<ICategoryExpenses[]>([]);
   
-  useFocusEffect(() => {
+  useEffect(() => {
     const loadCategories = async () => {
       const currentDate = new Date();
       const startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
@@ -31,8 +31,13 @@ export const AchievementsScreen = () => {
       setCategoryExpenses(categoryExpenses);
     };
 
-    loadCategories();
-  });
+    const unsubscribe = navigation.addListener('focus', () => {
+      loadCategories();
+    });
+
+    return unsubscribe;
+
+  }, [navigation]);
 
 
   return (

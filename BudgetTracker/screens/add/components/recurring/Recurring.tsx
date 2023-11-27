@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FlatList, View } from "react-native";
 import { CurrentStyle } from "./Recurring.style";
 import Expense from "./components/expense/Expense";
 import AddExpense from "./components/add-expense/AddExpense";
-import { ICategory, IRecurringExpense } from "../../../../common/interfaces";
+import { ICategory, IRecurringExpense, IScreenProps } from "../../../../common/interfaces";
 import RemoveExpense from "./components/remove-expense/RemoveExpense";
 import Toast from "react-native-toast-message";
 import { getUserCategories } from "../../../../services/CategoryService";
@@ -12,9 +12,8 @@ import {
   getUserRecurringExpenses,
   removeRecurringExpense,
 } from "../../../../services/RecurringExpenseService";
-import { useFocusEffect } from "@react-navigation/native";
 
-const Recurring = () => {
+const Recurring = ({ navigation } : IScreenProps) => {
   const [addDialogVisible, setAddDialogVisible] = useState(false);
   const [removeDialogVisible, setRemoveDialogVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<IRecurringExpense>();
@@ -24,7 +23,7 @@ const Recurring = () => {
 
   const [categories, setCategories] = useState<ICategory[]>([]);
 
-  useFocusEffect(() => {
+  useEffect(() => {
     const loadCategories = async () => {
       const categories = await getUserCategories();
       if (!categories) {
@@ -46,9 +45,14 @@ const Recurring = () => {
       ]);
     };
 
-    loadCategories();
-    loadExpenses();
-  });
+    const unsubscribe = navigation.addListener('focus', () => {
+      loadExpenses();
+      loadCategories();
+    });
+
+    return unsubscribe;
+
+  }, [navigation]);
 
   const handleCategoryClick = (id: string) => {
     if (id === "-1") {

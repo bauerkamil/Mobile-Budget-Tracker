@@ -6,8 +6,6 @@ import { LineChart } from "react-native-chart-kit";
 import { LinearGradient } from "expo-linear-gradient";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { LineChartData } from "react-native-chart-kit/dist/line-chart/LineChart";
-
-import { IHomeScreenProps } from "./IHomeScreenProps";
 import { HomeScreenStyle } from "./HomeScreen.style";
 import { ICategory, ITransaction } from "../../common/interfaces";
 import Category from "./components/category/Category";
@@ -17,7 +15,8 @@ import { loadGraphData, loadTopSpending } from "../../common/utils/helpers";
 import { getUserCategories } from "../../services/CategoryService";
 import { addDays, isSameDay } from "date-fns";
 import { NoData } from "../../components/no-data/NoData";
-import { useFocusEffect } from "@react-navigation/native";
+import React from "react";
+import { IScreenProps } from "../../common/interfaces/IScreenProps";
 
 const screenWidth = Dimensions.get("window").width + 50;
 const chartConfig = {
@@ -31,7 +30,8 @@ const chartConfig = {
   useShadowColorFromDataset: false,
 };
 
-export default function HomeScreen(_props: IHomeScreenProps) {
+export default function HomeScreen(_props: IScreenProps) {
+  const { navigation } = _props;
   const [displayName, setDisplayName] = useState("");
   const [latestExpenses, setLatestExpenses] = useState<ITransaction[]>([]);
   const [categories, setCategories] = useState<ICategory[]>([]);
@@ -48,9 +48,9 @@ export default function HomeScreen(_props: IHomeScreenProps) {
     }
   });
 
-  useFocusEffect(() => {
+  React.useEffect(() => {
     const currentDate = new Date();
-    const dateSevenDaysAgo = addDays(new Date(), -7);
+    const dateSevenDaysAgo = addDays(currentDate, -7);
 
     const loadExpenses = async () => {
       const expenses = await getTransactions(currentDate, dateSevenDaysAgo);
@@ -70,10 +70,15 @@ export default function HomeScreen(_props: IHomeScreenProps) {
       }
       setCategories(categories);
     };
-    
-    loadExpenses();
-    loadCategories();
-  });
+
+    const unsubscribe = navigation.addListener('focus', () => {
+      loadExpenses();
+      loadCategories();
+    });
+
+    return unsubscribe;
+
+  }, [navigation]);
 
   const getTodaySpent = () => {
     const todayExpenses = latestExpenses.filter(expense => isSameDay(expense.date, new Date));
