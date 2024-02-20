@@ -1,7 +1,7 @@
 import { IAddExpenseProps } from "./IAddExpenseProps";
 import { Button, Dialog, Portal, TextInput } from "react-native-paper";
 import { AddExpenseStyle } from "./AddExpense.style";
-import { useState } from "react";
+import React, { useState } from "react";
 import { ICurrentExpense } from "../../../../../../common/interfaces";
 
 const AddExpense: React.FC<IAddExpenseProps> = (props) => {

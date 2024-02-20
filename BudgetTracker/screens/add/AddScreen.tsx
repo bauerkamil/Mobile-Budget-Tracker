@@ -3,7 +3,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import Current from "./components/current/Current";
 import Recurring from "./components/recurring/Recurring";
 import { MD3Colors } from "react-native-paper";
-import { IScreenProps } from "../../common/interfaces/IScreenProps";
+import { IScreenProps } from "../../common/interfaces";
 
 const Tab = createMaterialTopTabNavigator();
 

@@ -1,4 +1,4 @@
-import { ICategory } from "../../../../common/interfaces/ICategory";
+import { ICategory } from "../../../../common/interfaces";
 
 export interface ICategoryProps {
   category: ICategory;

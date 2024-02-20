@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { IAddCategoryProps } from "./IAddCategoryProps";
 import {
   Button,
@@ -17,7 +17,7 @@ import {
 import { ICategory } from "../../../../../../common/interfaces";
 import { View } from "react-native";
 
-const AddCaterogry: React.FC<IAddCategoryProps> = (props) => {
+const AddCategory: React.FC<IAddCategoryProps> = (props) => {
   const { visible, onDismiss, onAdd } = props;
 
   const [showColorDropDown, setShowColorDropDown] = useState(false);
@@ -134,4 +134,4 @@ const AddCaterogry: React.FC<IAddCategoryProps> = (props) => {
   );
 };
 
-export default AddCaterogry;
+export default AddCategory;

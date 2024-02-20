@@ -45,7 +45,7 @@ export const getTransactions = async (startDate: Date, endDate: Date) => {
     (expense) => ({ ...expense, recurring: false }) as ITransaction,
   );
 
-  var recurringResponse = await getUserRecurringExpenses();
+  const recurringResponse = await getUserRecurringExpenses();
 
   const recurringExpenses = getRecurringExpenses(
     recurringResponse ?? [],

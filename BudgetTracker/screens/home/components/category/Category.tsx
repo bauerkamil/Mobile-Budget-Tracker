@@ -2,6 +2,7 @@ import { View } from "react-native";
 import { ICategoryProps } from "./ICategoryProps";
 import { Icon, Text } from "react-native-paper";
 import { CategoryStyle } from "./Category.style";
+import React from "react";
 
 const Category: React.FC<ICategoryProps> = ({ category }) => {
   return (

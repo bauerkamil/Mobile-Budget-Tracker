@@ -18,7 +18,7 @@ import { getUserCategories } from "../../services/CategoryService";
 import { ITransaction } from "../../common/interfaces";
 import { getTransactions } from "../../services/TransactionsService";
 import { NoData } from "../../components/no-data/NoData";
-import { IScreenProps } from "../../common/interfaces/IScreenProps";
+import { IScreenProps } from "../../common/interfaces";
 
 const screenWidth = Dimensions.get("window").width;
 

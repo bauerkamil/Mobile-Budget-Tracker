@@ -2,6 +2,7 @@ import { Pressable, View } from "react-native";
 import { IExpenseProps } from "./IExpenseProps";
 import { Icon, Text } from "react-native-paper";
 import { ExpenseStyle } from "./Expense.style";
+import React from "react";
 
 const Expense: React.FC<IExpenseProps> = ({ expense, categories, onClick }) => {
   const category = categories.find(

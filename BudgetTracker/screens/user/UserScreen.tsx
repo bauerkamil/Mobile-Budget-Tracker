@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { Text, Icon, Switch, Button } from "react-native-paper";
+import { Text, Icon, Button } from "react-native-paper";
 import { UserScreenStyle } from "./UserScreen.style";
 import { useState } from "react";
 import { signOut } from "../../services/AuthService";

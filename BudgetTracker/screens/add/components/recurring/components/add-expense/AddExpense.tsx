@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { IAddExpenseProps } from "./IAddExpenseProps";
 import { Button, Dialog, Portal, TextInput } from "react-native-paper";
 import { AddExpenseStyle } from "./AddExpense.style";

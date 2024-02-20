@@ -1,11 +1,4 @@
-import {
-  addDoc,
-  collection,
-  getDocs,
-  or,
-  query,
-  where,
-} from "firebase/firestore";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 
 import { firestore } from "./firebaseinit";
 import { ICategory } from "../common/interfaces";

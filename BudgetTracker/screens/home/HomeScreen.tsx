@@ -97,6 +97,7 @@ export default function HomeScreen(_props: IScreenProps) {
     );
     let sum = 0;
     todayExpenses.forEach((expense) => (sum += expense.value));
+
     return sum;
   };
 

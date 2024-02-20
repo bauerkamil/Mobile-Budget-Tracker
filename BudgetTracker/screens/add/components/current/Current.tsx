@@ -2,7 +2,7 @@ import { FlatList, View } from "react-native";
 import Category from "./components/category/Category";
 import { CurrentStyle } from "./Current.style";
 import { useEffect, useState } from "react";
-import AddCaterogry from "./components/add-category/AddCategory";
+import AddCategory from "./components/add-category/AddCategory";
 import {
   ICategory,
   ICurrentExpense,
@@ -95,7 +95,7 @@ const Current = ({ navigation }: IScreenProps) => {
           return <Category category={item} onClick={handleCategoryClick} />;
         }}
       />
-      <AddCaterogry
+      <AddCategory
         visible={categoryDialogVisible}
         onDismiss={() => setCategoryDialogVisible(false)}
         onAdd={handleAddCategory}

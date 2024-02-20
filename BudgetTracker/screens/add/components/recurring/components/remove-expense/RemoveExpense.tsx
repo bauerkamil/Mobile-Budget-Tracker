@@ -2,6 +2,7 @@ import { Button, Dialog, Portal } from "react-native-paper";
 
 import { IRemoveExpenseProps } from "./IRemoveExpenseProps";
 import { RemoveExpenseStyle } from "./RemoveExpense.style";
+import React from "react";
 
 const RemoveExpense: React.FC<IRemoveExpenseProps> = (props) => {
   const { visible, expense: category, onDismiss, onRemove } = props;
