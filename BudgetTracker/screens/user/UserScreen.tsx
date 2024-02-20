@@ -1,9 +1,9 @@
-import { View } from "react-native";
-import { Text, Icon, Button } from "react-native-paper";
-import { UserScreenStyle } from "./UserScreen.style";
-import { useState } from "react";
-import { signOut } from "../../services/AuthService";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useState } from "react";
+import { View } from "react-native";
+import { Button, Icon, Text } from "react-native-paper";
+import { signOut } from "../../services/AuthService";
+import { UserScreenStyle } from "./UserScreen.style";
 
 const UserScreen = () => {
   const [displayName, setDisplayName] = useState("");

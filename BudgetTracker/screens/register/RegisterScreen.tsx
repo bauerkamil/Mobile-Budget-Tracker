@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { TextInput, Text, Button } from "react-native-paper";
-import { registerWithEmail } from "../../services/AuthService";
-import { RegisterScreenStyles } from "./RegisterScreen.style";
-import { View, Image } from "react-native";
-import { IRegisterScreenProps } from "./IRegisterScreenProps";
+import { Image, View } from "react-native";
+import { Button, Text, TextInput } from "react-native-paper";
 import { Constants } from "../../common/utils/constants";
+import { registerWithEmail } from "../../services/AuthService";
+import { IRegisterScreenProps } from "./IRegisterScreenProps";
+import { RegisterScreenStyles } from "./RegisterScreen.style";
 
 export default function RegisterScreen(props: IRegisterScreenProps) {
   const { navigation } = props;

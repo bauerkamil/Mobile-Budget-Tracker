@@ -1,9 +1,9 @@
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 
-import { firestore } from "./firebaseinit";
+import Toast from "react-native-toast-message";
 import { ICategory } from "../common/interfaces";
 import { getUserId } from "./AuthService";
-import Toast from "react-native-toast-message";
+import { firestore } from "./firebaseinit";
 
 const CATEGORY_TABLE_NAME = "Categories";
 

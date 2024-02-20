@@ -1,13 +1,13 @@
-import { ScrollView } from "react-native";
-import { AchievementsScreenStyle } from "./AchievementsScreen.style";
-import { ProgressCard } from "../../components/progress-card/ProgressCard";
 import { useEffect, useState } from "react";
+import { ScrollView } from "react-native";
+import { IScreenProps } from "../../common/interfaces";
+import { ICategoryExpenses } from "../../common/interfaces/ICategoryExpenses";
 import { groupTransactionsByCategory } from "../../common/utils/helpers";
+import { NoData } from "../../components/no-data/NoData";
+import { ProgressCard } from "../../components/progress-card/ProgressCard";
 import { getUserCategories } from "../../services/CategoryService";
 import { getTransactions } from "../../services/TransactionsService";
-import { ICategoryExpenses } from "../../common/interfaces/ICategoryExpenses";
-import { NoData } from "../../components/no-data/NoData";
-import { IScreenProps } from "../../common/interfaces";
+import { AchievementsScreenStyle } from "./AchievementsScreen.style";
 
 export const AchievementsScreen = ({ navigation }: IScreenProps) => {
   const [categoryExpenses, setCategoryExpenses] = useState<ICategoryExpenses[]>(

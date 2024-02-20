@@ -1,24 +1,22 @@
+import { LinearGradient } from "expo-linear-gradient";
+import { Moment } from "moment";
 import React, { useEffect } from "react";
 import { Dimensions, ScrollView, View } from "react-native";
 import CalendarPicker, {
   DateChangedCallback,
 } from "react-native-calendar-picker";
-import { Moment } from "moment";
-import { LinearGradient } from "expo-linear-gradient";
-import { CalendarScreenStyle } from "./CalendarScreen.style";
+import { PieChart } from "react-native-chart-kit";
 import { Card, MD3Colors, Text } from "react-native-paper";
+import { ICategory, IScreenProps, ITransaction } from "../../common/interfaces";
 import {
   groupTransactionsByCategory,
   parseDate,
 } from "../../common/utils/helpers";
-import { PieChart } from "react-native-chart-kit";
-import { TransactionItem } from "../../components/transaction-item";
-import { ICategory } from "../../common/interfaces";
-import { getUserCategories } from "../../services/CategoryService";
-import { ITransaction } from "../../common/interfaces";
-import { getTransactions } from "../../services/TransactionsService";
 import { NoData } from "../../components/no-data/NoData";
-import { IScreenProps } from "../../common/interfaces";
+import { TransactionItem } from "../../components/transaction-item";
+import { getUserCategories } from "../../services/CategoryService";
+import { getTransactions } from "../../services/TransactionsService";
+import { CalendarScreenStyle } from "./CalendarScreen.style";
 
 const screenWidth = Dimensions.get("window").width;
 

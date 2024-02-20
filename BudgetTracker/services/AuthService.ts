@@ -4,8 +4,8 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import { auth } from "./firebaseinit";
 import Toast from "react-native-toast-message";
+import { auth } from "./firebaseinit";
 
 export const registerWithEmail = async (
   email: string,

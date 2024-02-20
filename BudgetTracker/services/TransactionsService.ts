@@ -1,6 +1,5 @@
 import { addDays, isSameDay } from "date-fns";
-import { IRecurringExpense } from "../common/interfaces";
-import { ITransaction } from "../common/interfaces";
+import { IRecurringExpense, ITransaction } from "../common/interfaces";
 import { getUserCurrentExpenses } from "./CurrentExpenseService";
 import { getUserRecurringExpenses } from "./RecurringExpenseService";
 

@@ -1,10 +1,9 @@
 import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
 import { ParamListBase, RouteProp } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient";
+import { StyleSheet, View } from "react-native";
 import { Icon, MD3Colors, Text } from "react-native-paper";
 import { Constants } from "../../common/utils/constants";
-import { LinearGradient } from "expo-linear-gradient";
-import { View } from "react-native";
-import { StyleSheet } from "react-native";
 import { TabOptionsStyle } from "./TabOptions.style";
 
 export const TabOptions = (props: {

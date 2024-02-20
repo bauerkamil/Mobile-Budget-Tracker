@@ -1,9 +1,9 @@
-import { View, StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Icon, MD3Colors, Text } from "react-native-paper";
 
+import { format } from "date-fns";
 import { ITransactionItemProps } from "./ITransactionItemProps";
 import { TransactionItemStyle } from "./TransactionItem.style";
-import { format } from "date-fns";
 
 export const TransactionItem = ({
   transaction,

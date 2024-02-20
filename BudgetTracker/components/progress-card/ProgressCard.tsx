@@ -1,8 +1,8 @@
-import { View, StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Card, Icon, MD3Colors, ProgressBar, Text } from "react-native-paper";
 
-import { ProgressCardStyle } from "./ProgressCard.style";
 import { IProgressCardProps } from "./IProgressCardProps";
+import { ProgressCardStyle } from "./ProgressCard.style";
 
 export const ProgressCard = ({
   title,

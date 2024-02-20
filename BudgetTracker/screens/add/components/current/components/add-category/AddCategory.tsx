@@ -1,21 +1,21 @@
 import React, { useState } from "react";
-import { IAddCategoryProps } from "./IAddCategoryProps";
+import { View } from "react-native";
 import {
   Button,
   Dialog,
   Icon,
   Portal,
-  TextInput,
   Text,
+  TextInput,
 } from "react-native-paper";
-import { AddCategoryStyle } from "./AddCategory.style";
 import DropDown from "react-native-paper-dropdown";
+import { ICategory } from "../../../../../../common/interfaces";
 import {
   AvailableColors,
   AvailableIcons,
 } from "../../../../../../common/utils/constants";
-import { ICategory } from "../../../../../../common/interfaces";
-import { View } from "react-native";
+import { AddCategoryStyle } from "./AddCategory.style";
+import { IAddCategoryProps } from "./IAddCategoryProps";
 
 const AddCategory: React.FC<IAddCategoryProps> = (props) => {
   const { visible, onDismiss, onAdd } = props;

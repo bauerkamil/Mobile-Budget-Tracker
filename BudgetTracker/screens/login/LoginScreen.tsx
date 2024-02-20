@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { LoginScreenStyles } from "./LoginScreen.style";
-import { View, Image } from "react-native";
-import { TextInput, Text, Button } from "react-native-paper";
-import { signInWithEmail } from "../../services/AuthService";
+import { Image, View } from "react-native";
+import { Button, Text, TextInput } from "react-native-paper";
 import { Constants } from "../../common/utils/constants";
+import { signInWithEmail } from "../../services/AuthService";
 import { ILoginScreenProps } from "./ILoginScreenProps";
+import { LoginScreenStyles } from "./LoginScreen.style";
 
 export default function LoginScreen(props: ILoginScreenProps) {
   const { navigation } = props;

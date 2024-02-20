@@ -9,10 +9,10 @@ import {
   where,
 } from "firebase/firestore";
 
-import { firestore } from "./firebaseinit";
+import Toast from "react-native-toast-message";
 import { ICurrentExpense } from "../common/interfaces";
 import { getUserId } from "./AuthService";
-import Toast from "react-native-toast-message";
+import { firestore } from "./firebaseinit";
 
 const CURRENT_EXPENSES_TABLE_NAME = "CurrentExpenses";
 

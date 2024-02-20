@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { Icon, Text } from "react-native-paper";
-import { ICategoryDropdownItemProps } from "./ICategoryDropdownItemProps";
 import { CategoryDropdownItemStyle } from "./CategoryDropdownItem.style";
+import { ICategoryDropdownItemProps } from "./ICategoryDropdownItemProps";
 
 const CategoryDropdownItem = (props: ICategoryDropdownItemProps) => {
   const { category } = props;

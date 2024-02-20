@@ -1,20 +1,20 @@
-import * as React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { PaperProvider } from "react-native-paper";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import * as React from "react";
+import { PaperProvider } from "react-native-paper";
 
-import HomeScreen from "./screens/home/HomeScreen";
-import CalendarScreen from "./screens/calendar/CalendarScreen";
-import UserScreen from "./screens/user/UserScreen";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import Toast from "react-native-toast-message";
+import { Constants } from "./common/utils/constants";
 import { TabOptions } from "./components/tab-options/TabOptions";
 import { AchievementsScreen } from "./screens/achievements/AchievementsScreen";
 import AddScreen from "./screens/add/AddScreen";
-import { Constants } from "./common/utils/constants";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import CalendarScreen from "./screens/calendar/CalendarScreen";
+import HomeScreen from "./screens/home/HomeScreen";
 import LoginScreen from "./screens/login/LoginScreen";
 import RegisterScreen from "./screens/register/RegisterScreen";
-import Toast from "react-native-toast-message";
+import UserScreen from "./screens/user/UserScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();

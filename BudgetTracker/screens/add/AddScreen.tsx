@@ -1,9 +1,9 @@
-import { Constants } from "../../common/utils/constants";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import Current from "./components/current/Current";
-import Recurring from "./components/recurring/Recurring";
 import { MD3Colors } from "react-native-paper";
 import { IScreenProps } from "../../common/interfaces";
+import { Constants } from "../../common/utils/constants";
+import Current from "./components/current/Current";
+import Recurring from "./components/recurring/Recurring";
 
 const Tab = createMaterialTopTabNavigator();
 

@@ -8,10 +8,10 @@ import {
   where,
 } from "firebase/firestore";
 
-import { firestore } from "./firebaseinit";
+import Toast from "react-native-toast-message";
 import { IRecurringExpense } from "../common/interfaces";
 import { getUserId } from "./AuthService";
-import Toast from "react-native-toast-message";
+import { firestore } from "./firebaseinit";
 
 const RECURRING_EXPENSES_TABLE_NAME = "RecurringExpenses";
 

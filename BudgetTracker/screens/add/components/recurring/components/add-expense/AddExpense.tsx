@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { IAddExpenseProps } from "./IAddExpenseProps";
 import { Button, Dialog, Portal, TextInput } from "react-native-paper";
-import { AddExpenseStyle } from "./AddExpense.style";
 import DropDown from "react-native-paper-dropdown";
 import { IRecurringExpense } from "../../../../../../common/interfaces";
+import { AddExpenseStyle } from "./AddExpense.style";
+import { IAddExpenseProps } from "./IAddExpenseProps";
 import CategoryDropdownItem from "./components/category-dropdown-item/CategoryDropdownItem";
 
 const AddExpense: React.FC<IAddExpenseProps> = (props) => {

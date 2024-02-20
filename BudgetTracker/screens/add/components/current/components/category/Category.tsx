@@ -1,8 +1,8 @@
+import React from "react";
 import { Pressable, View } from "react-native";
-import { ICategoryProps } from "./ICategoryProps";
 import { Icon, Text } from "react-native-paper";
 import { CategoryStyle } from "./Category.style";
-import React from "react";
+import { ICategoryProps } from "./ICategoryProps";
 
 const Category: React.FC<ICategoryProps> = ({ category, onClick }) => {
   return (

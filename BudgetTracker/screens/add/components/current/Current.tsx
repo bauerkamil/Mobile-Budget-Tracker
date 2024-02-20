@@ -1,20 +1,20 @@
-import { FlatList, View } from "react-native";
-import Category from "./components/category/Category";
-import { CurrentStyle } from "./Current.style";
 import { useEffect, useState } from "react";
-import AddCategory from "./components/add-category/AddCategory";
+import { FlatList, View } from "react-native";
+import Toast from "react-native-toast-message";
 import {
   ICategory,
   ICurrentExpense,
   IScreenProps,
 } from "../../../../common/interfaces";
-import AddExpense from "./components/add-expense/AddExpense";
-import Toast from "react-native-toast-message";
 import {
   addCategory,
   getUserCategories,
 } from "../../../../services/CategoryService";
 import { addCurrentExpense } from "../../../../services/CurrentExpenseService";
+import { CurrentStyle } from "./Current.style";
+import AddCategory from "./components/add-category/AddCategory";
+import AddExpense from "./components/add-expense/AddExpense";
+import Category from "./components/category/Category";
 
 const Current = ({ navigation }: IScreenProps) => {
   const [categoryDialogVisible, setCategoryDialogVisible] = useState(false);

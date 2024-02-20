@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { ScrollView, View } from "react-native";
-import { Dimensions } from "react-native";
-import { Text } from "react-native-paper";
-import { LineChart } from "react-native-chart-kit";
+import { addDays, isSameDay } from "date-fns";
 import { LinearGradient } from "expo-linear-gradient";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import React, { useEffect, useState } from "react";
+import { Dimensions, ScrollView, View } from "react-native";
+import { LineChart } from "react-native-chart-kit";
 import { LineChartData } from "react-native-chart-kit/dist/line-chart/LineChart";
-import { addDays, isSameDay } from "date-fns";
+import { Text } from "react-native-paper";
 
-import { HomeScreenStyle } from "./HomeScreen.style";
-import { ICategory, ITransaction } from "../../common/interfaces";
-import Category from "./components/category/Category";
-import { TransactionItem } from "../../components/transaction-item";
-import { getTransactions } from "../../services/TransactionsService";
+import { ICategory, IScreenProps, ITransaction } from "../../common/interfaces";
 import { loadGraphData, loadTopSpending } from "../../common/utils/helpers";
-import { getUserCategories } from "../../services/CategoryService";
 import { NoData } from "../../components/no-data/NoData";
-import { IScreenProps } from "../../common/interfaces";
+import { TransactionItem } from "../../components/transaction-item";
+import { getUserCategories } from "../../services/CategoryService";
+import { getTransactions } from "../../services/TransactionsService";
+import { HomeScreenStyle } from "./HomeScreen.style";
+import Category from "./components/category/Category";
 
 const screenWidth = Dimensions.get("window").width + 50;
 const chartConfig = {

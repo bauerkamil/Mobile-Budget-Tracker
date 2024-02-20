@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import { FlatList, View } from "react-native";
-import { CurrentStyle } from "./Recurring.style";
-import Expense from "./components/expense/Expense";
-import AddExpense from "./components/add-expense/AddExpense";
+import Toast from "react-native-toast-message";
 import {
   ICategory,
   IRecurringExpense,
   IScreenProps,
 } from "../../../../common/interfaces";
-import RemoveExpense from "./components/remove-expense/RemoveExpense";
-import Toast from "react-native-toast-message";
 import { getUserCategories } from "../../../../services/CategoryService";
 import {
   addRecurringExpense,
   getUserRecurringExpenses,
   removeRecurringExpense,
 } from "../../../../services/RecurringExpenseService";
+import { CurrentStyle } from "./Recurring.style";
+import AddExpense from "./components/add-expense/AddExpense";
+import Expense from "./components/expense/Expense";
+import RemoveExpense from "./components/remove-expense/RemoveExpense";
 
 const Recurring = ({ navigation }: IScreenProps) => {
   const [addDialogVisible, setAddDialogVisible] = useState(false);
