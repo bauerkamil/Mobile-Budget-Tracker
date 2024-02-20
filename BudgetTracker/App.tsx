@@ -1,8 +1,8 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { MD3Colors, PaperProvider } from "react-native-paper";
+import { PaperProvider } from "react-native-paper";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import HomeScreen from "./screens/home/HomeScreen";
 import CalendarScreen from "./screens/calendar/CalendarScreen";
@@ -20,8 +20,10 @@ const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const auth = getAuth();
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+
+  const auth = getAuth();
+
   onAuthStateChanged(auth, (user) => {
     if (user) {
       setIsAuthenticated(true);
@@ -32,50 +34,42 @@ export default function App() {
 
   const ProtectedTabs = () => {
     return (
-      <Tab.Navigator
-          screenOptions={TabOptions}
-        >
-          <Tab.Screen
-            name={Constants.Screens.Home}
-            component={HomeScreen}
-          />
-          <Tab.Screen
-            name={Constants.Screens.Calendar}
-            component={CalendarScreen}
-          />
-          <Tab.Screen
-            name={Constants.Screens.Add}
-            component={AddScreen}
-          />
-          <Tab.Screen
-            name={Constants.Screens.Achievements}
-            component={AchievementsScreen}
-          />
-          <Tab.Screen
-            name={Constants.Screens.User}
-            component={UserScreen}
-          />
+      <Tab.Navigator screenOptions={TabOptions}>
+        <Tab.Screen name={Constants.Screens.Home} component={HomeScreen} />
+        <Tab.Screen
+          name={Constants.Screens.Calendar}
+          component={CalendarScreen}
+        />
+        <Tab.Screen name={Constants.Screens.Add} component={AddScreen} />
+        <Tab.Screen
+          name={Constants.Screens.Achievements}
+          component={AchievementsScreen}
+        />
+        <Tab.Screen name={Constants.Screens.User} component={UserScreen} />
       </Tab.Navigator>
     );
-  }
+  };
 
   return (
     <PaperProvider>
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
           {!isAuthenticated ? (
             <>
-            <Stack.Screen
-              name={Constants.Screens.Login}
-              component={LoginScreen}
-            />
-            <Stack.Screen
-              name={Constants.Screens.Register}
-              component={RegisterScreen}
-            />
+              <Stack.Screen
+                name={Constants.Screens.Login}
+                component={LoginScreen}
+              />
+              <Stack.Screen
+                name={Constants.Screens.Register}
+                component={RegisterScreen}
+              />
             </>
           ) : (
-            <Stack.Screen name={Constants.Screens.Home} component={ProtectedTabs} />
+            <Stack.Screen
+              name={Constants.Screens.Home}
+              component={ProtectedTabs}
+            />
           )}
         </Stack.Navigator>
       </NavigationContainer>

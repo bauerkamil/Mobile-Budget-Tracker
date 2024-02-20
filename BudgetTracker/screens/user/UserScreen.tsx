@@ -10,6 +10,7 @@ const UserScreen = () => {
   const [email, setEmail] = useState("");
 
   const auth = getAuth();
+
   onAuthStateChanged(auth, (user) => {
     if (user) {
       setDisplayName(user.displayName || "");
@@ -45,9 +46,9 @@ const UserScreen = () => {
         </View>
       </View>
       <View style={UserScreenStyle.section}>
-
-        <Button mode="contained" onPress={signOut}>Log out</Button>
-
+        <Button mode="contained" onPress={signOut}>
+          Log out
+        </Button>
       </View>
     </View>
   );

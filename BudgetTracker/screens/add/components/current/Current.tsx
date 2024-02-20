@@ -3,7 +3,11 @@ import Category from "./components/category/Category";
 import { CurrentStyle } from "./Current.style";
 import { useEffect, useState } from "react";
 import AddCaterogry from "./components/add-category/AddCategory";
-import { ICategory, ICurrentExpense, IScreenProps } from "../../../../common/interfaces";
+import {
+  ICategory,
+  ICurrentExpense,
+  IScreenProps,
+} from "../../../../common/interfaces";
 import AddExpense from "./components/add-expense/AddExpense";
 import Toast from "react-native-toast-message";
 import {
@@ -12,7 +16,7 @@ import {
 } from "../../../../services/CategoryService";
 import { addCurrentExpense } from "../../../../services/CurrentExpenseService";
 
-const Current = ({ navigation } : IScreenProps) => {
+const Current = ({ navigation }: IScreenProps) => {
   const [categoryDialogVisible, setCategoryDialogVisible] = useState(false);
   const [expenseDialogVisible, setExpenseDialogVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<ICategory>();
@@ -21,21 +25,22 @@ const Current = ({ navigation } : IScreenProps) => {
   useEffect(() => {
     const loadCategories = async () => {
       const categories = await getUserCategories();
+
       if (!categories) {
         return;
       }
+
       setCategories([
         ...categories,
         { id: "-1", name: "Add new", icon: "plus", color: "orange", limit: 0 },
       ]);
     };
 
-    const unsubscribe = navigation.addListener('focus', () => {
+    const unsubscribe = navigation.addListener("focus", () => {
       loadCategories();
     });
 
     return unsubscribe;
-
   }, [navigation]);
 
   const handleCategoryClick = (id: string) => {
@@ -43,7 +48,9 @@ const Current = ({ navigation } : IScreenProps) => {
       setCategoryDialogVisible(true);
       return;
     }
+
     const category = categories.find((c) => c.id === id);
+
     if (!category) {
       return;
     }

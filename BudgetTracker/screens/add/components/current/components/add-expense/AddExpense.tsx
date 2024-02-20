@@ -17,10 +17,13 @@ const AddExpense: React.FC<IAddExpenseProps> = (props) => {
       setValue(0);
       return;
     }
+
     const parsedValue = parseInt(value);
+
     if (isNaN(parsedValue)) {
       return;
     }
+
     setValue(parsedValue);
   };
 

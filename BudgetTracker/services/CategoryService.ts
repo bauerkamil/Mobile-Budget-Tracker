@@ -17,6 +17,7 @@ const CATEGORY_TABLE_NAME = "Categories";
 export const getUserCategories = async (): Promise<ICategory[] | undefined> => {
   try {
     const userId = getUserId();
+
     if (!userId) {
       return undefined;
     }
@@ -24,8 +25,9 @@ export const getUserCategories = async (): Promise<ICategory[] | undefined> => {
     const categoriesRef = collection(firestore, CATEGORY_TABLE_NAME);
     const categoriesQuery = query(categoriesRef, where("userId", "==", userId));
     const querySnapshot = await getDocs(categoriesQuery);
-    const categories = querySnapshot.docs
-      .map(doc => ({ id: doc.id, ...doc.data() } as unknown as ICategory));
+    const categories = querySnapshot.docs.map(
+      (doc) => ({ id: doc.id, ...doc.data() }) as unknown as ICategory,
+    );
 
     return categories;
   } catch (err: any) {
@@ -41,6 +43,7 @@ export const getUserCategories = async (): Promise<ICategory[] | undefined> => {
 export const addCategory = async (category: ICategory) => {
   try {
     const userId = getUserId();
+
     if (!userId) {
       return undefined;
     }

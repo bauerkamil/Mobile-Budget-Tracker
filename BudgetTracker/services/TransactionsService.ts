@@ -46,7 +46,7 @@ export const getTransactions = async (startDate: Date, endDate: Date) => {
   );
 
   var recurringResponse = await getUserRecurringExpenses();
-  
+
   const recurringExpenses = getRecurringExpenses(
     recurringResponse ?? [],
     startDate,

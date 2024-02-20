@@ -37,7 +37,7 @@ export const groupTransactionsByCategory = (
     }
     groupedTransactions.push({
       value: total,
-      ...category
+      ...category,
     });
   });
   return groupedTransactions;
@@ -50,8 +50,11 @@ export const loadGraphData = (transactions: ITransaction[]) => {
 
   const filteredTransactions = transactions.filter((transaction) => {
     const transactionDate = transaction.date;
-    return (transactionDate >= sevenDaysAgo && transactionDate <= currentDate
-      || isSameDay(transactionDate, currentDate) || isSameDay(transactionDate, sevenDaysAgo));
+    return (
+      (transactionDate >= sevenDaysAgo && transactionDate <= currentDate) ||
+      isSameDay(transactionDate, currentDate) ||
+      isSameDay(transactionDate, sevenDaysAgo)
+    );
   });
 
   const groupedTransactions: { [date: string]: number } = {};
@@ -72,7 +75,9 @@ export const loadGraphData = (transactions: ITransaction[]) => {
     orderedDates.push(format(date, "eee"));
   }
 
-  const groupedValues = orderedDates.map((date) => groupedTransactions[date] || 0);
+  const groupedValues = orderedDates.map(
+    (date) => groupedTransactions[date] || 0,
+  );
 
   return {
     labels: orderedDates,

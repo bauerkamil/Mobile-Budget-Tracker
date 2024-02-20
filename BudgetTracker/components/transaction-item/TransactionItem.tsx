@@ -13,9 +13,18 @@ export const TransactionItem = ({
   const category = categories?.find((category) => category.id === categoryId);
   return (
     <View style={TransactionItemStyle.container}>
-      <View style={StyleSheet.flatten([TransactionItemStyle.iconContainer, {backgroundColor: category?.color ?? "black"}])}>
+      <View
+        style={StyleSheet.flatten([
+          TransactionItemStyle.iconContainer,
+          { backgroundColor: category?.color ?? "black" },
+        ])}
+      >
         <View style={TransactionItemStyle.iconWrapper}>
-          <Icon source={category?.icon} size={30} color={MD3Colors.neutralVariant99} />
+          <Icon
+            source={category?.icon}
+            size={30}
+            color={MD3Colors.neutralVariant99}
+          />
         </View>
       </View>
       <View style={TransactionItemStyle.titleContainer}>

@@ -3,7 +3,11 @@ import { FlatList, View } from "react-native";
 import { CurrentStyle } from "./Recurring.style";
 import Expense from "./components/expense/Expense";
 import AddExpense from "./components/add-expense/AddExpense";
-import { ICategory, IRecurringExpense, IScreenProps } from "../../../../common/interfaces";
+import {
+  ICategory,
+  IRecurringExpense,
+  IScreenProps,
+} from "../../../../common/interfaces";
 import RemoveExpense from "./components/remove-expense/RemoveExpense";
 import Toast from "react-native-toast-message";
 import { getUserCategories } from "../../../../services/CategoryService";
@@ -13,7 +17,7 @@ import {
   removeRecurringExpense,
 } from "../../../../services/RecurringExpenseService";
 
-const Recurring = ({ navigation } : IScreenProps) => {
+const Recurring = ({ navigation }: IScreenProps) => {
   const [addDialogVisible, setAddDialogVisible] = useState(false);
   const [removeDialogVisible, setRemoveDialogVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<IRecurringExpense>();
@@ -26,32 +30,36 @@ const Recurring = ({ navigation } : IScreenProps) => {
   useEffect(() => {
     const loadCategories = async () => {
       const categories = await getUserCategories();
+
       if (!categories) {
         return;
       }
+
       setCategories([
         ...categories,
         { id: "-1", name: "Add new", icon: "plus", color: "orange", limit: 0 },
       ]);
     };
+
     const loadExpenses = async () => {
       const expenses = await getUserRecurringExpenses();
+
       if (!expenses) {
         return;
       }
+
       setRecurringExpenses([
         ...expenses,
         { id: "-1", name: "Add new", categoryId: "-1", value: 0, day: 0 },
       ]);
     };
 
-    const unsubscribe = navigation.addListener('focus', () => {
+    const unsubscribe = navigation.addListener("focus", () => {
       loadExpenses();
       loadCategories();
     });
 
     return unsubscribe;
-
   }, [navigation]);
 
   const handleCategoryClick = (id: string) => {
@@ -59,10 +67,13 @@ const Recurring = ({ navigation } : IScreenProps) => {
       setAddDialogVisible(true);
       return;
     }
+
     const category = recurringExpenses.find((c) => c.id === id);
+
     if (!category) {
       return;
     }
+
     setSelectedCategory(category);
     setRemoveDialogVisible(true);
   };

@@ -8,43 +8,41 @@ import { ILoginScreenProps } from "./ILoginScreenProps";
 
 export default function LoginScreen(props: ILoginScreenProps) {
   const { navigation } = props;
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isPwdHidden, setIsPwdHidden] = useState(true);
 
   const registerRedirect = () => {
     navigation.navigate(Constants.Screens.Register);
-  }
+  };
 
   const login = () => {
     signInWithEmail(email, password);
-  }
+  };
 
   const handleEmailChange = (email: string) => {
     setEmail(email);
-  }
+  };
 
   const handlePasswordChange = (password: string) => {
     setPassword(password);
-  }
+  };
 
   const togglePwdVisibility = () => {
     setIsPwdHidden(!isPwdHidden);
-  }
+  };
 
   return (
     <View style={LoginScreenStyles.container}>
-      <Text style={LoginScreenStyles.header}>
-        Login
-      </Text>
+      <Text style={LoginScreenStyles.header}>Login</Text>
       <Image
         style={LoginScreenStyles.image}
-        source={require('../../assets/budget.svg')}
+        source={require("../../assets/budget.svg")}
       />
 
       <View style={LoginScreenStyles.inputView}>
         <TextInput
-          style={LoginScreenStyles.input}    
+          style={LoginScreenStyles.input}
           mode="outlined"
           label={"Email:"}
           placeholder="Email"
@@ -54,24 +52,23 @@ export default function LoginScreen(props: ILoginScreenProps) {
 
       <View style={LoginScreenStyles.inputView}>
         <TextInput
-          style={LoginScreenStyles.input}  
+          style={LoginScreenStyles.input}
           mode="outlined"
           label={"Password:"}
           placeholder="Password"
           onChangeText={handlePasswordChange}
-          onSubmitEditing={login}    
+          onSubmitEditing={login}
           secureTextEntry={isPwdHidden}
           right={<TextInput.Icon icon="eye" onPress={togglePwdVisibility} />}
         />
       </View>
-      
-      <Button mode="text"  onPress={registerRedirect}>
+
+      <Button mode="text" onPress={registerRedirect}>
         No account? Register
       </Button>
-      <Button mode="contained"  onPress={login}>
+      <Button mode="contained" onPress={login}>
         Login
       </Button>
-
     </View>
   );
 }

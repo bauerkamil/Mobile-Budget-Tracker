@@ -21,15 +21,22 @@ export const getUserRecurringExpenses = async (): Promise<
 > => {
   try {
     const userId = getUserId();
+
     if (!userId) {
       return undefined;
     }
 
-    const recurringExpensesRef = collection(firestore, RECURRING_EXPENSES_TABLE_NAME);
-    const recurringExpensesQuery = query(recurringExpensesRef, where("userId", "==", userId));
+    const recurringExpensesRef = collection(
+      firestore,
+      RECURRING_EXPENSES_TABLE_NAME,
+    );
+    const recurringExpensesQuery = query(
+      recurringExpensesRef,
+      where("userId", "==", userId),
+    );
     const querySnapshot = await getDocs(recurringExpensesQuery);
     const recurringExpenses = querySnapshot.docs.map(
-      (doc) => ({ id: doc.id, ...doc.data() }) as unknown as IRecurringExpense
+      (doc) => ({ id: doc.id, ...doc.data() }) as unknown as IRecurringExpense,
     );
 
     return recurringExpenses;
@@ -43,7 +50,9 @@ export const getUserRecurringExpenses = async (): Promise<
   }
 };
 
-export const addRecurringExpense = async (recurringExpense: IRecurringExpense) => {
+export const addRecurringExpense = async (
+  recurringExpense: IRecurringExpense,
+) => {
   try {
     const userId = getUserId();
     if (!userId) {
@@ -53,7 +62,7 @@ export const addRecurringExpense = async (recurringExpense: IRecurringExpense) =
     recurringExpense.userId = userId;
     const recurringExpensesRef = collection(
       firestore,
-      RECURRING_EXPENSES_TABLE_NAME
+      RECURRING_EXPENSES_TABLE_NAME,
     );
     delete recurringExpense.id;
     const doc = await addDoc(recurringExpensesRef, recurringExpense);
@@ -73,7 +82,7 @@ export const removeRecurringExpense = async (recurringExpenseId: string) => {
     const recurringExpenseRef = doc(
       firestore,
       RECURRING_EXPENSES_TABLE_NAME,
-      recurringExpenseId
+      recurringExpenseId,
     );
     await deleteDoc(recurringExpenseRef);
   } catch (err: any) {

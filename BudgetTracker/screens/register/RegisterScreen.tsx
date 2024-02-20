@@ -4,30 +4,28 @@ import { registerWithEmail } from "../../services/AuthService";
 import { RegisterScreenStyles } from "./RegisterScreen.style";
 import { View, Image } from "react-native";
 import { IRegisterScreenProps } from "./IRegisterScreenProps";
-import {Constants} from "../../common/utils/constants";
+import { Constants } from "../../common/utils/constants";
 
 export default function RegisterScreen(props: IRegisterScreenProps) {
   const { navigation } = props;
-  const [email, setEmail] = useState('');
-  const [displayName, setDisplayName] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [password, setPassword] = useState("");
   const [isPwdHidden, setIsPwdHidden] = useState(true);
-  const [repeatPassword, setRepeatPassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState("");
   const [isRepeatPwdHidden, setIsRepeatPwdHidden] = useState(true);
-  const [alert, setAlert] = useState('');
-
+  const [alert, setAlert] = useState("");
 
   const loginRedirect = () => {
     navigation.navigate(Constants.Screens.Login);
-  }
+  };
 
   const register = () => {
     if (!areCredentialsValid()) return;
     registerWithEmail(email, displayName, password);
-  }
+  };
 
   const areCredentialsValid = () => {
-
     if (email === "") {
       setAlert("Email is required");
       return false;
@@ -37,8 +35,16 @@ export default function RegisterScreen(props: IRegisterScreenProps) {
       setAlert("Password is required");
       return false;
     }
-    if(!password.match(/[A-Z]+/) || !password.match(/[a-z]+/) || !password.match(/[0-9]+/) || password.length < 6) {
-      setAlert("Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter and one number");
+
+    if (
+      !password.match(/[A-Z]+/) ||
+      !password.match(/[a-z]+/) ||
+      !password.match(/[0-9]+/) ||
+      password.length < 6
+    ) {
+      setAlert(
+        "Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter and one number",
+      );
       return false;
     }
 
@@ -52,34 +58,34 @@ export default function RegisterScreen(props: IRegisterScreenProps) {
 
   const handleDisplayNameChange = (displayName: string) => {
     setDisplayName(displayName);
-  }
+  };
   const handleEmailChange = (email: string) => {
     setEmail(email);
-  }
+  };
 
   const handlePasswordChange = (password: string) => {
     setPassword(password);
-  }
+  };
 
   const togglePwdVisibility = () => {
     setIsPwdHidden(!isPwdHidden);
-  }
-  
+  };
+
   const handleRepeatPasswordChange = (repeatPassword: string) => {
     setRepeatPassword(repeatPassword);
-  }
+  };
 
   const toggleRepeatPwdVisibility = () => {
     setIsRepeatPwdHidden(!isRepeatPwdHidden);
-  }
+  };
 
   return (
     <View style={RegisterScreenStyles.container}>
       <Text style={RegisterScreenStyles.header}>Register</Text>
-      
+
       <Image
         style={RegisterScreenStyles.image}
-        source={require('../../assets/budget.svg')}
+        source={require("../../assets/budget.svg")}
       />
 
       <View style={RegisterScreenStyles.inputView}>
@@ -91,7 +97,7 @@ export default function RegisterScreen(props: IRegisterScreenProps) {
           onChangeText={handleDisplayNameChange}
         />
       </View>
-      <View style={RegisterScreenStyles.inputView}> 
+      <View style={RegisterScreenStyles.inputView}>
         <TextInput
           style={RegisterScreenStyles.input}
           mode="outlined"
@@ -112,7 +118,7 @@ export default function RegisterScreen(props: IRegisterScreenProps) {
           right={<TextInput.Icon icon="eye" onPress={togglePwdVisibility} />}
         />
       </View>
-      
+
       <View style={RegisterScreenStyles.inputView}>
         <TextInput
           style={RegisterScreenStyles.input}
@@ -122,17 +128,18 @@ export default function RegisterScreen(props: IRegisterScreenProps) {
           onChangeText={handleRepeatPasswordChange}
           onSubmitEditing={register}
           secureTextEntry={isRepeatPwdHidden}
-          right={<TextInput.Icon icon="eye" onPress={toggleRepeatPwdVisibility} />}
+          right={
+            <TextInput.Icon icon="eye" onPress={toggleRepeatPwdVisibility} />
+          }
         />
       </View>
       <Text style={RegisterScreenStyles.alert}>{alert}</Text>
       <Button mode="text" onPress={loginRedirect}>
         Already have an account? Log in
       </Button>
-      <Button mode="contained"  onPress={register}>
+      <Button mode="contained" onPress={register}>
         Register
       </Button>
-
     </View>
   );
 }

@@ -9,41 +9,55 @@ import { ICategoryExpenses } from "../../common/interfaces/ICategoryExpenses";
 import { NoData } from "../../components/no-data/NoData";
 import { IScreenProps } from "../../common/interfaces";
 
-export const AchievementsScreen = ({ navigation } : IScreenProps) => {
-  const [categoryExpenses, setCategoryExpenses] = useState<ICategoryExpenses[]>([]);
-  
+export const AchievementsScreen = ({ navigation }: IScreenProps) => {
+  const [categoryExpenses, setCategoryExpenses] = useState<ICategoryExpenses[]>(
+    [],
+  );
+
   useEffect(() => {
     const loadCategories = async () => {
       const currentDate = new Date();
-      const startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-      const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+      const startDate = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth(),
+        1,
+      );
+      const endDate = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth() + 1,
+        0,
+      );
 
       const categories = await getUserCategories();
       const expenses = await getTransactions(startDate, endDate);
+
       if (!categories) {
         return;
       }
+
       if (!expenses || !categories) {
         setCategoryExpenses([]);
         return;
       }
-      const categoryExpenses = groupTransactionsByCategory(expenses, categories);
+
+      const categoryExpenses = groupTransactionsByCategory(
+        expenses,
+        categories,
+      );
+
       setCategoryExpenses(categoryExpenses);
     };
 
-    const unsubscribe = navigation.addListener('focus', () => {
+    const unsubscribe = navigation.addListener("focus", () => {
       loadCategories();
     });
 
     return unsubscribe;
-
   }, [navigation]);
-
 
   return (
     <ScrollView style={AchievementsScreenStyle.container}>
-      {categoryExpenses && categoryExpenses.length > 0 ? 
-      (
+      {categoryExpenses && categoryExpenses.length > 0 ? (
         categoryExpenses.map((achievement, key) => (
           <ProgressCard
             key={key}
@@ -54,7 +68,9 @@ export const AchievementsScreen = ({ navigation } : IScreenProps) => {
             totalBudget={achievement.limit}
           />
         ))
-      ) : (<NoData />)}
+      ) : (
+        <NoData />
+      )}
     </ScrollView>
   );
 };

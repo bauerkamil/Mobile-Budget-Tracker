@@ -31,7 +31,7 @@ const chartConfig = {
   legendFontSize: 15,
 };
 
-export default function CalendarScreen({ navigation } : IScreenProps) {
+export default function CalendarScreen({ navigation }: IScreenProps) {
   const [startDate, setStartDate] = React.useState<Date | undefined>(
     new Date(),
   );
@@ -41,52 +41,28 @@ export default function CalendarScreen({ navigation } : IScreenProps) {
   const [categories, setCategories] = React.useState<ICategory[]>([]);
   const [currentlySpent, setCurrentlySpent] = React.useState<number>(0);
 
-  const onDateChange: DateChangedCallback = (
-    date: Moment,
-    type: string,
-  ): void => {
-    if (!date || !date.toDate()) return;
-    if (type === "END_DATE") {
-      setEndDate(date.toDate());
-    } else {
-      setStartDate(date.toDate());
-      setEndDate(undefined);
-    }
-  };
-
-  const loadExpenses = async () => {
-    if (!startDate || !endDate) return;
-    const expenses = await getTransactions(startDate, endDate);
-    if (!expenses) {
-      setTransactions([]);
-    } else {
-      setTransactions(
-        expenses.sort((a, b) => b.date.getTime() - a.date.getTime())
-      );
-    }
-  };
+  useEffect(() => {
+    loadExpenses();
+  }, [startDate, endDate]);
 
   useEffect(() => {
     const loadCategories = async () => {
       const categories = await getUserCategories();
+
       if (!categories) {
         return;
       }
+
       setCategories(categories);
     };
 
-    const unsubscribe = navigation.addListener('focus', () => {
+    const unsubscribe = navigation.addListener("focus", () => {
       loadExpenses();
       loadCategories();
     });
 
     return unsubscribe;
-
   }, [navigation]);
-
-  useEffect(() => {
-    loadExpenses();
-  }, [startDate, endDate]);
 
   useEffect(() => {
     const countExpenses = () => {
@@ -102,6 +78,34 @@ export default function CalendarScreen({ navigation } : IScreenProps) {
 
     countExpenses();
   }, [transactions]);
+
+  const onDateChange: DateChangedCallback = (
+    date: Moment,
+    type: string,
+  ): void => {
+    if (!date || !date.toDate()) return;
+
+    if (type === "END_DATE") {
+      setEndDate(date.toDate());
+    } else {
+      setStartDate(date.toDate());
+      setEndDate(undefined);
+    }
+  };
+
+  const loadExpenses = async () => {
+    if (!startDate || !endDate) return;
+
+    const expenses = await getTransactions(startDate, endDate);
+
+    if (!expenses) {
+      setTransactions([]);
+    } else {
+      setTransactions(
+        expenses.sort((a, b) => b.date.getTime() - a.date.getTime()),
+      );
+    }
+  };
 
   return (
     <View style={CalendarScreenStyle.container}>

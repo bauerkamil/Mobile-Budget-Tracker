@@ -7,9 +7,13 @@ import { IScreenProps } from "../../common/interfaces/IScreenProps";
 
 const Tab = createMaterialTopTabNavigator();
 
-const AddScreen = ({ navigation } : IScreenProps) => {
+const AddScreen = ({ navigation }: IScreenProps) => {
   return (
-    <Tab.Navigator screenOptions={{tabBarIndicatorStyle: {backgroundColor: MD3Colors.primary60}}}>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarIndicatorStyle: { backgroundColor: MD3Colors.primary60 },
+      }}
+    >
       <Tab.Screen name={Constants.Expenses.Current} component={Current} />
       <Tab.Screen name={Constants.Expenses.Recurring} component={Recurring} />
     </Tab.Navigator>

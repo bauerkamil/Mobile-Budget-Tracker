@@ -1,18 +1,17 @@
-
-import { StyleSheet } from 'react-native';
-import { MD3Colors } from 'react-native-paper';
+import { StyleSheet } from "react-native";
+import { MD3Colors } from "react-native-paper";
 export const LoginScreenStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  
+
   header: {
     color: MD3Colors.primary40,
     fontSize: 30,
-    marginBottom: 20
+    marginBottom: 20,
   },
 
   inputView: {
@@ -28,5 +27,5 @@ export const LoginScreenStyles = StyleSheet.create({
   image: {
     width: 200,
     height: 200,
-  }
+  },
 });

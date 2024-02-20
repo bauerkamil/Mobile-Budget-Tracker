@@ -16,9 +16,18 @@ export const ProgressCard = ({
     <Card style={ProgressCardStyle.card}>
       <Card.Content>
         <View style={ProgressCardStyle.titleContainer}>
-          <View style={StyleSheet.flatten([ProgressCardStyle.iconContainer, {backgroundColor: color ?? "black"}])}>
+          <View
+            style={StyleSheet.flatten([
+              ProgressCardStyle.iconContainer,
+              { backgroundColor: color ?? "black" },
+            ])}
+          >
             <View style={ProgressCardStyle.iconWrapper}>
-              <Icon source={icon} color={MD3Colors.neutralVariant99} size={20} />
+              <Icon
+                source={icon}
+                color={MD3Colors.neutralVariant99}
+                size={20}
+              />
             </View>
           </View>
           <View>
@@ -32,7 +41,7 @@ export const ProgressCard = ({
               {title}
             </Text>
             <Text variant={"labelLarge"} style={ProgressCardStyle.textColor}>
-              {moneyLeft > 0 ? (moneyLeft + " PLN left") : "No money left"}
+              {moneyLeft > 0 ? moneyLeft + " PLN left" : "No money left"}
             </Text>
           </View>
         </View>

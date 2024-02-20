@@ -7,11 +7,9 @@ export const NoData = () => {
     <View style={NoDataStyles.container}>
       <Image
         style={NoDataStyles.image}
-        source={require('../../assets/search.svg')}
+        source={require("../../assets/search.svg")}
       />
-      <Text style={NoDataStyles.header}>
-        No data to display
-      </Text>
+      <Text style={NoDataStyles.header}>No data to display</Text>
     </View>
   );
-}
+};

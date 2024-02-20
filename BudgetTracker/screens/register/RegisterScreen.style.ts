@@ -1,20 +1,19 @@
-
-import { StyleSheet } from 'react-native';
-import { MD3Colors } from 'react-native-paper';
+import { StyleSheet } from "react-native";
+import { MD3Colors } from "react-native-paper";
 export const RegisterScreenStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   header: {
     color: MD3Colors.primary40,
     fontSize: 30,
-    marginBottom: 10
+    marginBottom: 10,
   },
-  
+
   inputView: {
     width: "70%",
     height: 45,
@@ -26,13 +25,13 @@ export const RegisterScreenStyles = StyleSheet.create({
   },
 
   alert: {
-    color: 'red',
+    color: "red",
     width: "70%",
     alignContent: "center",
     textAlign: "center",
   },
-  image :{
+  image: {
     width: 200,
     height: 200,
-  }
+  },
 });

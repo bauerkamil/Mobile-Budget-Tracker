@@ -38,10 +38,13 @@ const AddExpense: React.FC<IAddExpenseProps> = (props) => {
       setRecurringExpense((c) => ({ ...c, value: 0 }));
       return;
     }
+
     const parsedValue = parseInt(value);
+
     if (isNaN(parsedValue)) {
       return;
     }
+
     setRecurringExpense((c) => ({ ...c, value: parsedValue }));
   };
 
@@ -50,10 +53,13 @@ const AddExpense: React.FC<IAddExpenseProps> = (props) => {
       setRecurringExpense((c) => ({ ...c, day: 0 }));
       return;
     }
+
     const parsedDay = parseInt(day);
+
     if (isNaN(parsedDay)) {
       return;
     }
+
     setRecurringExpense((c) => ({ ...c, day: parsedDay }));
   };
 

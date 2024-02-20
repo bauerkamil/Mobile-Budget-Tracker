@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 import { Dimensions } from "react-native";
 import { Text } from "react-native-paper";
@@ -6,6 +6,8 @@ import { LineChart } from "react-native-chart-kit";
 import { LinearGradient } from "expo-linear-gradient";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { LineChartData } from "react-native-chart-kit/dist/line-chart/LineChart";
+import { addDays, isSameDay } from "date-fns";
+
 import { HomeScreenStyle } from "./HomeScreen.style";
 import { ICategory, ITransaction } from "../../common/interfaces";
 import Category from "./components/category/Category";
@@ -13,10 +15,8 @@ import { TransactionItem } from "../../components/transaction-item";
 import { getTransactions } from "../../services/TransactionsService";
 import { loadGraphData, loadTopSpending } from "../../common/utils/helpers";
 import { getUserCategories } from "../../services/CategoryService";
-import { addDays, isSameDay } from "date-fns";
 import { NoData } from "../../components/no-data/NoData";
-import React from "react";
-import { IScreenProps } from "../../common/interfaces/IScreenProps";
+import { IScreenProps } from "../../common/interfaces";
 
 const screenWidth = Dimensions.get("window").width + 50;
 const chartConfig = {
@@ -40,6 +40,7 @@ export default function HomeScreen(_props: IScreenProps) {
   const [spentToday, setSpentToday] = useState<number>(0);
 
   const auth = getAuth();
+
   onAuthStateChanged(auth, (user) => {
     if (user) {
       setDisplayName(user.displayName || "");
@@ -48,12 +49,13 @@ export default function HomeScreen(_props: IScreenProps) {
     }
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     const currentDate = new Date();
     const dateSevenDaysAgo = addDays(currentDate, -7);
 
     const loadExpenses = async () => {
       const expenses = await getTransactions(currentDate, dateSevenDaysAgo);
+
       if (!expenses) {
         setLatestExpenses([]);
       } else {
@@ -62,30 +64,25 @@ export default function HomeScreen(_props: IScreenProps) {
         );
       }
     };
-    
+
     const loadCategories = async () => {
       const categories = await getUserCategories();
+
       if (!categories) {
         return;
       }
+
       setCategories(categories);
     };
 
-    const unsubscribe = navigation.addListener('focus', () => {
+    const unsubscribe = navigation.addListener("focus", () => {
       loadExpenses();
       loadCategories();
     });
 
     return unsubscribe;
-
   }, [navigation]);
 
-  const getTodaySpent = () => {
-    const todayExpenses = latestExpenses.filter(expense => isSameDay(expense.date, new Date));
-    let sum = 0;
-    todayExpenses.forEach(expense => sum += expense.value);
-    return sum;
-  };
   useEffect(() => {
     if (!latestExpenses || !categories) return;
 
@@ -93,6 +90,15 @@ export default function HomeScreen(_props: IScreenProps) {
     setTopSpending(loadTopSpending(latestExpenses, categories));
     setSpentToday(getTodaySpent());
   }, [latestExpenses, categories]);
+
+  const getTodaySpent = () => {
+    const todayExpenses = latestExpenses.filter((expense) =>
+      isSameDay(expense.date, new Date()),
+    );
+    let sum = 0;
+    todayExpenses.forEach((expense) => (sum += expense.value));
+    return sum;
+  };
 
   return (
     <View style={HomeScreenStyle.container}>
@@ -148,8 +154,7 @@ export default function HomeScreen(_props: IScreenProps) {
           >
             Top categories from last 7 days
           </Text>
-          {topSpending && topSpending.length > 0 ? 
-          (
+          {topSpending && topSpending.length > 0 ? (
             <ScrollView
               horizontal={true}
               contentContainerStyle={{ columnGap: 10 }}
@@ -158,7 +163,9 @@ export default function HomeScreen(_props: IScreenProps) {
                 <Category key={category.id} category={category} />
               ))}
             </ScrollView>
-          ) : (<NoData/>)}
+          ) : (
+            <NoData />
+          )}
         </View>
         <View style={HomeScreenStyle.section}>
           <Text
@@ -170,15 +177,17 @@ export default function HomeScreen(_props: IScreenProps) {
           >
             Latest transactions
           </Text>
-          {latestExpenses && latestExpenses.length > 0 ? 
-          (latestExpenses.map((expense, key) => (
-            <TransactionItem
-              key={key}
-              transaction={expense}
-              categories={categories}
-            />
-          ))
-          ) : (<NoData/>)}
+          {latestExpenses && latestExpenses.length > 0 ? (
+            latestExpenses.map((expense, key) => (
+              <TransactionItem
+                key={key}
+                transaction={expense}
+                categories={categories}
+              />
+            ))
+          ) : (
+            <NoData />
+          )}
         </View>
       </ScrollView>
     </View>

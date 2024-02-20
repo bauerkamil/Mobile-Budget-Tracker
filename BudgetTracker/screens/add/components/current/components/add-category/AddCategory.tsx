@@ -42,10 +42,13 @@ const AddCaterogry: React.FC<IAddCategoryProps> = (props) => {
       setCategory((c) => ({ ...c, limit: 0 }));
       return;
     }
+
     const parsedValue = parseInt(value);
+
     if (isNaN(parsedValue)) {
       return;
     }
+
     setCategory((c) => ({ ...c, limit: parsedValue }));
   };
 
